@@ -89,7 +89,7 @@ j2(document).ready(function() {
 	iframe += '<div id="snipletIframe" class="snipletTransision" style="position: absolute; display:none;">'
 		iframe += '<div id="sniplet_drag" style="width: 20px; height: 20px; cursor: move;"><img width="20" height="20" src="'+CI_ROOT+'img/drag-icon.png" border="0" alt="Drag Sniplet" title="Drag Sniplet" /></div>';
 		iframe += "<a href='javascript:void(0);' onClick='toggleItem(\"snippetOuterContainer\");' id='snippetClose' style='position: relative;font-size: 10px; text-decoration: none; border: none; float:right; padding:5px 10px; color: #666666; margin-top: -18px;'>Close</a>";
-		iframe += "<iframe frameborder='0' scrolling='no' name='snipletIframe' id='snipletBookmarkletIframe' src='http://dev.snippetboxx.com/snippetform.php?snippet=" + encodeHighlightString +"&title="+ pageTitle +"&url="+ pageUrl +" ' width='460px' height='400px'>Loading...</iframe>";	
+		iframe += "<iframe frameborder='0' scrolling='no' name='snipletIframe' id='snipletBookmarkletIframe' src='"+CI_ROOT+"snippetform.php?snippet=" + encodeHighlightString +"&title="+ pageTitle +"&url="+ pageUrl +" ' width='460px' height='400px'>Loading...</iframe>";	
 	iframe += '</div>';	
 	
 	var loader = ''

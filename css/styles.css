@@ -188,6 +188,19 @@ h2 {
 #snippetLister{
 
 }
+#snippetListerSub {
+	margin: 0px;
+	padding: 0px;
+}
+
+.snippetListletSub {
+	display: inline;
+	padding-right: 5px;
+}
+.snippetListletSub h2 {
+	display: inline;
+}
+
 #sniplet_thankyou #sniplet_thanks {
 	text-align: center;
 	color: #666666;

@@ -20,13 +20,14 @@
 		//Remove special characters from page title, because it's easier that way
 		$titleRmSC = preg_replace('/[^a-zA-Z0-9_ %\[\]\.\(\)%&-]/s', '', $title);
 		
-		$characterLimit = 50;
+		$characterLimit = 55;
 		//If title is greater than character limit display dots and limit display
 		if(strlen($titleRmSC) > $characterLimit){
 			$titleLmt = substr($titleRmSC,0,$characterLimit) . " ...";
 		} else {
 			$titleLmt = $titleRmSC;
 		}
+		
 	
 	?>
 
@@ -52,8 +53,8 @@
 							
 			jobj(document).ready(function() {
 				//Get baseurl from ci config			
-				var CI_ROOT = '<?php echo $baseUrl;?>';			
-		
+				var CI_ROOT = '<?php echo $baseUrl;?>';		
+				
 				 /*--------------------------------------------------------------------------------*/
 				/*Function submits the snippet form */
 				 jobj.fn.submitSniplet = function() { 
@@ -168,13 +169,22 @@
 	if(!isset($url)){
 		$url = $defaultUrl;
 	}
-	
+		
 	?>
 		<div id="snipletLoad">
 			<div id="snippetFormContainer">
+				<?php
+					if($CI->input->cookie('user_tracker_info', TRUE)){
+						$user_cookie_array = explode(", ", $CI->input->cookie('user_tracker_info', TRUE));
+				?>
 				<form id="snippetForm" name="snippetForm">	
 					<ul id="snippetLister">
-						<li class="snippetListlet"><h2>[sniplet]</h2></li>
+						<li class="snippetListlet">
+							<ul id="snippetListerSub">
+								<li class="snippetListlet snippetListletSub"><h2>[sniplet]</h2></li>
+								<li class="snippetListlet snippetListletSub"><?php echo " - Logged in as: <b>" .  $user_cookie_array[0]; ?></b></li>
+							</ul>
+						</li>						
 						<li id="snipletMessages" class="snippetListlet"></li>
 						<li class="snippetListlet">Title: <b><?php echo $titleLmt; ?></b></li>
 						<li class="snippetListlet"></li>
@@ -195,8 +205,12 @@
 						</li>
 					</ul>
 				</form>
+				<?php } else { ?>
+					Please login in
+				<?php } ?>
 			</div>
 		</div>		
+		
 	</body>
 </html>
 
