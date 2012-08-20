@@ -311,6 +311,10 @@ class Backend extends Base {
 		$data = $this->set_site_assets();
 	
 		$uname = $this->input->post('username');
+
+		$from_bookmarklet = $this->input->post('bookmarklet');
+		
+		
 		$user_ip = isset($_SERVER['HTTP_X_REAL_IP']) ? $_SERVER['HTTP_X_REAL_IP'] : $_SERVER['REMOTE_ADDR'];	
 		$time = date('m-d-Y-g:ia');
 		$pwd = $this->input->post('password');
@@ -342,8 +346,11 @@ class Backend extends Base {
 		$session_status = $this->session->userdata('login_state');
 		
 		 if($session_status){
-			redirect("/"); 
+			if(!$from_bookmarklet){
+				redirect("/");
+			} 
 			
+						
 		 } else {
 			$data['login_error'] = $this->ConfigModel->get_config('error_login_message');		
 			
