@@ -1,10 +1,13 @@
 //SNIPLET BOOKMARKLET LOADER
 
+//TODO: Optimize this, It's loading to many files!!!!!
+
 var CI_ROOT = 'http://dev.snippetboxx.com/' //Change for production
 var jui = CI_ROOT + 'js/jquery.ui.min.js';
 var jquery = 'http://code.jquery.com/jquery-latest.min.js';
 var sniplet = CI_ROOT + 'sniplet.js';
 var jqueryuicss = CI_ROOT + 'css/smoothness/jquery-ui.css';
+//var jquerycookie = CI_ROOT + 'js/jquery.cookie.js';
 
 /* -------------------------------------------------------------------------------------------------- */
 function loadjscssfile(filename, filetype){
@@ -33,6 +36,7 @@ function loadjscssfile(filename, filetype){
 loadjscssfile(jqueryuicss, 'css');
 loadjscssfile(jquery, 'js');
 loadjscssfile(jui, 'js');
+//loadjscssfile(jquerycookie, 'js');
 loadjscssfile(sniplet, 'js');
 
 

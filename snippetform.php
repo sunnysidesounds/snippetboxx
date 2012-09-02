@@ -10,11 +10,29 @@
 		$defaultTitle = 'Sniplet Title Placeholder';
 		$defaultSniplet = 'Thank you for using Snippetboxx.com!';
 		$defaultUrl = $baseUrl;
+
+
+		//if(!$CI->input->cookie('user_tracker_info', TRUE)){
+
+
+		$temp_bkm = $_GET['title'] . '///' . $_GET['snippet'] . '///' . $_GET['url'] ; //This needs some reworking, just getting basic cookie tracker stuff going. 
+		$temp_data = array('name'   => 'sniplet_bkdata', 'value'  => $temp_bkm, 'expire' => '63072000', 'domain' => '.snippetboxx.com'); //Expires in two years
+		set_cookie($temp_data);	
+
+
+		$bkdata_cookie = $CI->input->cookie('sniplet_bkdata', TRUE);
+		$bkdata_array = explode("///", $CI->input->cookie('sniplet_bkdata', TRUE));
+
+		print_r($bkdata_array);
 	
 		if(isset($_GET['snippet'])){
 			$text = $_GET['snippet'];	
 		} else {
-			$text = $defaultSniplet;
+			if(!empty($bkdata_array[0])){
+				$text = $bkdata_array[0];
+			} else {
+				$text = $defaultSniplet;
+			}
 		}
 		if(isset($_GET['url'])){
 			$url = $_GET['url'];
@@ -219,7 +237,7 @@
 					</ul>
 				</form>
 				<?php } else { ?>
-					<!--Login Form -->
+					<!--Login Form TODO: Move this block of code into the login controller/view, This way one block of code to edit. -->
 					<ul id="snippetLister">
 						<li class="snippetListlet">
 							<div id="bk_content">

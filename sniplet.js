@@ -65,6 +65,7 @@ function removejscssfile(filename, filetype){
 	 }
 }
 
+//jQuery.cookie('sniplet_bkdata', 'Test', { expires: 30, path: '/', domain: '.snippetboxx.com' });
 	
 j2(document).ready(function() {
 
@@ -73,9 +74,6 @@ j2(document).ready(function() {
 	var encodeHighlightString = escape(selectedText);
 	var pageTitle = document.title;
 	var pageUrl = document.URL;
-	
-
-
 	
 	j2('#snippetOuterContainer').remove();
 	div = j2(document.createElement('div')).attr('id', 'snippetOuterContainer');
@@ -114,9 +112,7 @@ j2(document).ready(function() {
 		j2( "#snippetOuterContainer" ).draggable({ handle: "img#sniplet_drag" });
 		j2( "#snippetInnerContainer" ).draggable({ cancel: "#snippetInnerContainer" });
 	});
-	
-			
-	
+		
 	j2("#snippetOuterContainer").click(function(){ return false; });
 	j2(document).one("click", function() { 
 		j2("#snippetOuterContainer").fadeOut(); 
