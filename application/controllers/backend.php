@@ -346,9 +346,19 @@ class Backend extends Base {
 		$session_status = $this->session->userdata('login_state');
 		
 		 if($session_status){
+			//If you're on the main website
 			if(!$from_bookmarklet){
 				redirect("/");
-			} 
+			//Bookmarklet
+			} else {
+				redirect("snippetform.php");
+				
+				//$data['username'] = $uname;
+				//$this->view( $view_name, $title, null );
+				//$this->view( 'globals/confirmed_bm', 'Sniplets', $data);
+			}
+			
+
 			
 						
 		 } else {
@@ -359,6 +369,7 @@ class Backend extends Base {
 		 }
 		
 	} //verify
+	
 	
 
 } //Backend

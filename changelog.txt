@@ -1,4 +1,4 @@
-Change Log for Sniplet Application:
+Change Log for Sniplet Application :
 ----------------------------------------------------------------------------------------------------------------------------
 8/1/12 Jason R Alexander "sunnysidesounds[at]gmail[dot]com"
 	-Version 0.0.9

@@ -6,28 +6,40 @@
 		$CI =& get_instance();
 		$CI->load->library('config');
 		$baseUrl = $CI->config->base_url();
-	
-		$text = $_GET['snippet'];	
-		$title = $_GET['title'];
-		
+
 		$defaultTitle = 'Sniplet Title Placeholder';
+		$defaultSniplet = 'Thank you for using Snippetboxx.com!';
 		$defaultUrl = $baseUrl;
-		
+	
+		if(isset($_GET['snippet'])){
+			$text = $_GET['snippet'];	
+		} else {
+			$text = $defaultSniplet;
+		}
 		if(isset($_GET['url'])){
 			$url = $_GET['url'];
-		}
-					
-		//Remove special characters from page title, because it's easier that way
-		$titleRmSC = preg_replace('/[^a-zA-Z0-9_ %\[\]\.\(\)%&-]/s', '', $title);
-		
-		$characterLimit = 55;
-		//If title is greater than character limit display dots and limit display
-		if(strlen($titleRmSC) > $characterLimit){
-			$titleLmt = substr($titleRmSC,0,$characterLimit) . " ...";
 		} else {
-			$titleLmt = $titleRmSC;
+			$url = $baseUrl;
 		}
-		
+		if(isset($_GET['title'])){
+			$title = $_GET['title'];
+
+			//Remove special characters from page title, because it's easier that way
+			$titleRmSC = preg_replace('/[^a-zA-Z0-9_ %\[\]\.\(\)%&-]/s', '', $title);
+			
+			$characterLimit = 55;
+			//If title is greater than character limit display dots and limit display
+			if(strlen($titleRmSC) > $characterLimit){
+				$titleLmt = substr($titleRmSC,0,$characterLimit) . " ...";
+			} else {
+				$titleLmt = $titleRmSC;
+			}		
+
+
+		} else {
+			$titleLmt = $defaultTitle;
+		}
+
 	
 	?>
 
@@ -178,6 +190,7 @@
 						$user_cookie_array = explode(", ", $CI->input->cookie('user_tracker_info', TRUE));
 				?>
 				<form id="snippetForm" name="snippetForm">	
+					<!--Bookmarklet Form -->
 					<ul id="snippetLister">
 						<li class="snippetListlet">
 							<ul id="snippetListerSub">
@@ -206,16 +219,15 @@
 					</ul>
 				</form>
 				<?php } else { ?>
+					<!--Login Form -->
 					<ul id="snippetLister">
 						<li class="snippetListlet">
 							<div id="bk_content">
-									<div id="sniplet_login">
-									
+								<div id="sniplet_login">
 									<div id="login_form">
 										<?php 
 										if(isset($login_error)){ ?>
 											<div id="login_error"><?php echo $login_error; ?></div>
-										
 										<?php
 										}
 										echo form_open('backend/verify'); 	
