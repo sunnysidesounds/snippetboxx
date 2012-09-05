@@ -1,27 +1,33 @@
 Change Log for Sniplet Application :
 ----------------------------------------------------------------------------------------------------------------------------
+9/4/12 Jason R Alexander "sunnysidesounds[at]gmail[dot]com"
+	-Version alpha 0.1.0
+	-Finialized basic login through the bookmarklet app and parent site.
+	-Add user data collection methods to client side
+	-Implemented gravatar into user profile page.
+
 8/1/12 Jason R Alexander "sunnysidesounds[at]gmail[dot]com"
-	-Version 0.0.9
+	-Version alpha 0.0.9
 	-Finalization of basic mysql login system. (Sign-up, login, logout)
 	-Setup of user profile page
 	-Update changelog view 
 
 6/26/12 Jason R Alexander "sunnysidesounds[at]gmail[dot]com"
-	-Version 0.0.8
+	-Version alpha 0.0.8
 	-initial setup of login system, sessions and user tracking functionality 
 
 5/2/12 Jason R Alexander "sunnysidesounds[at]gmail[dot]com"
-	-Version 0.0.7
+	-Version alpha 0.0.7
 	-Completed new search with pagination. 
 
 5/2/12 Jason R Alexander "sunnysidesounds[at]gmail[dot]com"
-	-Version 0.0.6
+	-Version alpha 0.0.6
 	-Header CSS updates
 	-Load grid dependent on window size, with defaults.
 	-Some updates to search as you type. 
 
 5/2/12 Jason R Alexander "sunnysidesounds[at]gmail[dot]com"
-	-Version 0.0.5
+	-Version alpha 0.0.5
 	-Implemented new all tags page
 	-Added a sniplet messager.
 	-Added sort functionality to all tags page
@@ -29,7 +35,7 @@ Change Log for Sniplet Application :
 	-Removed hide click
 
 4/26/12 Jason R Alexander "sunnysidesounds[at]gmail[dot]com"
-	-Version 0.0.4
+	-Version alpha 0.0.4
 	-Built scrolling pagination on tags and all sniplets (Need to do search)
 	-Modified pop-up sniplet
 	-Remove all tags slidedown, replaced with sniplet grid view

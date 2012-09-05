@@ -6,10 +6,6 @@ var sniplet = CI_ROOT + 'sniplet.js';
 var load = CI_ROOT + 'load.js?';
 var jqueryuicss = CI_ROOT + 'css/smoothness/jquery-ui.css';
 
-
-
-
-
 /* -------------------------------------------------------------------------------------------------- */
 
 function document_keywords(){
@@ -65,8 +61,6 @@ function removejscssfile(filename, filetype){
 	 }
 }
 
-//jQuery.cookie('sniplet_bkdata', 'Test', { expires: 30, path: '/', domain: '.snippetboxx.com' });
-	
 j2(document).ready(function() {
 
 
@@ -74,6 +68,8 @@ j2(document).ready(function() {
 	var encodeHighlightString = escape(selectedText);
 	var pageTitle = document.title;
 	var pageUrl = document.URL;
+
+	
 	
 	j2('#snippetOuterContainer').remove();
 	div = j2(document.createElement('div')).attr('id', 'snippetOuterContainer');

@@ -1,4 +1,5 @@
 	<?php
+		//TODO: Move this file to a controller in ci, maybe??
 		//Get ci config base url dynamically, So we don't have to change later.
 		ob_start();
 		include('index.php');
@@ -8,38 +9,46 @@
 		$baseUrl = $CI->config->base_url();
 
 		$defaultTitle = 'Sniplet Title Placeholder';
-		$defaultSniplet = 'Thank you for using Snippetboxx.com!';
+		$defaultSniplet = 'No content selected for this sniplet, try again!';
 		$defaultUrl = $baseUrl;
 
+		//If not logged in, save on load data to reload after login
+		if(!$CI->input->cookie('user_tracker_info', TRUE)){
+			$temp_bkm = $_GET['title'] . '///' . $_GET['snippet'] . '///' . $_GET['url'] ; //This needs some reworking, just getting basic cookie tracker stuff going. 
+			$temp_data = array('name'   => 'sniplet_bkdata', 'value'  => $temp_bkm, 'expire' => '63072000', 'domain' => '.snippetboxx.com'); 
+			set_cookie($temp_data);
+		} else {
+			$temp_data = array('name'   => 'sniplet_bkdata', 'value'  => null, 'expire' => '63072000', 'domain' => '.snippetboxx.com'); 
+			set_cookie($temp_data);
+		}
 
-		//if(!$CI->input->cookie('user_tracker_info', TRUE)){
-
-
-		$temp_bkm = $_GET['title'] . '///' . $_GET['snippet'] . '///' . $_GET['url'] ; //This needs some reworking, just getting basic cookie tracker stuff going. 
-		$temp_data = array('name'   => 'sniplet_bkdata', 'value'  => $temp_bkm, 'expire' => '63072000', 'domain' => '.snippetboxx.com'); //Expires in two years
-		set_cookie($temp_data);	
-
-
+		//Get set cookie and transform into an array
 		$bkdata_cookie = $CI->input->cookie('sniplet_bkdata', TRUE);
 		$bkdata_array = explode("///", $CI->input->cookie('sniplet_bkdata', TRUE));
-
-		print_r($bkdata_array);
 	
 		if(isset($_GET['snippet'])){
 			$text = $_GET['snippet'];	
 		} else {
-			if(!empty($bkdata_array[0])){
-				$text = $bkdata_array[0];
+			//If cookie value is not empty, use the value to display after login
+			if(!empty($bkdata_array[1])){
+				$text = $bkdata_array[1];
 			} else {
-				$text = $defaultSniplet;
-			}
+				$text = $defaultSniplet;	
+			}	
 		}
 		if(isset($_GET['url'])){
 			$url = $_GET['url'];
 		} else {
-			$url = $baseUrl;
+			//If cookie value is not empty, use the value to display after login
+			if(!empty($bkdata_array[2])){
+				$url = $bkdata_array[2];
+			} else {
+				$url = $baseUrl;
+			}
 		}
+		//TODO: Fix this when moving to controller, make a method
 		if(isset($_GET['title'])){
+			
 			$title = $_GET['title'];
 
 			//Remove special characters from page title, because it's easier that way
@@ -55,7 +64,20 @@
 
 
 		} else {
-			$titleLmt = $defaultTitle;
+			if(!empty($bkdata_array[0])){
+				$title = $bkdata_array[0];
+				$titleRmSC = preg_replace('/[^a-zA-Z0-9_ %\[\]\.\(\)%&-]/s', '', $title);
+				
+				$characterLimit = 55;
+				//If title is greater than character limit display dots and limit display
+				if(strlen($titleRmSC) > $characterLimit){
+					$titleLmt = substr($titleRmSC,0,$characterLimit) . " ...";
+				} else {
+					$titleLmt = $titleRmSC;
+				}
+			} else{
+				$titleLmt = $defaultTitle;
+			}
 		}
 
 	
