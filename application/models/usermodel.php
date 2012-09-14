@@ -55,7 +55,35 @@ class UserModel extends CI_Model {
 		} 	
 	} //get_user_sniplets
 
+
+	public function get_user_email($username){
+		$sql = 'SELECT email FROM users WHERE username ="'.$username.'";';
+		$query = $this->db->query( $sql );			
+		if($query->num_rows()>0){	
 			
+			foreach ($query->result() as $row){													
+				return $row->email;				
+			}	//foreach	
+					
+		
+		} 
+
+	} //get_user_email
+
+	public function get_user_year($username){
+		$sql = 'SELECT date_created FROM users WHERE username ="'.$username.'";';
+		$query = $this->db->query( $sql );	
+		if($query->num_rows()>0){				
+			foreach ($query->result() as $row){													
+				return $row->date_created;				
+			}	//foreach	
+					
+		
+		} 
+
+	} //get_user_year
+
+
 	public function insert_user($array){
 		$sql   = "INSERT INTO users VALUES (NULL,?,?,?,?,?,?,?,?,?,?);";
 		$query = $this->db->query( $sql, $array);	

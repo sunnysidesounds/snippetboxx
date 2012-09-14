@@ -583,6 +583,8 @@ $(document).ready(function() {
 
 	});
 
+
+
 	//SCROLLING HEADER
 	/* -------------------------------------------------------------------------------------*/
   if ( $('#header').length ){ //if set
@@ -631,7 +633,7 @@ $(document).ready(function() {
 				
 			},
 			'type': 'ajax',
-			'href': CI_SITE + "frontend/zoom/" + id
+			'href': CI_SITE + "frontend/box/" + id
 			}); //fancybox	
 	});
 	
@@ -668,7 +670,7 @@ $(document).ready(function() {
 							});					
 					},
 					'type': 'ajax',
-					'href': CI_SITE + "frontend/zoom/" + id
+					'href': CI_SITE + "frontend/box/" + id
 					}); //fancybox	
 			});	
 	
@@ -693,7 +695,6 @@ $('#sniplet_messager').html('<a href="#" id="total_top">sniplets (' + snipletCou
 
 $.fn.displayRecords('all');
 
-
 	$('#top-link').topLink({
     	min: 400,
     	fadeSpeed: 500
@@ -705,9 +706,18 @@ $.fn.displayRecords('all');
   	});
 
 
+var $scrollingDiv = $("#profile_scroll");
+
+$(window).scroll(function(){			
+	$scrollingDiv
+		.stop()
+		.animate({"marginTop": ($(window).scrollTop() + 30) + "px"}, "slow" );			
+});
+
 
 
 }); //end of jQuery
+
 
 
 /* -------------------------------------------------------------------------------------*/

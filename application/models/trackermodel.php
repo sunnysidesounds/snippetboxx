@@ -4,8 +4,8 @@ class TrackerModel extends CI_Model {
 
 	public function insert_tracker($array) {
 		if(!empty($array['tracker_ip'])) {	
-			$sql   = "INSERT INTO user_tracker VALUES (NULL,?,?,?,?,?,?);";
-			$query = $this->db->query( $sql, array($array['user_id'], $array['tracker_ip'], $array['tracker_region'], $array['tracker_date_created'], $array['tracker_date_updated'], $array['tracker_clicks']));
+			$sql   = "INSERT INTO user_tracker VALUES (NULL,?,?,?,?,?,?,?,?,?);";
+			$query = $this->db->query( $sql, array($array['user_id'], $array['tracker_ip'], $array['tracker_region'], $array['tracker_date_created'], $array['tracker_date_updated'], $array['tracker_clicks'], $array['username'], $array['agent'], $array['referer']));
 			return $query != false;	
 		} else {
 			return false;

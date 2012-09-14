@@ -306,6 +306,7 @@ class Backend extends Base {
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function verify(){
 		$this->load->model( 'AuthModel');
+		$this->load->model( 'TrackerModel' );
 		
 		//Set logo, top menu, version, copyright	
 		$data = $this->set_site_assets();
@@ -324,7 +325,7 @@ class Backend extends Base {
 		
 		if($login_status){
 			$this->session->set_userdata('login_state', TRUE);
-			
+			$time = date('m-d-Y-g:ia');
 			$session_id = $this->session->userdata('session_id');
 			$referer = $_SERVER['HTTP_REFERER'];
 			$agent = $_SERVER['HTTP_USER_AGENT'];
@@ -334,7 +335,20 @@ class Backend extends Base {
 			
 			$set_tracking_on_user = array('name'   => 'user_tracker_info', 'value'  => $tracker_data, 'expire' => '63072000', 'domain' => '.snippetboxx.com');	 //Expires in two years
 			set_cookie($set_tracking_on_user);					
-		
+			
+			//Insert user tracking into db
+			//$tracker_insert_array = array('user_id' => $uname, 'tracker_ip' => $user_ip, 'tracker_region' => '', 'tracker_date_created' => $time, 'tracker_date_updated' => $time, 'tracker_clicks' => 'login-temp', 'username' => $uname, 'agent' => $agent, 'referer' => $referer);
+	
+			//$checking = $this->TrackerModel->check_ip($user_ip);
+			//if($checking){
+			//	$updating = $this->TrackerModel->update_tracker($tracker_insert_array);
+			//} else {
+			//	$inserting = $this->TrackerModel->insert_tracker($tracker_insert_array);
+			//}
+
+
+
+
 		
 		} else {
 			$this->session->set_userdata('login_state', FALSE);

@@ -14,16 +14,27 @@ class User extends Base {
 		
 		$tags = $this->UserModel->get_user_tags($this->UserModel->get_user_id($user));
 		$sniplets = $this->UserModel->get_user_sniplets($this->UserModel->get_user_id($user));
+		$email = $this->UserModel->get_user_email($user);
+		
 		
 		$data['user_tags'] = $this->display($tags, 'tags');
 		$data['user_snips'] = $this->display($sniplets, 'sniplets');
-		$data['gravatar'] = $this->build_gravatar('jasona@zumiez.com');
+		$data['gravatar'] = $this->build_gravatar($email);
+		$data['user_year'] = $this->member_since($user);
 		
 		
 		$this->load->view('user/profile', $data);
 		
 	} //index
 	
+	public function member_since($username){
+		$this->load->model( 'UserModel' );
+		$member_since = $this->UserModel->get_user_year($username);
+		//Get year from date string
+		$member_since = date('Y', strtotime($member_since));
+		return $member_since;
+	}
+
 	public function display($array, $none = ''){	
 
 		$out = '';
@@ -48,8 +59,8 @@ class User extends Base {
 
 	public function build_gravatar($email){
 	
-		$default = "coming soon";
-		$size = 40;
+		$default = " monsterid";
+		$size = 180;
 		$grav_url = "http://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?d=" . urlencode( $default ) . "&s=" . $size;
 	
 		return $grav_url;

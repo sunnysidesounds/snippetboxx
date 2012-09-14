@@ -484,13 +484,13 @@ class Frontend extends Base {
 	
 	
 	/* ---------------------------------------------------------------------------------------*/
-	public function zoom($id){
+	public function box($id){
 		$id = substr( $id, strrpos( $id, '_' )+1 );	
 		$this->load->model( 'SearchModel' );
 		$snipletArray = $this->SearchModel->sniplet_sniplet_id($id);
 		$this->search_items($snipletArray[0], 1, 500);
 	
-	} //zoom
+	} //box
 
 
 	/* ---------------------------------------------------------------------------------------*/
