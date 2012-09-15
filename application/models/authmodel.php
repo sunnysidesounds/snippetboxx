@@ -8,7 +8,7 @@ class AuthModel extends CI_Model {
 		$clean_user = trim($dirty_user);
 		$clean_pass = trim($dirty_pass);
 		
-		$sql = 'SELECT username, password FROM users WHERE username = "'. $clean_user .'" AND password = "'.$clean_pass.'" ';
+		$sql = 'SELECT username, password FROM users WHERE username = "'. $clean_user .'" AND password = "'.$clean_pass.'" AND active = 1;'; 
 		
 		$query = $this->db->query( $sql );
 		if($query->num_rows() == 1){

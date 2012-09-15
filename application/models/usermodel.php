@@ -70,6 +70,7 @@ class UserModel extends CI_Model {
 
 	} //get_user_email
 
+
 	public function get_user_year($username){
 		$sql = 'SELECT date_created FROM users WHERE username ="'.$username.'";';
 		$query = $this->db->query( $sql );	
@@ -82,6 +83,33 @@ class UserModel extends CI_Model {
 		} 
 
 	} //get_user_year
+
+	public function get_user_count_sniplets($user_id){
+		$sql = 'SELECT COUNT(*) as count FROM sniplets WHERE user_id ="'.$user_id.'";';
+		$array = array();				
+		$query = $this->db->query( $sql );
+		if($query->num_rows()>0){
+			foreach ($query->result_array() as $row){
+				$array[] = $row;
+			} //foreach
+			
+			return $array[0]['count'];
+		}
+	} //get_user_count_tags
+	
+	public function get_user_count_tags($user_id){
+		$sql = 'SELECT COUNT(*) as count FROM tags WHERE user_id ="'.$user_id.'";';
+		$array = array();				
+		$query = $this->db->query( $sql );
+		if($query->num_rows()>0){
+			foreach ($query->result_array() as $row){
+				$array[] = $row;
+			} //foreach
+			
+			return $array[0]['count'];
+		}
+	} //get_user_count_tags
+
 
 
 	public function insert_user($array){

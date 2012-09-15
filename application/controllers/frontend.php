@@ -5,11 +5,10 @@ require_once( 'base.php' );
 
 class Frontend extends Base {
 
-
 	public $languages = array("html", "php", "python", "javascript", "perl", "mysql", "bash");
 	public $language_default = "html";
 	
-	/* ---------------------------------------------------------------------------------------*/
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function index(){
 						
 			$this->load->model( 'ConfigModel' );
@@ -29,8 +28,7 @@ class Frontend extends Base {
 			$this->dynView( 'frontend/main', 'Sniplets', $data);
 	} //index
 	
-	
-	/* ---------------------------------------------------------------------------------------*/
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function search(){
 		//Load modals
 		$this->load->model( 'SearchModel' );
@@ -157,8 +155,7 @@ class Frontend extends Base {
 
 	} //search 
 
-
-	/* ---------------------------------------------------------------------------------------*/	
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function search_list($array){
 		$displayPerRow = 5;
 		
@@ -210,16 +207,11 @@ class Frontend extends Base {
 				echo '</tr>';
 				echo '</table>';	
 				echo '<br />';
-			
 			}
-			
-		
-		} //if empty
-	
-		
+		} //if empty	
 	}
 
-	/* ---------------------------------------------------------------------------------------*/
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function search_items($array, $fancybox = 0, $title_length = 50){
 		$this->load->model( 'SnipletModel' );
 		$this->load->library('geshilib');
@@ -283,6 +275,7 @@ class Frontend extends Base {
 		echo '</ul>';
 	} //search_items
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function tags_items($array){
 		$out = '';
 		$out = '<ul class="tags_top_ten_ul">';
@@ -303,7 +296,7 @@ class Frontend extends Base {
 		return $out;
 	}
 
-	/* ---------------------------------------------------------------------------------------*/
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function top_ten_tags(){
 		$out = '';
 		
@@ -316,7 +309,7 @@ class Frontend extends Base {
 	
 	} //top_ten_tags
 	
-	/* ---------------------------------------------------------------------------------------*/	
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function random(){
 		$out = '';
 		$this->load->model( 'SearchModel' );
@@ -332,17 +325,17 @@ class Frontend extends Base {
 
 		//use only unigue values		
 		foreach ($array as $k=>$na){
-            $new[$k] = serialize($na);
-        	$uniq = array_unique($new);
-        }
-        foreach($uniq as $k=>$ser){
-            $new1[$k] = unserialize($ser);
+            		$new[$k] = serialize($na);
+        			$uniq = array_unique($new);
+        		}
+        		foreach($uniq as $k=>$ser){
+            		$new1[$k] = unserialize($ser);
 		}
 		echo $this->search_list($new1);
 
 	}
 	
-	/* ---------------------------------------------------------------------------------------*/	
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function display(){
 		$this->load->model( 'SearchModel' );
 		$this->load->model( 'ConfigModel' );
@@ -386,7 +379,7 @@ class Frontend extends Base {
 	
 	} //display
 
-	/* --------------------------------------------------------------------------------------------------------------------------*/		
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function display_all($records, $how_many){
 	
 			//$records, $how_many
@@ -431,8 +424,7 @@ class Frontend extends Base {
 	
 	} //display_all
 	
-	
-	/* ---------------------------------------------------------------------------------------*/	
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function tags(){
 		
 		$this->load->model( 'SearchModel' );
@@ -478,12 +470,8 @@ class Frontend extends Base {
 		echo $this->tags_items($tTen);
 
 	}// tags
-	
-
-	
-	
-	
-	/* ---------------------------------------------------------------------------------------*/
+		
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function box($id){
 		$id = substr( $id, strrpos( $id, '_' )+1 );	
 		$this->load->model( 'SearchModel' );
@@ -492,8 +480,7 @@ class Frontend extends Base {
 	
 	} //box
 
-
-	/* ---------------------------------------------------------------------------------------*/
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function about(){
 		$out = '';
 		$out .= '<div id="sniplet_about" class="sniplet_min_height">';
@@ -532,7 +519,7 @@ class Frontend extends Base {
 	
 	}//about
 	
-	/* ---------------------------------------------------------------------------------------*/
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function tag_cloud($order = ''){
 		$this->load->model( 'SearchModel' );
 		$tagNamesArray = $this->SearchModel->tag_cloud_list();
@@ -560,8 +547,7 @@ class Frontend extends Base {
 	
 	} //tag_cloud
 	
-	
-	/* ---------------------------------------------------------------------------------------*/
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function all_tags(){
 		$this->load->model( 'ConfigModel' );
 		$displayPerRow = $this->ConfigModel->get_config('tags_per_row');
@@ -591,15 +577,15 @@ class Frontend extends Base {
 		echo '</div>';
 		
 	} //all_tags
-	
-	
-	/* ---------------------------------------------------------------------------------------*/
+		
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function sort_json(){
 		$sortArray = array('ascending' => 'a - z', 'descending' => 'z - a');
 		$jsonEncodeTypes = json_encode($sortArray);
 		echo $jsonEncodeTypes;	
 	} //sort_json
 	
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function count_tags(){
 		$this->load->model( 'SearchModel' );
 	    $count = $this->SearchModel->record_count('tag_id', 'tags');
@@ -607,6 +593,7 @@ class Frontend extends Base {
 		echo $jsonEncodeTypes;
 	} //count_tags
 	
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function count_sniplets(){
 		$this->load->model( 'SearchModel' );
 	    $count = $this->SearchModel->record_count('sniplet_id', 'sniplets');
@@ -614,6 +601,7 @@ class Frontend extends Base {
 		echo $jsonEncodeTypes;
 	} //count_sniplets
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function count_results($id){
 		$this->load->model( 'SearchModel' );
 	    $count = $this->SearchModel->record_count_where('tag_id', 'sniplets_to_tags', 'tag_id', $id);
@@ -621,6 +609,7 @@ class Frontend extends Base {
 		echo $jsonEncodeTypes;
 	} //count_results
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function count_search_results($term){
 		$this->load->model( 'SearchModel' );
 	    $count = $this->SearchModel->search_fulltext_count($term);

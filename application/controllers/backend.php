@@ -154,10 +154,8 @@ class Backend extends Base {
 		else
 		{
 			show_error($this->email->print_debugger());
-		}
-		
+		}		
 	}
-	
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function mailSniplet($subject, $message){
@@ -169,11 +167,7 @@ class Backend extends Base {
 		$fromEmail = $this->ConfigModel->get_config('from_email');
 		$fullName = $this->ConfigModel->get_config('full_name');
 		
-		$this->load->library('email');
-
-		
-
-		
+		$this->load->library('email');	
 		$this->email->set_newline("\r\n");
 		$this->email->from($fromEmail, $fullName);
 		$this->email->to($toEmail);		
@@ -186,13 +180,9 @@ class Backend extends Base {
 		$email_message = $today_date_formatted .$message;
 		
 		$this->email->message($email_message);
-		if($this->email->send())
-		{
+		if($this->email->send()){
 			echo 1;
-		}
-		
-		else
-		{
+		} else {
 			show_error($this->email->print_debugger());
 		}
 	
@@ -208,12 +198,6 @@ class Backend extends Base {
 		echo json_encode($return);
 	
 	} //taglet
-
-	/* --------------------------------------------------------------------------------------------------------------------------*/	
-	public function email(){
-		echo 'Email ' . $id;
-		
-	} //email
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function signup(){
@@ -293,8 +277,6 @@ class Backend extends Base {
 		
 						//Verify that default group is zero
 				
-
-		
 		} else {
 			//Already an account (email/username match) direct to login page
 			$data['login_error'] = $this->ConfigModel->get_config('error_user_exists_message');			
@@ -345,10 +327,6 @@ class Backend extends Base {
 			//} else {
 			//	$inserting = $this->TrackerModel->insert_tracker($tracker_insert_array);
 			//}
-
-
-
-
 		
 		} else {
 			$this->session->set_userdata('login_state', FALSE);
