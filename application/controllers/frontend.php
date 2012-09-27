@@ -251,7 +251,7 @@ class Frontend extends Base {
 			}
 		//	echo '<li class="sniplet_data_li sniplet_zoom"><img class="sniplet_zoom_img" src="'.base_url().'img/zoom_mag.png" alt="Zoom Sniplet" border="0" /></li>';
 			echo '<li class="sniplet_data_li sniplet_tags"><b>Tags:</b> ' . $tags . '</li>';
-			echo '<li class="sniplet_data_li sniplet_created sniplet_time"><b>Created at:</b> ' . $array['sniplet_time'] . '</li>';
+			echo '<li class="sniplet_data_li sniplet_created sniplet_time"><b>Created at:</b> ' . $array['create_sniplet_time'] . '</li>';
 			if(!empty($array['score'])){
 				$score = number_format($array['score'], 4, '.', '');
 				echo '<li class="sniplet_data_li sniplet_score"><b>Search Score:</b> ' . $score . '</li>';

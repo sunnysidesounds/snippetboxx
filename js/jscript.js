@@ -37,15 +37,120 @@ $(document).ready(function() {
 		event.preventDefault();
 	});
 
-	//SCROLL TO TOP
+	//PROFILE TAGS
 	/* -------------------------------------------------------------------------------------*/	
-	//$("#to_top").live('click', function(event) {
-	//	event.preventDefault();
-	//	$("html, body").animate({ scrollTop: 0 }, "slow");
-	//	setTimeout(function() {
-	//		$("#to_top").hide();									
-	///	}, 900); 			
-	//});
+	$(".sniplet_tag_link").live('click', function(event) {
+		event.preventDefault();
+		var tid = this.id;
+		alert('fuck yay! ' + tid);		
+		var displayString = 'tid='+ tid;
+		var displayUrl = CI_ROOT + 'user/tags/';		
+		$.ajax({
+			type: "GET",
+			url: displayUrl,
+			data: displayString,
+			beforeSend:  function() {					
+				//img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '
+				//$('#search_load').html(img).show();				
+			},
+			success: function(server_response){					
+				//$('#search_load').hide();
+				//$('#search_results').html(server_response).show();					
+				//	$.fn.scrollThatPage(displayUrl, '?get=all_limit');									
+			} //success		
+		}); //ajax
+
+	});
+
+	//PROFILE TAGS EDIT
+	$(".li_user_tags").live('mouseover', function(event) {
+		event.preventDefault();
+		var tid = this.id;
+		$('.sniplet_tag_edit_'+ tid).css({visibility: 'visible'});
+	});
+
+	$(".li_user_tags").live('mouseout', function(event) {
+		event.preventDefault();
+		var tid = this.id;
+		$('.sniplet_tag_edit_'+ tid).css({visibility: 'hidden'});
+	});
+
+	//PROFILE SNIPLETS EDIT
+	$(".li_user_sniplets").live('mouseover', function(event) {
+		event.preventDefault();
+		var tid = this.id;
+		$('.sniplet_link_edit_'+ tid).css({visibility: 'visible'});
+	});
+
+	$(".li_user_sniplets").live('mouseout', function(event) {
+		event.preventDefault();
+		var tid = this.id;
+		$('.sniplet_link_edit_'+ tid).css({visibility: 'hidden'});
+	});
+	
+
+
+
+
+	$(".sniplet_tag_edit").live('click', function(event) {
+		event.preventDefault();
+		var tid = this.id;
+
+		$.fancybox({
+			'transitionIn': 'none',
+			'width' : 700,
+			'height' : 500,
+			'autoDimensions': false,
+			'transitionOut': 'none',
+			'onComplete' : function(){
+				console.log('tag found with id: ' + tid);	
+				
+				//	$("div#fancybox-wrap div#fancybox-outer div#fancybox-content div ul.sniplet_data_ul li.sniplet_data_li input.copy_sniplet_button").live('click', function() {
+				//		$('div#fancybox-wrap div#fancybox-outer div#fancybox-content div ul.sniplet_data_ul li#sniplet_content_' + this.id).attr('id','sniplet_fancy_'+this.id);
+				//			var selectedText = 'sniplet_fancy_' + this.id;
+				//			var select = $(selectedText).text();
+				//			selectText(selectedText);
+							
+				//	$('div#fancybox-wrap div#fancybox-outer div#fancybox-content div ul.sniplet_data_ul li.status_message').hide();
+				//	$('div#fancybox-wrap div#fancybox-outer div#fancybox-content div ul.sniplet_data_ul li#status_message_' + this.id).html('Ctrl/Command C to copy this sniplet.').show();
+							
+							
+							
+				//	});
+				
+								
+				
+			},
+			'type': 'ajax',
+			'href': CI_SITE + "editor/update_tag/" + tid
+		}); //fancybox	
+
+
+
+
+
+
+
+
+
+
+		//$('.sniplet_tag_link_'+ tid).replaceWith('<input type="text" class="tag_edit_input" name="tag_edit" value=" edit here">');
+		//alert(tid);
+		//$('.sniplet_tag_edit_'+ tid).css({visibility: 'hidden'});
+		//sniplet_tag_link sniplet_tag_link_223
+		/*     $('.sniplet_tag_link_'+ tid).editable('http://www.example.com/save.php', { 
+		         type      : 'textarea',
+		         cancel    : 'Cancel',
+		         submit    : 'OK',
+		       //  indicator : '<img src="img/indicator.gif">',
+		         tooltip   : 'Click to edit...'
+		     });*/
+
+
+
+
+	});
+
 
 	//DISPLAY ABOUT PAGE
 	/* -------------------------------------------------------------------------------------*/		
@@ -634,7 +739,7 @@ $(document).ready(function() {
 			},
 			'type': 'ajax',
 			'href': CI_SITE + "frontend/box/" + id
-			}); //fancybox	
+		}); //fancybox	
 	});
 	
 	

@@ -10,11 +10,10 @@ class User extends Base {
 	
 		$this->load->model( 'UserModel' );
 		$user = base64_decode($this->input->get('u'));
-		
-		
 		$tags = $this->UserModel->get_user_tags($this->UserModel->get_user_id($user));
 		$sniplets = $this->UserModel->get_user_sniplets($this->UserModel->get_user_id($user));
 		$email = $this->UserModel->get_user_email($user);
+		
 		$data['tags_count'] = $this->UserModel->get_user_count_tags($this->UserModel->get_user_id($user));
 		$data['sniplets_count'] = $this->UserModel->get_user_count_sniplets($this->UserModel->get_user_id($user));
 		$data['user'] = $user;
@@ -37,20 +36,51 @@ class User extends Base {
 	} //member_since
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
-	public function display($array, $none = ''){	
-
+	public function display($array, $set = ''){	
 		$out = '';
-		$out .= '<ul class="ul_user_list">';
-		if(!empty($array)){
-			foreach($array as $outer){
-				$out .= '<li id="'.$outer[0].'" class="li_user_list">';
-				$out .= '<a href="#">'.$outer[1].'</a>';
-				$out .= '</li>';					
+		if($set == 'tags'){
+			$out .= '<ul class="ul_user_list">';
+			if(!empty($array)){
+				foreach($array as $outer){
+					$out .= '<li id="'.$outer[0].'" class="li_user_list li_user_tags">';
+					$out .= '<a id="'.$outer[0].'" class="sniplet_tag_link sniplet_tag_link_'.$outer[0].'" href="#">'.$outer[1].'</a>';
+					$out .= '<a id="'.$outer[0].'" class="sniplet_tag_edit sniplet_tag_edit_'.$outer[0].'" href="#">edit</a>';
+					$out .= '</li>';					
+				}
+			} else {
+			 	$out .= '<li class="li_user_list li_user_none">You don\'t have any '.$set.' yet!, <a href="#" id="'.$set.'_learn_more" class="user_learn_more" >Learn how...</a></li>';
 			}
-		} else {
-		 $out .= '<li class="li_user_list li_user_none">You don\'t have any '.$none.' yet!, <a href="#" id="'.$none.'_learn_more" class="user_learn_more" >Learn how...</a></li>';
+			$out .= '</ul>';
+		
+		} elseif($set == 'sniplets'){
+			$out .= '<ul class="ul_user_list">';
+			if(!empty($array)){
+				foreach($array as $outer){
+					$out .= '<li id="s_'.$outer[0].'" class="li_user_list li_user_sniplets">';
+					$out .= '<a id="'.$outer[0].'" class="sniplet_link sniplet_link_s_'.$outer[0].'" href="#">'.$outer[1].'</a>';
+					$out .= '<a id="'.$outer[0].'" class="sniplet_link_edit sniplet_link_edit_s_'.$outer[0].'" href="#">edit</a>';
+					//$out .= '<a href="#">'.$outer[1].'</a>';
+
+					$out .= '</li>';					
+				}
+			} else {
+			 	$out .= '<li class="li_user_list li_user_none">You don\'t have any '.$set.' yet!, <a href="#" id="'.$set.'_learn_more" class="user_learn_more" >Learn how...</a></li>';
+			}
+			$out .= '</ul>';
+
 		}
-		$out .= '</ul>';
+		//$out = '';
+		//$out .= '<ul class="ul_user_list">';
+		//if(!empty($array)){
+		//	foreach($array as $outer){
+		//		$out .= '<li id="'.$outer[0].'" class="li_user_list">';
+		//		$out .= '<a href="#">'.$outer[1].'</a>';
+		//		$out .= '</li>';					
+		//	}
+		//} else {
+		// $out .= '<li class="li_user_list li_user_none">You don\'t have any '.$set.' yet!, <a href="#" id="'.$set.'_learn_more" class="user_learn_more" >Learn how...</a></li>';
+		//}
+		//$out .= '</ul>';
 	
 		return $out;
 	
@@ -65,5 +95,14 @@ class User extends Base {
 
 		return $grav_url;
 	} //build_gravatar
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function tags($user_id, $tag_id){
+		echo $user_id . '---';
+		echo $tag_id;
+
+		return $grav_url;
+	} //tags	
+
 	
 } //Login

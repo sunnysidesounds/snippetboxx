@@ -848,13 +848,24 @@ div#bk_content div#sniplet_login div#login_form form div.login_block label, div#
 .ul_user_list {
     list-style-type: none;
     margin: 0px;
-    padding: 0px;
+    padding: 10px;
 }
 
 .li_user_list {
-    padding: 4px 0px 4px 4px;
-    border-bottom: 1px solid #ccc;
+    background-color: #F9F9F9;
+    border: 1px solid #CCCCCC;
+    width: 200px;
+    margin: 5px;
+    padding: 5px;
+    height:12px;
+ /*   
+    border-bottom: 1px solid #ccc;*/
 }
+
+.li_user_sniplets {
+    width:565px;
+}
+
 
 .li_user_list a {
     text-decoration: none;
@@ -901,6 +912,7 @@ div#bk_content div#sniplet_login div#login_form form div.login_block label, div#
 .sniplet_profile_year {
     font-size: 11px;
     font-weight: normal;
+    font-style: italic;
 }
 
 .sniplet_profile_data {
@@ -914,7 +926,7 @@ div#bk_content div#sniplet_login div#login_form form div.login_block label, div#
     margin: auto;
     padding: 0;
     width: 900px;
-    min-height: 500px;
+    min-height: 550px;
     background: none repeat scroll 0 0 #ffffff;
     box-shadow: 0 1px 2px rgba(34, 25, 25, 0.1);
     border:1px solid rgba(34, 25, 25, 0.2);
@@ -977,6 +989,105 @@ div#bk_content div#sniplet_login div#login_form form div.login_block label, div#
     padding-left: 20px;
 }
 
+.sniplet_profile_header {
+    border-bottom: 1px solid rgba(34, 25, 25, 0.2);
+    background-color: #F9F9F9;
+    height: 30px;
+    margin-bottom: 5px;
+}
+
+.sniplet_profile_tags, .sniplet_profile_sniplets, .sniplet_profile_editor {
+    border-left: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    border-bottom: 3px solid #CCCCCC;
+    height: 450px;
+    margin-left: 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: 250px;
+    background-color: #F9F9F9;
+}
+
+.sniplet_profile_sniplets{
+    width:615px;
+}
+
+
+.sniplet_profile_editor {
+    width:350px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.sniplet_profile_title_tags, .sniplet_profile_title_sniplet, .sniplet_profile_title_editor {
+    font-size: 12px;
+    font-weight: bold;
+    background-color:#f9f9f9;
+    border-left: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    border-top: 3px solid #CCCCCC;
+    width: 250px;
+    height:25px;
+    margin-left: 10px;
+    margin-top: 10px;
+    padding-bottom:5px;
+}
+
+.sniplet_profile_title_editor {
+    width: 350px;
+}
+
+.sniplet_profile_title_sniplet{
+    width:615px;
+}
+
+
+
+#sniplet_your_tags, #sniplet_your_sniplets, #sniplet_your_editor {
+    padding-left: 15px;
+    padding-top: 10px;
+}
+
+.sniplet_profile_float {
+    float: left;
+}
+
+.sniplet_bookmarklet_container {
+    margin-top: 120px;
+    text-align: right;
+    padding-right:10px;
+}
+
+.sniplet_bookmarklet_container a {
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.sniplet_bookmarklet_container a:hover {
+    text-decoration: none;
+    font-size: 11px;
+    color: #666666;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 2px;
+}
+
+.sniplet_tag_link, .sniplet_link {
+    float:left;
+}
+.sniplet_tag_edit, .sniplet_link_edit {
+    float:right;
+    visibility:hidden;
+}
+
+input.tag_edit_input {
+    padding:0px;   
+}
+
+
+/*
+ html body div#container div#content div#spboxx_container div#spboxx_search_container div#search_results div#sniplet_user.sniplet_min_height div.sniplet_profile_data_container div.sniplet_profile_float div.sniplet_profile_tags ul.ul_user_list li#223.li_user_list input.tag_edit_input
+visibility:hidden;
+*/
 
 
 
