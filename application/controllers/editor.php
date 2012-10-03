@@ -30,12 +30,17 @@ class Editor extends Base {
 	//UPDATE
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function update_tag($id){
-		echo $id;
+		$this->load->model( 'EditorModel' );
+		$data['tag_content'] = $this->EditorModel->get_tag_by_id($id);
+		$this->load->view('user/editor', $data);
+
+
 
 	} //update_tag
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
-	public function update_sniplet(){
+	public function update_sniplet($id){
+		echo $id;
 
 
 	} //update_sniplet

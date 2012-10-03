@@ -56,10 +56,11 @@ class User extends Base {
 			$out .= '<ul class="ul_user_list">';
 			if(!empty($array)){
 				foreach($array as $outer){
-					$out .= '<li id="s_'.$outer[0].'" class="li_user_list li_user_sniplets">';
-					$out .= '<a id="'.$outer[0].'" class="sniplet_link sniplet_link_s_'.$outer[0].'" href="#">'.$outer[1].'</a>';
-					$out .= '<a id="'.$outer[0].'" class="sniplet_link_edit sniplet_link_edit_s_'.$outer[0].'" href="#">edit</a>';
+					$out .= '<li id="'.$outer[0].'" class="li_user_list li_user_sniplets">';
+					$out .= '<a id="'.$outer[0].'" class="sniplet_link sniplet_link_'.$outer[0].'" href="#">'.$outer[1].'</a>';
+					$out .= '<a id="'.$outer[0].'" class="sniplet_link_edit sniplet_link_edit_'.$outer[0].'" href="#">edit</a>';
 					//$out .= '<a href="#">'.$outer[1].'</a>';
+					//sniplet_link_edit_s_185
 
 					$out .= '</li>';					
 				}

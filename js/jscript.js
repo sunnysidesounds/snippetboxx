@@ -88,18 +88,15 @@ $(document).ready(function() {
 		$('.sniplet_link_edit_'+ tid).css({visibility: 'hidden'});
 	});
 	
-
-
-
-
+	//TAG EDIT BOX
 	$(".sniplet_tag_edit").live('click', function(event) {
 		event.preventDefault();
 		var tid = this.id;
 
 		$.fancybox({
 			'transitionIn': 'none',
-			'width' : 700,
-			'height' : 500,
+			'width' : 500,
+			'height' : 150,
 			'autoDimensions': false,
 			'transitionOut': 'none',
 			'onComplete' : function(){
@@ -126,14 +123,6 @@ $(document).ready(function() {
 		}); //fancybox	
 
 
-
-
-
-
-
-
-
-
 		//$('.sniplet_tag_link_'+ tid).replaceWith('<input type="text" class="tag_edit_input" name="tag_edit" value=" edit here">');
 		//alert(tid);
 		//$('.sniplet_tag_edit_'+ tid).css({visibility: 'hidden'});
@@ -146,11 +135,42 @@ $(document).ready(function() {
 		         tooltip   : 'Click to edit...'
 		     });*/
 
-
-
-
 	});
 
+	//SNIPLET EDIT BOX
+	$(".sniplet_link_edit").live('click', function(event) {
+		event.preventDefault();
+		var tid = this.id;
+
+		$.fancybox({
+			'transitionIn': 'none',
+			'width' : 700,
+			'height' : 500,
+			'autoDimensions': false,
+			'transitionOut': 'none',
+			'onComplete' : function(){
+				console.log('sniplet found with id: ' + tid);	
+				
+				//	$("div#fancybox-wrap div#fancybox-outer div#fancybox-content div ul.sniplet_data_ul li.sniplet_data_li input.copy_sniplet_button").live('click', function() {
+				//		$('div#fancybox-wrap div#fancybox-outer div#fancybox-content div ul.sniplet_data_ul li#sniplet_content_' + this.id).attr('id','sniplet_fancy_'+this.id);
+				//			var selectedText = 'sniplet_fancy_' + this.id;
+				//			var select = $(selectedText).text();
+				//			selectText(selectedText);
+							
+				//	$('div#fancybox-wrap div#fancybox-outer div#fancybox-content div ul.sniplet_data_ul li.status_message').hide();
+				//	$('div#fancybox-wrap div#fancybox-outer div#fancybox-content div ul.sniplet_data_ul li#status_message_' + this.id).html('Ctrl/Command C to copy this sniplet.').show();
+							
+							
+							
+				//	});
+				
+								
+				
+			},
+			'type': 'ajax',
+			'href': CI_SITE + "editor/update_sniplet/" + tid
+		}); //fancybox	
+	});
 
 	//DISPLAY ABOUT PAGE
 	/* -------------------------------------------------------------------------------------*/		

@@ -1074,9 +1074,14 @@ div#bk_content div#sniplet_login div#login_form form div.login_block label, div#
 .sniplet_tag_link, .sniplet_link {
     float:left;
 }
-.sniplet_tag_edit, .sniplet_link_edit {
+.sniplet_link_edit {
     float:right;
     visibility:hidden;
+}
+
+.sniplet_tag_edit {
+     float:right;
+    visibility:hidden; 
 }
 
 input.tag_edit_input {
@@ -1087,6 +1092,9 @@ input.tag_edit_input {
 /*
  html body div#container div#content div#spboxx_container div#spboxx_search_container div#search_results div#sniplet_user.sniplet_min_height div.sniplet_profile_data_container div.sniplet_profile_float div.sniplet_profile_tags ul.ul_user_list li#223.li_user_list input.tag_edit_input
 visibility:hidden;
+
+html body div#container div#content div#spboxx_container div#spboxx_search_container div#search_results div#sniplet_user.sniplet_min_height div.sniplet_profile_data_container div.sniplet_profile_float div.sniplet_profile_sniplets ul.ul_user_list li#s_185.li_user_list a#185.sniplet_link_edit
+
 */
 
 
