@@ -30,8 +30,15 @@ class Editor extends Base {
 	//UPDATE
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function update_tag($id){
+		$this->load->model( 'ConfigModel' );
 		$this->load->model( 'EditorModel' );
+
+		$default_date = $this->ConfigModel->get_config('tag_default_date');
+
+		
 		$data['tag_content'] = $this->EditorModel->get_tag_by_id($id);
+		$data['tag_date_created'] = $default_date;
+		
 		$this->load->view('user/editor', $data);
 
 
