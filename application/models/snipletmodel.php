@@ -2,14 +2,14 @@
 
 class SnipletModel extends CI_Model {
 
-
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function sniplet_exists($title) {
 		$sql = 'SELECT * FROM sniplets WHERE sniplet_title=?;';
 		$query = $this->db->query( $sql, array($title) );
 		return $query && $query->num_rows() > 0;
 	} //sniplet_exists
 	
-	
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function insert_sniplet($title, $content, $url, $time){
 		//TODO: Add username value
 		$username = 001;
@@ -23,7 +23,7 @@ class SnipletModel extends CI_Model {
 		}
 	} //insert_sniplet
 	
-	
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function insert_tag($tag){
 		//TODO: Add username value
 		$username = 001;
@@ -42,6 +42,7 @@ class SnipletModel extends CI_Model {
 
 	} //insert_tag
 	
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function insert_sniplet_to_tag($sniplet_id, $tag_id){
 		//TODO: Add username value
 		$username = 001;
@@ -50,15 +51,14 @@ class SnipletModel extends CI_Model {
 		return $query != false;
 	} //insert_tag
 	
-	
-	
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function tag_exists( $tag_keyword ) {
 	   $sql      = 'SELECT * FROM tags WHERE tag_keyword=?;';
 	   $query    = $this->db->query( $sql, array($tag_keyword) );
 		return $query && $query->num_rows() > 0;
 	} //tag_exists
 
-	
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function get_tag_id($tag) {
 		
 		$sql = 'SELECT tag_id FROM tags WHERE tag_keyword ="'.$tag.'";';
@@ -77,6 +77,7 @@ class SnipletModel extends CI_Model {
 
 	} //get_tag_id
 	
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function get_tag_name($tag_id) {
 		
 		$sql = 'SELECT tag_keyword FROM tags WHERE tag_id ="'.$tag_id.'";';
@@ -92,7 +93,7 @@ class SnipletModel extends CI_Model {
 
 	} //get_tag_id
 	
-
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function get_tag_list($sniplet_id, $raw_array = 0) {
 		
 		
@@ -117,11 +118,5 @@ class SnipletModel extends CI_Model {
 		
 		} 
 	} //get_tag_list
-
-
-
-
-
-
 
 } //SnipletModel

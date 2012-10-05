@@ -2,6 +2,7 @@
 
 class ConfigModel extends CI_Model {
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function get_config($ref) {
 		
 		$sql = 'SELECT config_value FROM configuration WHERE config_title ="'.$ref.'";';
@@ -19,10 +20,5 @@ class ConfigModel extends CI_Model {
 		}		
 
 	} //get_config
-
-
-
-
-
 
 } //configmodel

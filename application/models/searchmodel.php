@@ -2,6 +2,7 @@
 
 class SearchModel extends CI_Model {
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function search_with_like($term, $limit = ''){
 		if(!empty($limit)){
 			$limit = 'LIMIT ' . $limit;
@@ -20,6 +21,7 @@ class SearchModel extends CI_Model {
 		} //if 0	
 	} //search_with_like
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function search_with_like_gt($term, $id, $limit = ''){ //NOT CURRENTLY USING
 		if(!empty($limit)){
 			$limit = 'LIMIT ' . $limit;
@@ -39,7 +41,7 @@ class SearchModel extends CI_Model {
 		} //if 0	
 	} //search_with_like_gt
 
-
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function search_fulltext_gt($term, $id, $limit = ''){	
 		if(!empty($limit)){
 			$limit = 'LIMIT ' . $limit;
@@ -60,6 +62,7 @@ class SearchModel extends CI_Model {
 		} //if 0	
 	} //search_fulltext_gt
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function search_fulltext_count($term){	
 		$sql = "SELECT count(*), MATCH(sniplet_title, sniplet_content) AGAINST ('".$term."') AS score FROM sniplets WHERE MATCH(sniplet_title, sniplet_content) AGAINST('".$term."') ORDER BY sniplet_id"; 
 		$array = array();				
@@ -75,8 +78,7 @@ class SearchModel extends CI_Model {
 		} //if 0	
 	} //search_fulltext_gt
 
-	
-	
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function search_fulltext($term, $limit = ''){	
 		if(!empty($limit)){
 			$limit = 'LIMIT ' . $limit;
@@ -97,6 +99,7 @@ class SearchModel extends CI_Model {
 		} //if 0	
 	} //search_with_like
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function tags_search_fulltext($term){
 		$sql = "SELECT *, MATCH(tag_keyword) AGAINST ('".$term."') AS score FROM tags WHERE MATCH(tag_keyword) AGAINST('".$term."')";
 		
@@ -113,7 +116,7 @@ class SearchModel extends CI_Model {
 		} //if 0	
 	} //search_with_like
 
-
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function tags_search_with_like($term){
 		$data = array();		
 		$sql = 'SELECT tag_keyword FROM tags WHERE tag_keyword LIKE "%'.$term.'%";';
@@ -138,6 +141,7 @@ class SearchModel extends CI_Model {
 		
 	} //search_with_like
 	
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function tags_count_ids(){
 		$array = array();
 		$sql = 'SELECT tag_id, count(*) as counts from sniplets_to_tags GROUP BY tag_id ORDER BY COUNT(*) DESC LIMIT 12;';
@@ -155,6 +159,7 @@ class SearchModel extends CI_Model {
 		} //if 0	
 	} //all_tags_lids
 	
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function tag_name_by_id($id){	
 		if($id != ''){	
 			$out = '';
@@ -175,6 +180,7 @@ class SearchModel extends CI_Model {
 	} //search_with_like
 	
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function tag_id_by_name($name){
 		$out = '';
 		$sql = 'SELECT tag_id from tags WHERE tag_keyword = "'.$name.'" ;';
@@ -190,6 +196,7 @@ class SearchModel extends CI_Model {
 		} //if 0	
 	} //search_with_like	
 	
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function tag_cloud_list(){
 		$array = array();
 		$sql = 'SELECT tag_keyword, COUNT(*) as num_items FROM sniplets_to_tags i2t INNER JOIN tags t ON i2t.tag_id = t.tag_id GROUP BY tag_keyword ORDER by num_items DESC;';
@@ -206,7 +213,7 @@ class SearchModel extends CI_Model {
 		} //if 0		
 	} //tag_build_cloud
 	
-
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function sniplet_id_by_tag_id($id, $limit = ''){
 		$array = array();		
 		if(!empty($limit)){
@@ -228,7 +235,7 @@ class SearchModel extends CI_Model {
 		} //if 0	
 	} //	
 
-
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function sniplet_id_by_tag_id_gt($tag_id, $sniplet_id, $limit = ''){
 		$array = array();		
 		if(!empty($tag_id)){
@@ -255,8 +262,7 @@ class SearchModel extends CI_Model {
 		}
 	} //		
 	
-
-
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function sniplet_sniplet_id($id){
 		$sql = 'SELECT * FROM sniplets WHERE sniplet_id = '.$id.' ORDER BY sniplet_id;';
 		$array = array();
@@ -273,6 +279,7 @@ class SearchModel extends CI_Model {
 		} //if 0	
 	} //search_with_like
 	
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function sniplet_all($limit = ''){
 		if(!empty($limit)){
 			$limit = 'LIMIT ' . $limit;
@@ -295,6 +302,7 @@ class SearchModel extends CI_Model {
 		} //if 0
 	}
 	
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function sniplet_greater_than($id, $limit = ''){
 		if(!empty($id)){		
 			if(!empty($limit)){
@@ -323,7 +331,7 @@ class SearchModel extends CI_Model {
 	
 	}
 
-
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function random_sniplet(){
 		$sql = 'SELECT * FROM sniplets ORDER BY rand() LIMIT 1;';
 		$array = array();
@@ -341,8 +349,7 @@ class SearchModel extends CI_Model {
 	
 	}
 	
-	
-	
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function record_count($column, $table){
 		$sql = 'SELECT count('.$column.') as count FROM '.$table.';';		
 		$query = $this->db->query( $sql );
@@ -355,6 +362,7 @@ class SearchModel extends CI_Model {
 	
 	}
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function record_count_where($column, $table, $where, $equals){
 		$sql = 'SELECT count('.$column.') as count FROM '.$table.' WHERE '.$where.' = '.$equals.';';		
 		$query = $this->db->query( $sql );

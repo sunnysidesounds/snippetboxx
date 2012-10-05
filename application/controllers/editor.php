@@ -27,21 +27,29 @@ class Editor extends Base {
 
 	} //create_sniplet
 
-	//UPDATE
 	/* --------------------------------------------------------------------------------------------------------------------------*/
-	public function update_tag($id){
+	public function sniplet_form($id){
+
+		$data['id'] = $id;
+
+		$this->load->view('user/editor_sniplet', $data);
+	}
+
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function tag_form($id){
 		$this->load->model( 'ConfigModel' );
 		$this->load->model( 'EditorModel' );
-
-		$default_date = $this->ConfigModel->get_config('tag_default_date');
-
 		
+		$date = $this->EditorModel->get_tag_date($id);
+		if(empty($date)){
+			$date = $this->ConfigModel->get_config('tag_default_date');
+		} 
+
 		$data['tag_content'] = $this->EditorModel->get_tag_by_id($id);
-		$data['tag_date_created'] = $default_date;
-		
-		$this->load->view('user/editor', $data);
-
-
+		$data['tag_date_created'] = $date;
+		$data['tag_total'] = $this->EditorModel->get_tag_count($id);
+		$this->load->view('user/editor_tag', $data);
 
 	} //update_tag
 

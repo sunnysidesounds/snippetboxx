@@ -1089,7 +1089,7 @@ input.tag_edit_input {
 }
 
 #pop-up-snipletiter {
-
+    padding:10px;
 }
 
 #pop-up-snipletiter h3 {
@@ -1097,6 +1097,9 @@ input.tag_edit_input {
     font-size: 14px;
     font-weight: bold; 
     text-shadow: 0 1px rgba(255, 255, 255, 0.9);
+    width:400px;
+    border-bottom:1px solid #ccc;
+    padding-bottom: 5px;
 }
 
 #edit_tag {
@@ -1107,9 +1110,20 @@ input.tag_edit_input {
     float:left;
 }
 
+#tags_metadata {
+    margin-top:10px;
+}
+
 #pop-up-snipletiter #tags_metadata .metadata {
-    padding-top:5px;
-    color:#666666;
+    border-top: 1px solid #CCCCCC;
+    color: #666666;
+    float: left;
+    padding-top: 5px;
+    width: 200px;
+}
+
+#editor_tag_form {
+    padding-bottom: 5px;
 }
 
 /*

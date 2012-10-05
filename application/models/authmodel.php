@@ -2,6 +2,7 @@
 
 class AuthModel extends CI_Model {
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function verify_login_status($dirty_user, $dirty_pass){ 
 
 		//TODO: Make better and safer
@@ -19,7 +20,7 @@ class AuthModel extends CI_Model {
 		}
 	} //verify_login_status
 	
-	
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function verify_username($username){
 		$clean_username = trim($username);
 		
@@ -32,7 +33,7 @@ class AuthModel extends CI_Model {
 		}	
 	} //verify_username
 	
-	
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function verify_user_email($email){
 		$clean_email = trim($email);		
 		$sql = 'SELECT email FROM users WHERE email = "'. $clean_email .'" ';
@@ -44,6 +45,5 @@ class AuthModel extends CI_Model {
 		}		
 	} //verify_user_email
 	
-
 
 } //AuthModel

@@ -101,40 +101,18 @@ $(document).ready(function() {
 			'transitionOut': 'none',
 			'onComplete' : function(){
 				console.log('tag found with id: ' + tid);	
-				
-				//	$("div#fancybox-wrap div#fancybox-outer div#fancybox-content div ul.sniplet_data_ul li.sniplet_data_li input.copy_sniplet_button").live('click', function() {
-				//		$('div#fancybox-wrap div#fancybox-outer div#fancybox-content div ul.sniplet_data_ul li#sniplet_content_' + this.id).attr('id','sniplet_fancy_'+this.id);
-				//			var selectedText = 'sniplet_fancy_' + this.id;
-				//			var select = $(selectedText).text();
-				//			selectText(selectedText);
-							
-				//	$('div#fancybox-wrap div#fancybox-outer div#fancybox-content div ul.sniplet_data_ul li.status_message').hide();
-				//	$('div#fancybox-wrap div#fancybox-outer div#fancybox-content div ul.sniplet_data_ul li#status_message_' + this.id).html('Ctrl/Command C to copy this sniplet.').show();
-							
-							
-							
-				//	});
+				//Lock scrolling on fancyboc pop-up
+				$('body').addClass("active_menuclick");
+				//Highlight text on fancybox load.
+				$('div#pop-up-snipletiter form#editor_tag_form div#edit_tag_container input#edit_tag.edit_tag_input').focus().select();
+
 				
 								
 				
 			},
 			'type': 'ajax',
-			'href': CI_SITE + "editor/update_tag/" + tid
+			'href': CI_SITE + "editor/tag_form/" + tid
 		}); //fancybox	
-
-
-		//$('.sniplet_tag_link_'+ tid).replaceWith('<input type="text" class="tag_edit_input" name="tag_edit" value=" edit here">');
-		//alert(tid);
-		//$('.sniplet_tag_edit_'+ tid).css({visibility: 'hidden'});
-		//sniplet_tag_link sniplet_tag_link_223
-		/*     $('.sniplet_tag_link_'+ tid).editable('http://www.example.com/save.php', { 
-		         type      : 'textarea',
-		         cancel    : 'Cancel',
-		         submit    : 'OK',
-		       //  indicator : '<img src="img/indicator.gif">',
-		         tooltip   : 'Click to edit...'
-		     });*/
-
 	});
 
 	//SNIPLET EDIT BOX
@@ -150,7 +128,7 @@ $(document).ready(function() {
 			'transitionOut': 'none',
 			'onComplete' : function(){
 				console.log('sniplet found with id: ' + tid);	
-				
+				$('body').addClass("active_menuclick");
 				//	$("div#fancybox-wrap div#fancybox-outer div#fancybox-content div ul.sniplet_data_ul li.sniplet_data_li input.copy_sniplet_button").live('click', function() {
 				//		$('div#fancybox-wrap div#fancybox-outer div#fancybox-content div ul.sniplet_data_ul li#sniplet_content_' + this.id).attr('id','sniplet_fancy_'+this.id);
 				//			var selectedText = 'sniplet_fancy_' + this.id;
@@ -168,7 +146,7 @@ $(document).ready(function() {
 				
 			},
 			'type': 'ajax',
-			'href': CI_SITE + "editor/update_sniplet/" + tid
+			'href': CI_SITE + "editor/sniplet_form/" + tid
 		}); //fancybox	
 	});
 

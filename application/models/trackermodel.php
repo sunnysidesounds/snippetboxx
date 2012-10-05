@@ -2,6 +2,7 @@
 
 class TrackerModel extends CI_Model {
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function insert_tracker($array) {
 		if(!empty($array['tracker_ip'])) {	
 			$sql   = "INSERT INTO user_tracker VALUES (NULL,?,?,?,?,?,?,?,?,?);";
@@ -12,6 +13,7 @@ class TrackerModel extends CI_Model {
 		}		
 	} //insert_tracker
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function update_tracker($array) {
 		$time = date('m-d-Y-g:ia');
 		if(!empty($array['tracker_ip'])) {	
@@ -24,7 +26,7 @@ class TrackerModel extends CI_Model {
 		}		
 	} //insert_tracker
 
-
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function check_ip($address){
 		$sql   = "SELECT * FROM user_tracker WHERE tracker_ip =?;";
 		$query = $this->db->query( $sql, array($address) );
