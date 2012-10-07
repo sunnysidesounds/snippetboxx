@@ -1012,7 +1012,6 @@ div#bk_content div#sniplet_login div#login_form form div.login_block label, div#
     width:615px;
 }
 
-
 .sniplet_profile_editor {
     width:350px;
     overflow-y: hidden;
@@ -1074,6 +1073,7 @@ div#bk_content div#sniplet_login div#login_form form div.login_block label, div#
 .sniplet_tag_link, .sniplet_link {
     float:left;
 }
+
 .sniplet_link_edit {
     float:right;
     visibility:hidden;
@@ -1126,13 +1126,73 @@ input.tag_edit_input {
     padding-bottom: 5px;
 }
 
-/*
- html body div#container div#content div#spboxx_container div#spboxx_search_container div#search_results div#sniplet_user.sniplet_min_height div.sniplet_profile_data_container div.sniplet_profile_float div.sniplet_profile_tags ul.ul_user_list li#223.li_user_list input.tag_edit_input
-visibility:hidden;
+.sniplet_profile_menu_hd{
+    margin: 0px;
+    padding:0px;
+}
 
-html body div#container div#content div#spboxx_container div#spboxx_search_container div#search_results div#sniplet_user.sniplet_min_height div.sniplet_profile_data_container div.sniplet_profile_float div.sniplet_profile_sniplets ul.ul_user_list li#s_185.li_user_list a#185.sniplet_link_edit
+.sniplet_profile_menu_item {
+    float: right;
+    list-style: none outside none;
+    margin-right: 10px;
+    margin-top: 8px;
+}
 
-*/
+#sniplet_your_sniplets_create {
 
+}
 
+.sniplet_title_t {
 
+}
+
+#pop-up-snipletiter .edit_this_sniplet_h3 {
+    width: 100%;
+}
+
+#edit_sniplet_container label{
+    font-size: 11px;
+    color: #666666;
+}
+
+#edit_sniplet_container input {
+    margin-top: 5px;
+}
+
+#edit_sniplet_container_area label{
+    font-size: 11px;
+    color: #666666;
+}
+
+#edit_sniplet_container_area {
+    margin-top: 15px;
+    width: 600px;
+    float:left;
+}
+
+#edit_sniplet_container_area textarea {
+    margin-top: 5px;
+    margin-bottom: 10px;
+     width: 540px;
+     height: 250px;
+}
+
+#edit_sniplet_container_spot {
+    float:left;
+    margin-top: 15px;
+}
+
+#edit_sniplet_container_spot  label {
+    font-size: 11px;
+    color: #666666;
+}
+
+#sniplet_multi_tag {
+    margin-bottom: 10px;
+    margin-top: 5px;
+    width: 250px;
+    height: 250px;
+}
+#edit_sniplet_container_spot input {
+        margin-top: 5px;
+}

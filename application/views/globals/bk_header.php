@@ -5,12 +5,12 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	
-	<!--CSS-->
+	<!--Backend CSS-->
 	<link rel='stylesheet' type='text/css' href='<?= base_url() ?>css/styles.css' />
 	<link rel="stylesheet" href="<?= base_url() ?>js/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="<?= base_url() ?>css/smoothness/jquery-ui.css" type="text/css" media="screen" />
 
-	<!--JS -->
+	<!--Backend JS -->
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script type="text/javascript" src="<?= base_url() ?>js/jquery.scrollTo.min.js"></script>
 	<script type="text/javascript" src="<?= base_url() ?>js/jquery.ui.min.js"></script>

@@ -1,4 +1,3 @@
-
 <div id="sniplet_user" class="sniplet_min_height">
 	<!--User profile information -->
 	<div id="sniplet_profile_vcard">
@@ -26,14 +25,15 @@
 			</div>
 
 		</div>
-		<!--<div class="sniplet_bookmarklet_container">
-			<a href="#" id="sniplet_bookmarklet_download">download your bookmarklet!</a>
-		</div>-->
 	</div>
 	<!--User profile sniplets & tags -->
 	<div class="sniplet_profile_data_container">
 		<div class="sniplet_profile_header">
-
+			<ul class="sniplet_profile_menu_hd">
+				<li class="sniplet_profile_menu_item">account settings</li>
+				<li class="sniplet_profile_menu_item">bookmarklet</li>
+				<li class="sniplet_profile_menu_item">create sniplet</li>
+			</ul>
 		</div>
 		<div class="sniplet_profile_float">
 			<div class="sniplet_profile_title_tags">
@@ -45,7 +45,7 @@
 		</div>
 		<div class="sniplet_profile_float">
 			<div class="sniplet_profile_title_sniplet">
-				<div id="sniplet_your_sniplets">your sniplets</div>
+				<div class="sniplet_title_t" id="sniplet_your_sniplets">your sniplets</div>
 			</div>		
 			<div class="sniplet_profile_sniplets">	
 				<?php if(isset($user_snips)){echo $user_snips; }?>
