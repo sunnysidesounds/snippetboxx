@@ -89,6 +89,30 @@ class Editor extends Base {
 	} //taglet
 
 
+	public function get_prefill_categories($id){
+		$this->load->model( 'EditorModel' );
+		$new_tags_array = array();
+		$tags_array = $this->EditorModel->get_tags_by_sniplet($id);
+		$tags_array_count = count($tags_array);
+
+		$json = '{items: [';
+		foreach ($tags_array as $tag) {
+			//$new_tags_array[$tag] = $this->EditorModel->get_tag_by_id($tag);
+			//echo $tag;
+			$json .= '{value: "'.$tag.'", name: "'.$this->EditorModel->get_tag_by_id($tag).'"}';
+			if($tags_array_count != 1){
+				$json .= ',';
+			}
+
+		}
+		$json .= ']}';
+		
+		//$selectedData = '{items: [{value: "55", name: "Rudy Hamilton"}, {value: "79", name: "Michael Jordan"} ]}';
+		echo $json;
+
+	}
+
+
 
 
 

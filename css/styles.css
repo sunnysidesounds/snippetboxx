@@ -1167,7 +1167,6 @@ input.tag_edit_input {
 #edit_sniplet_container_area {
     margin-top: 15px;
     width: 600px;
-    float:left;
 }
 
 #edit_sniplet_container_area textarea {
@@ -1178,7 +1177,6 @@ input.tag_edit_input {
 }
 
 #edit_sniplet_container_spot {
-    float:left;
     margin-top: 15px;
 }
 
@@ -1196,3 +1194,8 @@ input.tag_edit_input {
 #edit_sniplet_container_spot input {
         margin-top: 5px;
 }
+
+#edit_sniplet_container_spot #as-selections-edit_tags_sniplet_input {
+    margin-top:5px;
+}
+

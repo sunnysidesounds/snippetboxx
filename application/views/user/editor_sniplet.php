@@ -12,21 +12,22 @@
 		</div>
 		<div id="edit_sniplet_container_spot">
 			<label for="edit_sniplet_tags">your sniplet's tags:</label><br/>
-			<select id="sniplet_multi_tag" name="sniplet_multi_tags"multiple="multiple">
+			<?php echo form_input('edit_tags_sniplet', '', 'id="edit_tags_sniplet" class="edit_tags_sniplet_input"'); ?>
+			<!--<select id="sniplet_multi_tag" name="sniplet_multi_tags"multiple="multiple">
 			<?php
 			//print_r($tag_multiple_select);
 
 			foreach ($sniplet_multiple_tags as $key => $value) {
 				echo '<option selected="selected" value="'.$key.'">'.$value.'</option>';
 			}
-			//TODO: This is kind of ugly. Cobine these two arrays into a single array to loop out
+			//TODO: This is kind of ugly. Combine these two arrays into a single array to loop out
 			foreach ($sniplet_multiple_all_tags as $key => $value) {
 				echo '<option value="'.$key.'">'.$value.'</option>';
 			}
 
 
 			?>
-			</select> 
+			</select> -->
 		</div>
 
 	<?php echo form_close(); ?>

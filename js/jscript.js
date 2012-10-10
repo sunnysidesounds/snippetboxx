@@ -106,33 +106,48 @@ $(document).ready(function() {
 				//Highlight text on fancybox load.
 				$('div#pop-up-snipletiter form#editor_tag_form div#edit_tag_container input#edit_tag.edit_tag_input').focus().select();
 
-				
-								
-				
+	
 			},
 			'type': 'ajax',
 			'href': CI_SITE + "editor/tag_form/" + tid
 		}); //fancybox	
 	});
 
-	//SNIPLET EDIT BOX
+	//SNIPLET EDIT BOX - Profile Page
 	$(".sniplet_link_edit").live('click', function(event) {
 		event.preventDefault();
 		var tid = this.id;
 
 		$.fancybox({
 			'transitionIn': 'none',
-			'width' : 900,
-			'height' : 500,
+			'width' : 700,
+			'height' : 550,
 			'autoDimensions': false,
 			'transitionOut': 'none',
-			'onComplete' : function(){
-				console.log('sniplet found with id: ' + tid);	
+			'onStart' : function(){
+            			console.log('OnStart  - sniplet found with id: ' + tid);
+        			},
+			'onComplete' : function(content){
+				console.log('onComplete - sniplet found with id: ' + tid);	
+				//Add class to click the scroller when in fancybox mode
 				$('body').addClass("active_menuclick");
 
+					//SNIPLET EDIT BOX TAGS - AUTOSUGGEST
+					var tagUrl = CI_SITE + 'backend/taglet/';	
+					//var selectedData = {items: [{value: "55", name: "Rudy Hamilton"}, {value: "79", name: "Michael Jordan"}]};
+					//Get prefilled tags
+					var resultsCount = $(this).getJson('editor/get_prefill_categories/' + tid);
 
-				
-								
+					$("div#fancybox-wrap div#fancybox-outer div#fancybox-content div div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_spot input#edit_tags_sniplet.edit_tags_sniplet_input").autoSuggest(tagUrl, {
+						minChars: 2, 
+						matchCase: true,
+						asHtmlID: 'edit_tags_sniplet_input',
+						//selectionLimit: 8,
+						retrieveLimit: 2,
+						selectedItemProp: "name",
+						searchObjProps: "name", 
+						preFill: resultsCount.items
+					});					
 				
 			},
 			'type': 'ajax',
@@ -140,10 +155,26 @@ $(document).ready(function() {
 		}); //fancybox	
 	});
 
+/*
+		var preFillSend = 'display';
+		var aboutString = 'about='+ aboutAmount;
+		var aboutUrl = CI_ROOT + 'frontend/about/';
+		$.ajax({
+				type: "GET",
+				url: aboutUrl,
+				data: aboutString,
+				beforeSend:  function() {					
+
+				},
+				success: function(server_response){
+					
+				} //success		
+			}); //ajax
+*/
 	
 	//SNIPLET EDIT BOX TAGS - AUTOSUGGEST
 //	var tagUrl = CI_SITE + 'editor/get_tags_for_form';	
-//	$("div#edit_sniplet_container_spot input#edit_sniplet_tags.edit_sniplet_input_tags").autoSuggest(tagUrl, {
+//	$("div#edit_sniplet_container_spot input#edit_sniplet_tags.edit__tags_sniplet_input").autoSuggest(tagUrl, {
 //		minChars: 2, 
 //		matchCase: true,
 //		asHtmlID: 'edit_sniplet_input_tags',

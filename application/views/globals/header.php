@@ -7,7 +7,7 @@
 	
 	<!--Frontend CSS-->
 	<link rel='stylesheet' type='text/css' href='<?= base_url() ?>css/styles.css' />
-<!--	<link rel='stylesheet' type='text/css' href='<?= base_url() ?>js/autosuggest/autoSuggest.css' />-->
+	<link rel='stylesheet' type='text/css' href='<?= base_url() ?>js/autosuggest/autoSuggest.css' />
 	<link rel="stylesheet" href="<?= base_url() ?>js/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="<?= base_url() ?>css/smoothness/jquery-ui.css" type="text/css" media="screen" />
 
@@ -19,7 +19,7 @@
 	<script type="text/javascript" src="<?= base_url() ?>js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 	<script type="text/javascript" src="<?= base_url() ?>js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="<?= base_url() ?>js/scrollpagination.js"></script>
-<!--	<script type="text/javascript" src="<?= base_url()?>js/autosuggest/jquery.autoSuggest.js"></script>-->
+	<script type="text/javascript" src="<?= base_url()?>js/autosuggest/jquery.autoSuggest.js"></script>
 	
 	<script type="text/javascript">		
 		CI_ROOT = "<?=base_url() ?>";	
