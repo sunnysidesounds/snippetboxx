@@ -95,5 +95,19 @@ class EditorModel extends CI_Model {
 		} //if 0	
 	}
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function get_tag_url($id){
+
+		$sql = "SELECT sniplet_url FROM sniplets WHERE sniplet_id = '".$id."' ";
+		$query = $this->db->query( $sql );
+		if($query->num_rows()>0){
+			foreach ($query->result_array() as $row){								
+				return $row['sniplet_url'];
+			} //foreach	
+		} //if 0	
+	}
+
+
+
 
 } //EditorModel

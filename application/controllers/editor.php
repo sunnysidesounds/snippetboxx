@@ -35,6 +35,7 @@ class Editor extends Base {
 		$data['id'] = $id;
 		$data['sniplet_title'] = $this->EditorModel->get_sniplet_by_id($id);
 		$data['sniplet_content'] = $this->EditorModel->get_sniplet_content_id($id);
+		$data['tag_url'] = $this->EditorModel->get_tag_url($id);
 
 		$new_tags_array = array();
 		$tags_array = $this->EditorModel->get_tags_by_sniplet($id);
@@ -88,7 +89,7 @@ class Editor extends Base {
 	
 	} //taglet
 
-
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function get_prefill_categories($id){
 		$this->load->model( 'EditorModel' );
 		$new_tags_array = array();
@@ -97,9 +98,8 @@ class Editor extends Base {
 
 		$json = '{items: [';
 		foreach ($tags_array as $tag) {
-			//$new_tags_array[$tag] = $this->EditorModel->get_tag_by_id($tag);
-			//echo $tag;
-			$json .= '{value: "'.$tag.'", name: "'.$this->EditorModel->get_tag_by_id($tag).'"}';
+			//Note for some reason there is a possible bug in the autoSuggest jquery plugin. I have to pass the tag name as value to work properly.
+			$json .= '{value: "'.$this->EditorModel->get_tag_by_id($tag).'", name: "'.$tag.'"}';
 			if($tags_array_count != 1){
 				$json .= ',';
 			}
@@ -107,10 +107,8 @@ class Editor extends Base {
 		}
 		$json .= ']}';
 		
-		//$selectedData = '{items: [{value: "55", name: "Rudy Hamilton"}, {value: "79", name: "Michael Jordan"} ]}';
 		echo $json;
-
-	}
+	} //get_prefill_categories
 
 
 
