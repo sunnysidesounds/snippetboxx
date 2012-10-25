@@ -30,10 +30,18 @@ class Editor extends Base {
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function sniplet_form($id){
 		$this->load->model( 'EditorModel' );
-
+		$this->load->model( 'ConfigModel' );
 		
-		$data['id'] = $id;
-		$data['sniplet_title'] = $this->EditorModel->get_sniplet_by_id($id);
+		$data['id'] = $id;		
+		$snipelt_title = $this->EditorModel->get_sniplet_by_id($id);
+		//Set title, if no title use default from config table.
+		if(!empty($snipelt_title)){
+			$data['sniplet_title'] = $snipelt_title;
+
+		} else {
+			$data['sniplet_title'] = $this->ConfigModel->get_config('sniplet_default_title');
+		}
+
 		$data['sniplet_content'] = $this->EditorModel->get_sniplet_content_id($id);
 		$data['tag_url'] = $this->EditorModel->get_tag_url($id);
 
@@ -43,20 +51,21 @@ class Editor extends Base {
 		//TODO: Probably need to change this to view all by user. As this list could become huge when loading the sniplet eidtor if all tags from everyone.
 		$all_tags_array = $this->EditorModel->get_tag_all();
 
-		foreach ($tags_array as $tag) {
-			$new_tags_array[$tag] = $this->EditorModel->get_tag_by_id($tag);
+		if(!empty($tags_array)){
+			foreach ($tags_array as $tag) {
+				$new_tags_array[$tag] = $this->EditorModel->get_tag_by_id($tag);
 
-			if (array_key_exists($tag, $all_tags_array)) {
-			    unset($all_tags_array[$tag]);
-			}	
-		}
+				if (array_key_exists($tag, $all_tags_array)) {
+				    unset($all_tags_array[$tag]);
+				}	
+			} //foreach
+		} //if not empty
 
 		$data['sniplet_multiple_tags'] = $new_tags_array;
 		$data['sniplet_multiple_all_tags'] = $all_tags_array;
 		
 		$this->load->view('user/editor_sniplet', $data);
 	}
-
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function tag_form($id){

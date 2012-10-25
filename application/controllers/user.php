@@ -6,6 +6,37 @@ ini_set('display_errors', 1);
 class User extends Base {
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function index(){
+		$this->load->model( 'UserModel' );
+		//$user_tracker_info = $this->input->cookie('user_tracker_info', TRUE);
+		$user_tracker_info = explode(", ", $this->input->cookie('user_tracker_info', TRUE));
+
+/*
+		if(is_array($user_tracker_info)){
+			$user = $user_tracker_info[0];
+			$tags = $this->UserModel->get_user_tags($this->UserModel->get_user_id($user));
+			$sniplets = $this->UserModel->get_user_sniplets($this->UserModel->get_user_id($user));
+			$email = $this->UserModel->get_user_email($user);
+			
+			$data = $this->set_site_assets();
+			$data['tags_count'] = $this->UserModel->get_user_count_tags($this->UserModel->get_user_id($user));
+			$data['sniplets_count'] = $this->UserModel->get_user_count_sniplets($this->UserModel->get_user_id($user));
+			$data['user'] = $user;
+			$data['user_tags'] = $this->display($tags, 'tags');
+			$data['user_snips'] = $this->display($sniplets, 'sniplets');
+			$data['gravatar'] = $this->build_gravatar($email);
+			$data['user_year'] = $this->member_since($user);	
+
+			$this->load->view('user/profile', $data);
+		}
+		
+*/
+
+	}//index
+
+	
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function account(){
 	
 		$this->load->model( 'UserModel' );

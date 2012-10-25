@@ -1223,3 +1223,13 @@ input.tag_edit_input {
     margin-top: 15px;
 }
 
+#sniplet_closer_button{
+    float: right;
+    padding-right: 5px;
+    padding-top: 5px;
+}
+
+#sniplet_button {
+    font-size: 11px;
+}
+

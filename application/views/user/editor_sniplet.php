@@ -4,7 +4,9 @@
 		<!--TODO: Dude need to change this div names -->
 		<div id="edit_sniplet_container">
 			<label for="edit_sniplet">title:</label><br />
-			<?php echo form_input('edit_sniplet', $sniplet_title, 'id="edit_sniplet" class="edit_sniplet_input" size="75"'); ?>
+			<?php 
+				echo form_input('edit_sniplet', $sniplet_title, 'id="edit_sniplet" class="edit_sniplet_input" size="75"'); 
+			?>
 			<br />
 			<label for="edit_sniplet">your sniplet's url:</label><br />
 			<div id="sniplet_url_edit"><?php echo $tag_url; ?></div>

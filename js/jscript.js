@@ -113,6 +113,51 @@ $(document).ready(function() {
 		}); //fancybox	
 	});
 
+
+	//SNIPLET CREATE BOX - Profile Page
+	$("#sniplet_create_button").live('click', function(event) {
+		event.preventDefault();
+		var tid = this.id;
+
+		$.fancybox({
+			'transitionIn': 'none',
+			'width' : 700,
+			'height' : 600,
+			'autoDimensions': false,
+			'transitionOut': 'none',
+			'onStart' : function(){
+            			console.log('OnStart Create  - sniplet found with id: ' + tid);
+        			},
+			'onComplete' : function(content){
+				console.log('onComplete - sniplet found with id: ' + tid);	
+				//Add class to click the scroller when in fancybox mode
+				$('body').addClass("active_menuclick");
+
+					//SNIPLET EDIT BOX TAGS - AUTOSUGGEST
+					var tagUrl = CI_SITE + 'backend/taglet/';	
+					//var selectedData = {items: [{value: "55", name: "Rudy Hamilton"}, {value: "79", name: "Michael Jordan"}]};
+					//Get prefilled tags
+					//var resultsCount = $(this).getJson('editor/get_prefill_categories/' + tid);
+
+					$("div#fancybox-wrap div#fancybox-outer div#fancybox-content div div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_spot input#edit_tags_sniplet.edit_tags_sniplet_input").autoSuggest(tagUrl, {
+						minChars: 2, 
+						matchCase: true,
+						asHtmlID: 'edit-tags-sniplet-input',
+						//selectionLimit: 8,
+						retrieveLimit: 2
+						//preFill: resultsCount.items
+					});					
+				
+			},
+			'type': 'ajax',
+			'href': CI_SITE + "editor/sniplet_form/" + tid
+		}); //fancybox	
+	});
+
+
+
+
+
 	//SNIPLET EDIT BOX - Profile Page
 	$(".sniplet_link_edit").live('click', function(event) {
 		event.preventDefault();
@@ -125,12 +170,12 @@ $(document).ready(function() {
 			'autoDimensions': false,
 			'transitionOut': 'none',
 			'onStart' : function(){
-            			console.log('OnStart  - sniplet found with id: ' + tid);
+            			console.log('OnStart Edit  - sniplet found with id: ' + tid);
         			},
 			'onComplete' : function(content){
-				console.log('onComplete - sniplet found with id: ' + tid);	
+				console.log('onComplete Edit - sniplet found with id: ' + tid);	
 				//Add class to click the scroller when in fancybox mode
-				//$('body').addClass("active_menuclick");
+				$('body').addClass("active_menuclick");
 
 					//SNIPLET EDIT BOX TAGS - AUTOSUGGEST
 					var tagUrl = CI_SITE + 'backend/taglet/';	
@@ -153,31 +198,16 @@ $(document).ready(function() {
 		}); //fancybox	
 	});
 
-/*
-		var preFillSend = 'display';
-		var aboutString = 'about='+ aboutAmount;
-		var aboutUrl = CI_ROOT + 'frontend/about/';
-		$.ajax({
-				type: "GET",
-				url: aboutUrl,
-				data: aboutString,
-				beforeSend:  function() {					
 
-				},
-				success: function(server_response){
-					
-				} //success		
-			}); //ajax
-*/
-	
-	//SNIPLET EDIT BOX TAGS - AUTOSUGGEST
-//	var tagUrl = CI_SITE + 'editor/get_tags_for_form';	
-//	$("div#edit_sniplet_container_spot input#edit_sniplet_tags.edit__tags_sniplet_input").autoSuggest(tagUrl, {
-//		minChars: 2, 
-//		matchCase: true,
-//		asHtmlID: 'edit_sniplet_input_tags',
-//		selectionLimit: 8
-//	});
+//CLICK PROFILE HIDE
+/* -------------------------------------------------------------------------------------*/		
+$("#sniplet_button").live('click', function(event) {
+	  $('#sniplet_profile_vcard').slideUp('fast', function() {
+   		console.log('profile header hidden');
+  	});
+});
+
+
 
 //<input type="text" size="75" class="edit_sniplet_input_tags" id="edit_sniplet_tags" value=".addClass()  jQuery API" name="edit_sniplet_tags">
 //html body.active_menuclick div#fancybox-wrap div#fancybox-outer div#fancybox-content div div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_spot input#edit_sniplet_tags.edit_sniplet_input_tags
@@ -220,6 +250,122 @@ $(document).ready(function() {
 			}); //ajax		
 				
 		});
+
+
+
+
+
+	//LOGIN
+	/* -------------------------------------------------------------------------------------*/	
+	$("form#sniplet_login_form").submit(function(event) {	
+		event.preventDefault();
+		$.fn.displayRecords('all', 'abort');
+		$('#search_results').hide();
+		//alert('test');	
+		var theUrl = CI_ROOT + 'backend/verify';	
+		var snipletLogin = $.ajax({
+					type: "POST",
+					url: theUrl,
+					data: $(this).serialize(),
+					success: function(message){											
+							
+					}, //success		
+					error: function(message){
+
+				
+					} //error			
+				}); //ajax
+		
+	}); //form
+
+/*
+
+		 $.fn.submitLocation = function() { 
+		   var theUrl = CI_ROOT + 'backend/post_location';	   
+		   var thankYouMessage = 'Your location has been successfully adding.';
+		   var errorAjaxMessage = 'Error in the Ajax call. Please try again.';
+		   var errorExistsMessage = 'Error this location already exists. Please try again.';
+		   var errorEmptyMessage = 'Error one or more fields are empty. Please try again.';
+			var locationEdit = $.ajax({
+					type: "POST",
+					url: theUrl,
+					data: $(this).serialize(),
+					success: function(message){											
+							
+					}, //success		
+					error: function(message){
+
+				
+					} //error			
+				}); //ajax	
+			return locationEdit;	 
+		  } //$.fn.submitLocation	
+
+
+
+
+
+
+
+
+	$(".login_submit #sniplet_login").live('click', function(event) {
+		
+		$.fn.displayRecords('all', 'abort');
+		$('#search_results').hide();
+		alert('test');
+		/*
+		
+	event.preventDefault();
+		$(this).submitCategory();
+		//Empty success/error messages
+		$('#category_creation_messages').empty();
+		//Clear form values after submit
+		$('#category_name').val('');	
+		$('#category_description').val('');	
+		//This resets the radio button back to default: yes
+		$('input[name=visibility_category][value=yes]').attr('checked', true);		
+		//Delay the destroy and update	
+			setTimeout(function() {
+				//Destroy and update the root node dropdown
+				$('#categories_sorter').children().remove().end();
+				var selectCatClick = $(this).geAllRecords('backend/get_categories_json');
+				var buildDropdownCatClick = $(this).buildDropdown(selectCatClick, '#categories_sorter', 'remove_none', 'Select...');		
+			}, 200); 			
+
+
+
+		var aboutAmount = 'display';
+		var aboutString = 'about='+ aboutAmount;
+		var aboutUrl = CI_ROOT + 'frontend/about/';
+		$.ajax({
+					type: "GET",
+					url: aboutUrl,
+					data: aboutString,
+					beforeSend:  function() {					
+						$('#search_results').hide();
+						$("html, body").animate({ scrollTop: 0 }, "slow");
+						img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '						
+						$('#search_load').html(img).show();									
+							//Check if message is visable, if not show it.
+							var visable = $('#sniplet_messager').is(":visible");
+							if(visable == false){
+								$('#sniplet_messager').show();
+							}			
+					},
+					success: function(server_response){
+						$('#search_load').hide();							
+						//Let's disable scroll pagination on this page.				
+						$('#search_results').attr('scrollpagination', 'disabled');
+						
+						
+											
+						$('#search_results').html(server_response).show();
+						
+					} //success		
+			}); //ajax		
+				
+		*/
+
 
 
 
@@ -603,8 +749,13 @@ $(document).ready(function() {
 		$('#search_results').hide();
 		$.fn.displayRecords('all', 'abort');
 		event.preventDefault();		
-		
 		var username = this.id
+		$(this).displayUser(username);					
+	});
+
+
+	//DISPLAY USER PAGE FUNCTION
+	$.fn.displayUser = function(username){
 		var usernameVal = 'u='+ username;
 		var usernameUrl = CI_ROOT + 'user/account/';
 		$.ajax({
@@ -626,18 +777,12 @@ $(document).ready(function() {
 						$('#search_load').hide();							
 						//Let's disable scroll pagination on this page.				
 						$('#search_results').attr('scrollpagination', 'disabled');
-						
-						
-											
 						$('#search_results').html(server_response).show();
 						
 					} //success		
-			}); //ajax		
-			
-			
-		
-				
-		});
+			}); //ajax
+	}; //displayUser
+
 
 
 	//DISPLAY ALL TAGS (On Header)

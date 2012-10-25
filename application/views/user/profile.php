@@ -4,6 +4,9 @@
 		<a class="sniplet_profile_picture" href="#">
 			<?php echo '<img src="'.$gravatar.'" alt="'.$user.'\'s profile picture"/>'; ?>
 		</a>
+		<div id="sniplet_closer_button">
+			<a id="sniplet_button" href="#">hide</a>
+		</div>
 		<div class="sniplet_profile_content">
 			<div class="sniplet_profile_name"><?php echo trim($user); ?>'s profile</div>
 			<div class="sniplet_profile_year">member since <?php echo $user_year; ?></div>
@@ -32,7 +35,7 @@
 			<ul class="sniplet_profile_menu_hd">
 				<li class="sniplet_profile_menu_item">account settings</li>
 				<li class="sniplet_profile_menu_item">bookmarklet</li>
-				<li class="sniplet_profile_menu_item">create sniplet</li>
+				<li class="sniplet_profile_menu_item"><a id="sniplet_create_button" href="#"> create sniplet</a></li>
 			</ul>
 		</div>
 		<div class="sniplet_profile_float">

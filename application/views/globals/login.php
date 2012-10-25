@@ -8,7 +8,8 @@
 			
 			<?php
 			}
-			echo form_open('backend/verify'); 	
+			//echo form_open('backend/verify'); 	
+			echo form_open('#', 'id="sniplet_login_form" name="sniplet_login_form"'); 
 			?>
 			<div class="login_block">
 				<label for="username">Username:</label>	
@@ -19,7 +20,7 @@
 				<input type="password" name="password" value="<?php echo set_value('password'); ?>" id="password" /><?php echo form_error('password'); ?>
 			</div>
 			<div class="login_block login_submit">		
-					<input type="submit" value="Login" name="login" />
+					<input type="submit" value="Login" name="login" id="sniplet_login" />
 			</div>
 			<?php echo form_close(); ?>
 		</div>
