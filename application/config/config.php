@@ -1,5 +1,8 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+//Let's hide our sensitive data outside of web root. 
+include('../configs/snippetboxx.php');
+
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
@@ -227,7 +230,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = 'ilovemarleyandlilaandamanda';
+$config['encryption_key'] = ENCRYPTION_KEY;
 
 /*
 |--------------------------------------------------------------------------
