@@ -44,14 +44,16 @@
 | The $active_record variables lets you determine whether or not to load
 | the active record class
 */
+//Setup custom config file for database connection. Let's hide these values!
+include('../configs/snippetboxx.php');
 
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'mysql.twosmallfeet.com';
-$db['default']['username'] = 'sunnysidesounds';
-$db['default']['password'] = 'mar226ley';
-$db['default']['database'] = 'snippetboxx_sniplet';
+$db['default']['hostname'] = HOSTNAME;
+$db['default']['username'] = USERNAME;
+$db['default']['password'] = PASSWORD;
+$db['default']['database'] = DATABASE;
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
