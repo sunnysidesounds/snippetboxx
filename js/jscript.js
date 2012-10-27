@@ -255,7 +255,7 @@ $("#sniplet_button").live('click', function(event) {
 
 
 
-	//LOGIN
+	//LOGIN SUBMIT
 	/* -------------------------------------------------------------------------------------*/	
 	$("form#sniplet_login_form").submit(function(event) {	
 		event.preventDefault();
@@ -267,7 +267,14 @@ $("#sniplet_button").live('click', function(event) {
 					type: "POST",
 					url: theUrl,
 					data: $(this).serialize(),
-					success: function(message){											
+					beforeSend:  function() {					
+						//img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '
+						//$('#search_load').html(img).show();	
+						//login_form	
+						$('#login_form').hide();	
+					},
+					success: function(message){		
+						//$('#search_load').hide();									
 							
 					}, //success		
 					error: function(message){
@@ -278,7 +285,21 @@ $("#sniplet_button").live('click', function(event) {
 		
 	}); //form
 
+	//LOGIN LINK
+	/* -------------------------------------------------------------------------------------*/		
+	//$(".header_login").live('click', function(event) {						
+	//	var currenturl = window.location
+
+	//	alert(currenturl);
+
+	//}); //form
+
+
+
 /*
+
+//header_login
+
 
 		 $.fn.submitLocation = function() { 
 		   var theUrl = CI_ROOT + 'backend/post_location';	   
@@ -974,7 +995,16 @@ $("#sniplet_button").live('click', function(event) {
 var snipletCount = $(this).getJson('frontend/count_sniplets'); //TODO: Get json request for complete user account panel. Display username, ..etc
 $('#sniplet_messager').html('<a href="#" id="total_top">sniplets (' + snipletCount + ')</a>');
 
-$.fn.displayRecords('all');
+
+
+//On load if root url matches current url. Let display all records. 
+if(CI_ROOT == window.location){
+	console.log('displaying all records due to url match');
+	$.fn.displayRecords('all');
+}
+
+
+
 
 	$('#top-link').topLink({
     	min: 400,
