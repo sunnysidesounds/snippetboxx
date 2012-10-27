@@ -11,7 +11,7 @@ class Signup extends Base {
 		$data['ip_address'] = isset($_SERVER['HTTP_X_REAL_IP']) ? $_SERVER['HTTP_X_REAL_IP'] : $_SERVER['REMOTE_ADDR'];
 		$data['date_created'] = $time = date('m-d-Y-g:ia');
 		if($this->session->userdata('login_state') == FALSE){							
-			$this->bkView( 'globals/signup', 'Sniplets -Signup', $data);
+			$this->dynView( 'globals/signup', 'Sniplets -Signup', $data);
 		} else {					
 			echo 'You are already signed up. You should never reach this point.';
 			redirect("/");  		

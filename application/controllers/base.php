@@ -92,8 +92,10 @@ class Base extends CI_Controller {
 		$displayLog = $this->ConfigModel->get_config('show_changelog');
 		$displayAbout = $this->ConfigModel->get_config('show_about');
 		$displayLogin = $this->ConfigModel->get_config('show_login');
+		$displaySignup = $this->ConfigModel->get_config('show_signup');
 		$data['show_login'] = $displayLogin;
 		$data['show_about'] = $displayAbout;
+		$data['show_signup'] = $displaySignup;
 		$data['show_log'] = $displayLog;
 		$data['copyright'] = $this->copyright();
 		$data['software_version'] = $this->version();

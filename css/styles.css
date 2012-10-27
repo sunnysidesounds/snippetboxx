@@ -791,19 +791,22 @@ div#spboxx_search_container div#nomoreresults {
     width: 100%;
 }
 
-div#bk_content div#sniplet_login div#login_form form label, div#bk_content div#sniplet_login div#login_form form div input#username {
+
+/*Login form */
+div#spboxx_search_container div#search_results div#sniplet_login div#login_form form#sniplet_login_form div.login_block input#username {
     display: inline;
 }
 
-div#bk_content div#sniplet_login div#login_form form label, div#bk_content div#sniplet_login div#login_form form div input#password {
+div#spboxx_search_container div#search_results div#sniplet_login div#login_form form#sniplet_login_form div.login_block input#password {
     display: inline;
 }
 
-div#bk_content div#sniplet_signup div#signup_form form label, div#bk_content div#sniplet_signup div#signup_form form div input#username {
+/* Sign-up form*/
+div#sniplet_signup div#signup_form form label, div#bk_content div#sniplet_signup div#signup_form form div input#username {
     display: inline;
 }
 
-div#bk_content div#sniplet_signup div#signup_form form label, div#bk_content div#sniplet_signup div#signup_form form div input#password {
+div#sniplet_signup div#signup_form form label, div#bk_content div#sniplet_signup div#signup_form form div input#password {
     display: inline;
 }
 
@@ -815,7 +818,7 @@ div#bk_content div#sniplet_signup div#signup_form form label, div#bk_content div
     padding-top: 8px;
 }
 
-div#bk_content div#sniplet_login div#login_form form div.login_block label, div#bk_content div#sniplet_signup div#signup_form form div.signup_block label {
+div#sniplet_login div#login_form form div.login_block label, div#bk_content div#sniplet_signup div#signup_form form div.signup_block label {
     display: block;
     float: left;
     padding: 3px 0;

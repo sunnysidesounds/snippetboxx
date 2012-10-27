@@ -21,9 +21,9 @@ class Backend extends Base {
 		if(!$loggedIn){			
 			$data['login_error'] = $this->errorPleaseLogin;			
 			
-			$this->bkView( 'globals/login', 'Sniplets', $data);
+			$this->dynView( 'globals/login', 'Sniplets', $data);
 		} else {					
-			$this->bkView( 'backend/main', 'Sniplets', $data); 
+			$this->dynView( 'backend/main', 'Sniplets', $data); 
 		} //else
 			
 	} //index
@@ -246,22 +246,22 @@ class Backend extends Base {
 							$message = $buildMessage;
 							
 							$sendEmail = $this->mailConfirmation($email, $this->ConfigModel->get_config('email_confirmation_subject'), $message);
-							$this->bkView( 'globals/confirmed', 'Sniplets - Confirmation', $data);
+							$this->dynView( 'globals/confirmed', 'Sniplets - Confirmation', $data);
 							
 							//Show email confirmation message page
 						
 						} else {
 							$data = array_merge($data, $this->set_signup_errors($this->ConfigModel->get_config('error_user_invalid_insert_return')));
-							$this->bkView( 'globals/signup', 'Sniplets - Sign-up', $data);							
+							$this->dynView( 'globals/signup', 'Sniplets - Sign-up', $data);							
 						}				
 					} else {
 						$data = array_merge($data, $this->set_signup_errors($this->ConfigModel->get_config('error_user_invalid_email')));
-						$this->bkView( 'globals/signup', 'Sniplets - Sign-up', $data);	
+						$this->dynView( 'globals/signup', 'Sniplets - Sign-up', $data);	
 					}
 				} else {
 					//If default group is not zero. You should never reach this error unless your spoofing hidden values.
 					$data = array_merge($data, $this->set_signup_errors($this->ConfigModel->get_config('error_user_default_group')));
-					$this->bkView( 'globals/signup', 'Sniplets - Sign-up', $data);	
+					$this->dynView( 'globals/signup', 'Sniplets - Sign-up', $data);	
 				}//default_group
 			
 			
@@ -270,7 +270,7 @@ class Backend extends Base {
 				//Merge errors data into data array for view
 				$data = array_merge($data, $this->set_signup_errors($this->ConfigModel->get_config('error_user_password_match')));
 				
-				$this->bkView( 'globals/signup', 'Sniplets', $data);			
+				$this->dynView( 'globals/signup', 'Sniplets', $data);			
 			}
 			// password match
 
@@ -280,7 +280,7 @@ class Backend extends Base {
 		} else {
 			//Already an account (email/username match) direct to login page
 			$data['login_error'] = $this->ConfigModel->get_config('error_user_exists_message');			
-			$this->bkView( 'globals/login', 'Sniplets', $data);				
+			$this->dynView( 'globals/login', 'Sniplets', $data);				
 		}
 		
 	} //signup
@@ -341,32 +341,9 @@ class Backend extends Base {
 			//If you're on the main website
 			//Main Site
 			if(!$from_bookmarklet){
-				//redirect("/");
-				echo 'Hello Ajax';
-				//$this->bkView( 'backend/purgatory', 'Sniplets', $data);
-				//$this->bkView( 'user/profile', 'Sniplets', $data);
-
-
-
-/*
-		$this->load->model( 'UserModel' );
-		$user = base64_decode($this->input->get('u'));
-		$tags = $this->UserModel->get_user_tags($this->UserModel->get_user_id($user));
-		$sniplets = $this->UserModel->get_user_sniplets($this->UserModel->get_user_id($user));
-		$email = $this->UserModel->get_user_email($user);
-		
-		$data['tags_count'] = $this->UserModel->get_user_count_tags($this->UserModel->get_user_id($user));
-		$data['sniplets_count'] = $this->UserModel->get_user_count_sniplets($this->UserModel->get_user_id($user));
-		$data['user'] = $user;
-		$data['user_tags'] = $this->display($tags, 'tags');
-		$data['user_snips'] = $this->display($sniplets, 'sniplets');
-		$data['gravatar'] = $this->build_gravatar($email);
-		$data['user_year'] = $this->member_since($user);	
-
-		$this->load->view('user/profile', $data);
-*/
-
-
+				
+				echo base64_encode($uname);
+				//redirect('/');
 
 			//Bookmarklet
 			} else {
@@ -383,7 +360,7 @@ class Backend extends Base {
 		 } else {
 			$data['login_error'] = $this->ConfigModel->get_config('error_login_message');		
 			
-			$this->bkView( 'globals/login', 'Sniplets', $data);
+			$this->dynView( 'globals/login', 'Sniplets', $data);
 		 
 		 }
 		

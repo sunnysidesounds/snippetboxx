@@ -268,16 +268,20 @@ $("#sniplet_button").live('click', function(event) {
 					url: theUrl,
 					data: $(this).serialize(),
 					beforeSend:  function() {					
-						//img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '
-						//$('#search_load').html(img).show();	
-						//login_form	
+						img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '
+						$('#search_load').html(img).show();	
+						
 						$('#login_form').hide();	
 					},
-					success: function(message){		
-						//$('#search_load').hide();									
+					success: function(server_response){		
+						$('#search_load').hide();
+						$('#search_results').displayUser(server_response);
+						$('li.header_login').hide();
+						$('li.header_signup').hide();
+
 							
 					}, //success		
-					error: function(message){
+					error: function(server_response){
 
 				
 					} //error			
@@ -294,12 +298,17 @@ $("#sniplet_button").live('click', function(event) {
 
 	//}); //form
 
-
+			//		var username = this.id
+				//	$(this).displayUser(username);
 
 /*
 
 //header_login
-
+	$(".header_username").live('click', function(event) {
+		$('#search_results').hide();
+		$.fn.displayRecords('all', 'abort');
+		event.preventDefault();		
+		var username = this.id
 
 		 $.fn.submitLocation = function() { 
 		   var theUrl = CI_ROOT + 'backend/post_location';	   
@@ -799,6 +808,7 @@ $("#sniplet_button").live('click', function(event) {
 						//Let's disable scroll pagination on this page.				
 						$('#search_results').attr('scrollpagination', 'disabled');
 						$('#search_results').html(server_response).show();
+
 						
 					} //success		
 			}); //ajax
