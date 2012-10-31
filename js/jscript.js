@@ -264,28 +264,35 @@ $("#sniplet_button").live('click', function(event) {
 		//alert('test');	
 		var theUrl = CI_ROOT + 'backend/verify';	
 		var snipletLogin = $.ajax({
-					type: "POST",
-					url: theUrl,
-					data: $(this).serialize(),
-					beforeSend:  function() {					
-						img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '
-						$('#search_load').html(img).show();	
-						
-						$('#login_form').hide();	
-					},
-					success: function(server_response){		
-						$('#search_load').hide();
-						$('#search_results').displayUser(server_response);
-						$('li.header_login').hide();
-						$('li.header_signup').hide();
+			type: "POST",
+			url: theUrl,
+			data: $(this).serialize(),
+			beforeSend:  function() {					
+				img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '
+				$('#search_load').html(img).show();	
+				$('#login_form').hide();	
+			},
+			success: function(server_response){
+				//Let's try the username, check if empty
+				try{
+					username = $.base64.decode(server_response);
+					console.log("Success login: " + username);		
+					
+					$('#search_results').displayUser(server_response);
+					$('li.header_login').replaceWith('<li class="header_menu_li header_username" id="'+server_response+'"><a href="#">'+username+'</a></li>');
+					$('li.header_signup').replaceWith('<li class="header_menu_li header_logout"><a href="'+CI_ROOT+'logout/"> logout</a></li>');
+				} catch(err){
+					console.log("Error login: " + err);
+					$('#search_load').hide();
+					$('#spboxx_container').replaceWith(server_response);
+				}
+	
+			}, //success		
+			error: function(server_response){
 
-							
-					}, //success		
-					error: function(server_response){
-
-				
-					} //error			
-				}); //ajax
+		
+			} //error			
+		}); //ajax
 		
 	}); //form
 
