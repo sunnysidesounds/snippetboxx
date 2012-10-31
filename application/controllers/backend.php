@@ -360,7 +360,8 @@ class Backend extends Base {
 		 } else {
 			$data['login_error'] = $this->ConfigModel->get_config('error_login_message');		
 			
-			$this->dynView( 'globals/login', 'Sniplets', $data);
+			//$this->dynView( 'globals/login', 'Sniplets', $data);
+			$this->load->view( 'globals/login_error', $data);
 		 
 		 }
 		

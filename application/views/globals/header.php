@@ -15,6 +15,7 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script type="text/javascript" src="<?= base_url() ?>js/jquery.scrollTo.min.js"></script>
 	<script type="text/javascript" src="<?= base_url() ?>js/jquery.ui.min.js"></script>
+	<script type="text/javascript" src="<?= base_url() ?>js/jquery.base64.min.js"></script>
 	<script type="text/javascript" src="<?= base_url() ?>js/validation.js"></script>
 	<script type="text/javascript" src="<?= base_url() ?>js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 	<script type="text/javascript" src="<?= base_url() ?>js/jquery.cookie.js"></script>

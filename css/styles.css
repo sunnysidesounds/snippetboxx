@@ -81,6 +81,20 @@ h2 {
     padding-bottom: 25px;
 }
 
+#login_error_error, #signup_error_error{
+    color:#445A7E;
+    font-size: 12px;
+    font-weight: bold;
+    padding-bottom: 15px;
+}
+
+#login_error_header, #signup_error_header{
+    color:#445A7E;
+    font-size: 13px;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
 .needsfilled {
     background:red;
     color:white;
@@ -1235,4 +1249,21 @@ input.tag_edit_input {
 #sniplet_button {
     font-size: 11px;
 }
+
+.error_in_login_ul {
+    padding: 0px;
+}
+
+.error_in_login_li {
+    display:inline;
+    padding-right: 30px;
+}
+
+.error_in_login_li a {
+
+}
+
+
+
+
 
