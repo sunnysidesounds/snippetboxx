@@ -12,6 +12,8 @@
 		$defaultSniplet = 'No content selected for this sniplet, try again!';
 		$defaultUrl = $baseUrl;
 
+		$login_error = $CI->input->get('m');
+
 		//If not logged in, save on load data to reload after login
 		if(!$CI->input->cookie('user_tracker_info', TRUE)){
 			$temp_bkm = $_GET['title'] . '///' . $_GET['snippet'] . '///' . $_GET['url'] ; //This needs some reworking, just getting basic cookie tracker stuff going. 

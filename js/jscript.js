@@ -257,160 +257,52 @@ $("#sniplet_button").live('click', function(event) {
 
 	//LOGIN SUBMIT
 	/* -------------------------------------------------------------------------------------*/	
-	$("form#sniplet_login_form").submit(function(event) {	
+	//$("form#sniplet_login_form").submit(function(event) {	
+	$("input#sniplet_login").live('click', function(event) {
 		event.preventDefault();
-		$.fn.displayRecords('all', 'abort');
+		user = $('input#username').val();
+		pass = $('input#password').val();
 		$('#search_results').hide();
-		//alert('test');	
 		var theUrl = CI_ROOT + 'backend/verify';	
 		var snipletLogin = $.ajax({
 			type: "POST",
 			url: theUrl,
-			data: $(this).serialize(),
-			beforeSend:  function() {					
+			data: 'username='+ user + '&password='+pass,
+			beforeSend:  function(server_response) {					
 				img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '
 				$('#search_load').html(img).show();	
 				$('#login_form').hide();	
 			},
 			success: function(server_response){
-				//Let's try the username, check if empty
-				try{
+				//If reponse starts with an error, let's redirect back to login with a error message
+				if (server_response.substring(0, 5) == "error") {
+					console.log("substring " + server_response.substring(6));
+					error_message = $.base64.encode(server_response.substring(6));
+					//window.location = CI_ROOT+'login/?m=' + error_message;
+					$('#search_load').hide();
+					$('#search_results').load(CI_ROOT+'login/?m=' + error_message + ' #search_results').show();
+				} else {
+					$('#search_load').hide();
 					username = $.base64.decode(server_response);
 					console.log("Success login: " + username);		
 					
+					//Old way of loading the user. 
+					//$('#search_results').load(CI_ROOT + 'user/account/?u='+ server_response).show();
+					//This way seems to load faster. 
 					$('#search_results').displayUser(server_response);
+
 					$('li.header_login').replaceWith('<li class="header_menu_li header_username" id="'+server_response+'"><a href="#">'+username+'</a></li>');
 					$('li.header_signup').replaceWith('<li class="header_menu_li header_logout"><a href="'+CI_ROOT+'logout/"> logout</a></li>');
-				} catch(err){
-					console.log("Error login: " + err);
-					$('#search_load').hide();
-					$('#spboxx_container').replaceWith(server_response);
 				}
 	
 			}, //success		
 			error: function(server_response){
-
+				console.log("error: " + server_response);
 		
 			} //error			
 		}); //ajax
 		
-	}); //form
-
-	//LOGIN LINK
-	/* -------------------------------------------------------------------------------------*/		
-	//$(".header_login").live('click', function(event) {						
-	//	var currenturl = window.location
-
-	//	alert(currenturl);
-
-	//}); //form
-
-			//		var username = this.id
-				//	$(this).displayUser(username);
-
-/*
-
-//header_login
-	$(".header_username").live('click', function(event) {
-		$('#search_results').hide();
-		$.fn.displayRecords('all', 'abort');
-		event.preventDefault();		
-		var username = this.id
-
-		 $.fn.submitLocation = function() { 
-		   var theUrl = CI_ROOT + 'backend/post_location';	   
-		   var thankYouMessage = 'Your location has been successfully adding.';
-		   var errorAjaxMessage = 'Error in the Ajax call. Please try again.';
-		   var errorExistsMessage = 'Error this location already exists. Please try again.';
-		   var errorEmptyMessage = 'Error one or more fields are empty. Please try again.';
-			var locationEdit = $.ajax({
-					type: "POST",
-					url: theUrl,
-					data: $(this).serialize(),
-					success: function(message){											
-							
-					}, //success		
-					error: function(message){
-
-				
-					} //error			
-				}); //ajax	
-			return locationEdit;	 
-		  } //$.fn.submitLocation	
-
-
-
-
-
-
-
-
-	$(".login_submit #sniplet_login").live('click', function(event) {
-		
-		$.fn.displayRecords('all', 'abort');
-		$('#search_results').hide();
-		alert('test');
-		/*
-		
-	event.preventDefault();
-		$(this).submitCategory();
-		//Empty success/error messages
-		$('#category_creation_messages').empty();
-		//Clear form values after submit
-		$('#category_name').val('');	
-		$('#category_description').val('');	
-		//This resets the radio button back to default: yes
-		$('input[name=visibility_category][value=yes]').attr('checked', true);		
-		//Delay the destroy and update	
-			setTimeout(function() {
-				//Destroy and update the root node dropdown
-				$('#categories_sorter').children().remove().end();
-				var selectCatClick = $(this).geAllRecords('backend/get_categories_json');
-				var buildDropdownCatClick = $(this).buildDropdown(selectCatClick, '#categories_sorter', 'remove_none', 'Select...');		
-			}, 200); 			
-
-
-
-		var aboutAmount = 'display';
-		var aboutString = 'about='+ aboutAmount;
-		var aboutUrl = CI_ROOT + 'frontend/about/';
-		$.ajax({
-					type: "GET",
-					url: aboutUrl,
-					data: aboutString,
-					beforeSend:  function() {					
-						$('#search_results').hide();
-						$("html, body").animate({ scrollTop: 0 }, "slow");
-						img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '						
-						$('#search_load').html(img).show();									
-							//Check if message is visable, if not show it.
-							var visable = $('#sniplet_messager').is(":visible");
-							if(visable == false){
-								$('#sniplet_messager').show();
-							}			
-					},
-					success: function(server_response){
-						$('#search_load').hide();							
-						//Let's disable scroll pagination on this page.				
-						$('#search_results').attr('scrollpagination', 'disabled');
-						
-						
-											
-						$('#search_results').html(server_response).show();
-						
-					} //success		
-			}); //ajax		
-				
-		*/
-
-
-
-
-
-
-
-
-
+	}); //click
 
 
 	//METHODS/FUNCTION
@@ -792,6 +684,7 @@ $("#sniplet_button").live('click', function(event) {
 
 
 	//DISPLAY USER PAGE FUNCTION
+	/* -------------------------------------------------------------------------------------*/	
 	$.fn.displayUser = function(username){
 		var usernameVal = 'u='+ username;
 		var usernameUrl = CI_ROOT + 'user/account/';

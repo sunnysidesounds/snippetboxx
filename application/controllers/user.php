@@ -38,22 +38,30 @@ class User extends Base {
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function account(){
-	
 		$this->load->model( 'UserModel' );
-		$user = base64_decode($this->input->get('u'));
-		$tags = $this->UserModel->get_user_tags($this->UserModel->get_user_id($user));
-		$sniplets = $this->UserModel->get_user_sniplets($this->UserModel->get_user_id($user));
-		$email = $this->UserModel->get_user_email($user);
-		
-		$data['tags_count'] = $this->UserModel->get_user_count_tags($this->UserModel->get_user_id($user));
-		$data['sniplets_count'] = $this->UserModel->get_user_count_sniplets($this->UserModel->get_user_id($user));
-		$data['user'] = $user;
-		$data['user_tags'] = $this->display($tags, 'tags');
-		$data['user_snips'] = $this->display($sniplets, 'sniplets');
-		$data['gravatar'] = $this->build_gravatar($email);
-		$data['user_year'] = $this->member_since($user);	
+		$session_status = $this->session->userdata('login_state');
+		//Check if user has a session
+		if($session_status){
 
-		$this->load->view('user/profile', $data);
+			$user = base64_decode($this->input->get('u'));
+			$tags = $this->UserModel->get_user_tags($this->UserModel->get_user_id($user));
+			$sniplets = $this->UserModel->get_user_sniplets($this->UserModel->get_user_id($user));
+			$email = $this->UserModel->get_user_email($user);
+			
+			$data['tags_count'] = $this->UserModel->get_user_count_tags($this->UserModel->get_user_id($user));
+			$data['sniplets_count'] = $this->UserModel->get_user_count_sniplets($this->UserModel->get_user_id($user));
+			$data['user'] = $user;
+			$data['user_tags'] = $this->display($tags, 'tags');
+			$data['user_snips'] = $this->display($sniplets, 'sniplets');
+			$data['gravatar'] = $this->build_gravatar($email);
+			$data['user_year'] = $this->member_since($user);	
+
+			$this->load->view('user/profile', $data);
+
+		//If not session redirect to login
+		} else {
+			redirect('/login');
+		}
 		
 	} //index
 	

@@ -13,7 +13,6 @@
 					
 					<?php
 					}
-					//echo form_open('backend/verify'); 	
 					echo form_open('#', 'id="sniplet_login_form" name="sniplet_login_form"'); 
 					?>
 					<div class="login_block">

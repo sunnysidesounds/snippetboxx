@@ -358,11 +358,18 @@ class Backend extends Base {
 			
 						
 		 } else {
-			$data['login_error'] = $this->ConfigModel->get_config('error_login_message');		
-			
-			//$this->dynView( 'globals/login', 'Sniplets', $data);
-			$this->load->view( 'globals/login_error', $data);
-		 
+			$data['login_error'] = $this->ConfigModel->get_config('error_login_message');	
+		 	
+		 	if(!$from_bookmarklet){
+					
+				echo 'error:' . $data['login_error'];		 
+		 	} else {
+		 		//TODO: FIx this for bookmarklet
+		 		$this->load->view( 'globals/login', $data);
+		 		//CI_ROOT+'login/?m=' + error_message
+		 		//redirect('login?m=' . $data['login_error']);
+		 		//redirect("snippetform.php?m=".$data['login_error']);
+		 	}
 		 }
 		
 	} //verify
