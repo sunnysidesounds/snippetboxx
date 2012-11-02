@@ -365,10 +365,10 @@ class Backend extends Base {
 				echo 'error:' . $data['login_error'];		 
 		 	} else {
 		 		//TODO: FIx this for bookmarklet
-		 		$this->load->view( 'globals/login', $data);
+		 		//$this->load->view( 'globals/login', $data);
 		 		//CI_ROOT+'login/?m=' + error_message
 		 		//redirect('login?m=' . $data['login_error']);
-		 		//redirect("snippetform.php?m=".$data['login_error']);
+		 		redirect("snippetform.php?m=".$data['login_error']);
 		 	}
 		 }
 		

@@ -209,8 +209,6 @@ $("#sniplet_button").live('click', function(event) {
 
 
 
-//<input type="text" size="75" class="edit_sniplet_input_tags" id="edit_sniplet_tags" value=".addClass()  jQuery API" name="edit_sniplet_tags">
-//html body.active_menuclick div#fancybox-wrap div#fancybox-outer div#fancybox-content div div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_spot input#edit_sniplet_tags.edit_sniplet_input_tags
 
 
 	//DISPLAY ABOUT PAGE

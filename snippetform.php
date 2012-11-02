@@ -16,9 +16,13 @@
 
 		//If not logged in, save on load data to reload after login
 		if(!$CI->input->cookie('user_tracker_info', TRUE)){
-			$temp_bkm = $_GET['title'] . '///' . $_GET['snippet'] . '///' . $_GET['url'] ; //This needs some reworking, just getting basic cookie tracker stuff going. 
-			$temp_data = array('name'   => 'sniplet_bkdata', 'value'  => $temp_bkm, 'expire' => '63072000', 'domain' => '.snippetboxx.com'); 
-			set_cookie($temp_data);
+			//Let's make sure all the values are set before we create a cookie
+			if(isset($_GET['title']) && isset($_GET['sniplet']) && isset($_GET['url'])){
+				$temp_bkm = $_GET['title'] . '///' . $_GET['snippet'] . '///' . $_GET['url'] ; //This needs some reworking, just getting basic cookie tracker stuff going. 
+				$temp_data = array('name'   => 'sniplet_bkdata', 'value'  => $temp_bkm, 'expire' => '63072000', 'domain' => '.snippetboxx.com'); 
+				set_cookie($temp_data);
+			}
+
 		} else {
 			$temp_data = array('name'   => 'sniplet_bkdata', 'value'  => null, 'expire' => '63072000', 'domain' => '.snippetboxx.com'); 
 			set_cookie($temp_data);
