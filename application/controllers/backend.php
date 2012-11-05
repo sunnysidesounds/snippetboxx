@@ -220,66 +220,79 @@ class Backend extends Base {
 		$default_token = $default_group;
 		$date_created = $this->input->post('date_created');
 		$ip_address = $this->input->post('ip_address');
-			
+		
+		//Verified username and email doesn't already exist
 		$username_verified = $this->AuthModel->verify_username($username);
 		$email_verified = $this->AuthModel->verify_user_email($email);
 				
 		//Check if username exsits using username and email
 		if(!$username_verified && !$email_verified){
-			//Check if passwords match
-			if($password == $re_password){
-				//Check that default group is zero, admin is 1
-				if($default_group == 0){
-					if (valid_email($email)){
-						$user_ip = isset($_SERVER['HTTP_X_REAL_IP']) ? $_SERVER['HTTP_X_REAL_IP'] : $_SERVER['REMOTE_ADDR'];	
-						$user_array = array($username, $email, $this->prep_password($password), $default_group, $default_token, $username, date('m-d-Y-g:ia'), date('m-d-Y-g:ia'), $user_ip,0);
-						$insert_user_data = $this->UserModel->insert_user($user_array);
-						
-						//If user data return numerical insert id continue
-						if(is_numeric($insert_user_data)){
-													
-							//Send email get confirmation so we can change active from 0 to 1
-							//TODO: GET EMAIL TO WORK!
-							$emailConfirmationLink = '<a href="">test</a>';
-							
-							//$config['base_url']
-							
-							$buildMessage = $this->ConfigModel->get_config('email_confirmation_message') . "<br /><br />";
-							$buildMessage .= "<b>Your Username: </b>" . $username . "<br />";
-							$buildMessage .= "<b>Your Email: </b>" . $email . "<br /><br />";	
-							$buildMessage .= "To verify your account click this link " . $emailConfirmationLink;							
-							$message = $buildMessage;
-							
-							$sendEmail = $this->mailConfirmation($email, $this->ConfigModel->get_config('email_confirmation_subject'), $message);
-							$this->dynView( 'globals/confirmed', 'Sniplets - Confirmation', $data);
-							
-							//Show email confirmation message page
-						
-						} else {
-							$data = array_merge($data, $this->set_signup_errors($this->ConfigModel->get_config('error_user_invalid_insert_return')));
-							$this->dynView( 'globals/signup', 'Sniplets - Sign-up', $data);							
-						}				
-					} else {
-						$data = array_merge($data, $this->set_signup_errors($this->ConfigModel->get_config('error_user_invalid_email')));
-						$this->dynView( 'globals/signup', 'Sniplets - Sign-up', $data);	
-					}
-				} else {
-					//If default group is not zero. You should never reach this error unless your spoofing hidden values.
-					$data = array_merge($data, $this->set_signup_errors($this->ConfigModel->get_config('error_user_default_group')));
-					$this->dynView( 'globals/signup', 'Sniplets - Sign-up', $data);	
-				}//default_group
-			
-			
-			} else {
-			
-				//Merge errors data into data array for view
-				$data = array_merge($data, $this->set_signup_errors($this->ConfigModel->get_config('error_user_password_match')));
-				
-				$this->dynView( 'globals/signup', 'Sniplets', $data);			
-			}
-			// password match
+			//Check to make sure username is a-zA-Z0-9 and no whitespaces. 
+			if(ctype_alnum($username) && !ctype_space($username)){
 
+				//Check if passwords match
+				if($password == $re_password){
+					//Check that default group is zero, admin is 1
+					if($default_group == 0){
+						if (valid_email($email)){
+							$user_ip = isset($_SERVER['HTTP_X_REAL_IP']) ? $_SERVER['HTTP_X_REAL_IP'] : $_SERVER['REMOTE_ADDR'];	
+							$user_array = array($username, $email, $this->prep_password($password), $default_group, $default_token, $username, date('m-d-Y-g:ia'), date('m-d-Y-g:ia'), $user_ip,0);
+							$insert_user_data = $this->UserModel->insert_user($user_array);
+							
+							//If user data return numerical insert id continue
+							if(is_numeric($insert_user_data)){
+														
+								//Send email get confirmation so we can change active from 0 to 1
+								//TODO: GET EMAIL TO WORK!
+								$emailConfirmationLink = '<a href="">test</a>';
+								
+								//$config['base_url']
+								
+								$buildMessage = $this->ConfigModel->get_config('email_confirmation_message') . "<br /><br />";
+								$buildMessage .= "<b>Your Username: </b>" . $username . "<br />";
+								$buildMessage .= "<b>Your Email: </b>" . $email . "<br /><br />";	
+								$buildMessage .= "To verify your account click this link " . $emailConfirmationLink;							
+								$message = $buildMessage;
+								
+								$sendEmail = $this->mailConfirmation($email, $this->ConfigModel->get_config('email_confirmation_subject'), $message);
+								$this->dynView( 'globals/confirmed', 'Sniplets - Confirmation', $data);
+								
+								//Show email confirmation message page
+							
+							} else {
+								$data = array_merge($data, $this->set_signup_errors($this->ConfigModel->get_config('error_user_invalid_insert_return')));
+								$this->dynView( 'globals/signup', 'Sniplets - Sign-up', $data);							
+							}				
+						} else {
+							$data = array_merge($data, $this->set_signup_errors($this->ConfigModel->get_config('error_user_invalid_email')));
+							$this->dynView( 'globals/signup', 'Sniplets - Sign-up', $data);	
+						}
+					} else {
+						//If default group is not zero. You should never reach this error unless your spoofing hidden values.
+						$data = array_merge($data, $this->set_signup_errors($this->ConfigModel->get_config('error_user_default_group')));
+						$this->dynView( 'globals/signup', 'Sniplets - Sign-up', $data);	
+					}//default_group
+				
+				
+				} else {
+				
+					//Merge errors data into data array for view
+					$data = array_merge($data, $this->set_signup_errors($this->ConfigModel->get_config('error_user_password_match')));
+					
+					$this->dynView( 'globals/signup', 'Sniplets', $data);			
+				}
+				// password match
+			//If bad character in username
+			} else {
+					//Merge errors data into data array for view
+					$data = array_merge($data, $this->set_signup_errors($this->ConfigModel->get_config('error_user_username_error')));
+					
+					$this->dynView( 'globals/signup', 'Sniplets', $data);	
+
+			}
 		
+
+
 						//Verify that default group is zero
 				
 		} else {
