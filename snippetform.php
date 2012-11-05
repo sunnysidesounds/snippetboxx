@@ -256,6 +256,7 @@
 						<li class="snippetListlet"><input type="radio" name="snippetSendTo" value="email"> Email</li>
 						<li class="snippetListlet"></li>
 						<li class="snippetListlet">
+							<input type="hidden" name="snippetUser" value="<?php echo $user_cookie_array[0]; ?>">
 							<input type="hidden" name="snippetPageTitle" value="<?php echo $titleRmSC; ?>">
 							<input type="hidden" name="snippetPageUrl" value="<?php echo $url; ?>">
 							<input type="hidden" name="snippetCurrentTime" value="<?php echo date('m-d-Y-g:ia'); ?>">

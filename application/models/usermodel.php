@@ -120,5 +120,34 @@ class UserModel extends CI_Model {
 		return $this->db->insert_id();
 	} //insert_user
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function update_user_login_time($username, $time){
+		$sql   = "UPDATE users SET date_last_login='".$time."' WHERE username = '".$username."';";
+		$query = $this->db->query( $sql);	
+		
+		if($query){
+			//TODO: Add logging
+			return true;
+		} else {
+			return false;
+		}
+	} //update_user_login_time
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function update_user_login_ip($username, $ip){
+		$sql   = "UPDATE users SET last_ip_login='".$ip."' WHERE username = '".$username."';";
+		$query = $this->db->query( $sql);	
+		
+		if($query){
+			//TODO: Add logging
+			return true;
+		} else {
+			return false;
+		}
+	} //update_user_login_ip
+
+
+
+
 
 } //UserModal Class

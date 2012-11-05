@@ -202,6 +202,7 @@ $(document).ready(function() {
 //CLICK PROFILE HIDE
 /* -------------------------------------------------------------------------------------*/		
 $("#sniplet_button").live('click', function(event) {
+	  event.preventDefault();
 	  $('#sniplet_profile_vcard').slideUp('fast', function() {
    		console.log('profile header hidden');
   	});
@@ -363,6 +364,38 @@ $("#sniplet_button").live('click', function(event) {
 		}		
 	}; //displayRecords
 		
+
+	//DISPLAY USER PAGE FUNCTION
+	/* -------------------------------------------------------------------------------------*/	
+	$.fn.displayUser = function(username){
+		var usernameVal = 'u='+ username;
+		var usernameUrl = CI_ROOT + 'user/account/';
+		$.ajax({
+					type: "GET",
+					url: usernameUrl,
+					data: usernameVal,
+					beforeSend:  function() {					
+						$('#search_results').hide();
+						$("html, body").animate({ scrollTop: 0 }, "slow");
+						img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '						
+						$('#search_load').html(img).show();									
+							//Check if message is visable, if not show it.
+							var visable = $('#sniplet_messager').is(":visible");
+							if(visable == false){
+								$('#sniplet_messager').show();
+							}			
+					},
+					success: function(server_response){
+						$('#search_load').hide();							
+						//Let's disable scroll pagination on this page.				
+						$('#search_results').attr('scrollpagination', 'disabled');
+						$('#search_results').html(server_response).show();
+
+						
+					} //success		
+			}); //ajax
+	}; //displayUser
+
 	/*Used to get and generate a all mysql records */
 	/*--------------------------------------------------------------------------------*/	
 	 $.fn.getJson = function(post_url) { 
@@ -681,36 +714,7 @@ $("#sniplet_button").live('click', function(event) {
 	});
 
 
-	//DISPLAY USER PAGE FUNCTION
-	/* -------------------------------------------------------------------------------------*/	
-	$.fn.displayUser = function(username){
-		var usernameVal = 'u='+ username;
-		var usernameUrl = CI_ROOT + 'user/account/';
-		$.ajax({
-					type: "GET",
-					url: usernameUrl,
-					data: usernameVal,
-					beforeSend:  function() {					
-						$('#search_results').hide();
-						$("html, body").animate({ scrollTop: 0 }, "slow");
-						img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '						
-						$('#search_load').html(img).show();									
-							//Check if message is visable, if not show it.
-							var visable = $('#sniplet_messager').is(":visible");
-							if(visable == false){
-								$('#sniplet_messager').show();
-							}			
-					},
-					success: function(server_response){
-						$('#search_load').hide();							
-						//Let's disable scroll pagination on this page.				
-						$('#search_results').attr('scrollpagination', 'disabled');
-						$('#search_results').html(server_response).show();
 
-						
-					} //success		
-			}); //ajax
-	}; //displayUser
 
 
 

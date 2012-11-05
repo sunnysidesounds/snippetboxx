@@ -37,11 +37,16 @@ class Backend extends Base {
 		//Load models
 		$this->load->model( 'SnipletModel' );
 		$this->load->model( 'ConfigModel' );
-		
+		$this->load->model('UserModel');
+
+
 		//Setup form values
 		$snippet = $this->input->post('snippetText');			
 		$tags = $this->input->post('as_values_snippetTaglet');
 
+		$username_id = $this->UserModel->get_user_id($this->input->post('snippetUser'));
+
+		//$username = $this->input->post('snippetUser');
 		$sendTo = $this->input->post('snippetSendTo');
 		$pageTitle = $this->input->post('snippetPageTitle');
 		$pageUrl = $this->input->post('snippetPageUrl');
@@ -53,10 +58,10 @@ class Backend extends Base {
 								
 		
 		if($sendTo == 'db'){
-			if(!empty($tags) && !empty($snippet)){
+			if(!empty($tags) && !empty($snippet) && !empty($username_id)){
 								
 				//Insert sniplet
-				$addSniplet = $this->SnipletModel->insert_sniplet($pageTitle, $snippet, $pageUrl, $currentTime);				
+				$addSniplet = $this->SnipletModel->insert_sniplet($pageTitle, $snippet, $pageUrl, $currentTime, $username_id);				
 				
 				//if insert of sniplet did not fail
 				if($addSniplet){
@@ -64,11 +69,11 @@ class Backend extends Base {
 					$lastInsert = $this->db->insert_id();
 					//Insert only when we have the last insert id
 					if(isset($lastInsert)){
-						
+
 						//Insert tags
 						foreach($tagsArray as $tag){
 							//insert and return tag ip
-							$addTags = $this->SnipletModel->insert_tag($tag, $lastInsert);
+							$addTags = $this->SnipletModel->insert_tag($tag, $username_id);
 							//Build sniplet tag pairs to insert
 							if(!empty($addTags)){
 								//sniplet id, tag id
@@ -82,7 +87,7 @@ class Backend extends Base {
 							$pairsArray = explode(", ", $pairs);
 							$sniplet_id = $pairsArray[0];
 							$tag_id = $pairsArray[1];						
-							$addSnipletToTag = $this->SnipletModel->insert_sniplet_to_tag($sniplet_id, $tag_id);
+							$addSnipletToTag = $this->SnipletModel->insert_sniplet_to_tag($sniplet_id, $tag_id, $username_id);
 							$snipletCompleteArray[] = $addSnipletToTag;
 						}
 						
@@ -289,6 +294,7 @@ class Backend extends Base {
 	public function verify(){
 		$this->load->model( 'AuthModel');
 		$this->load->model( 'TrackerModel' );
+		$this->load->model( 'UserModel' );
 		
 		//Set logo, top menu, version, copyright	
 		$data = $this->set_site_assets();
@@ -306,6 +312,9 @@ class Backend extends Base {
 		$login_status = $this->AuthModel->verify_login_status($uname, $pwdpass);
 		
 		if($login_status){
+			$update_login_time = $this->UserModel->update_user_login_time($uname, $time);
+			$update_login_ip = $this->UserModel->update_user_login_ip($uname, $user_ip);
+
 			$this->session->set_userdata('login_state', TRUE);
 			$time = date('m-d-Y-g:ia');
 			$session_id = $this->session->userdata('session_id');
@@ -316,7 +325,10 @@ class Backend extends Base {
 			$tracker_data = $uname . ', ' . $user_ip . ', ' . $time . ', ' . $agent . ', ' . $referer; //This needs some reworking, just getting basic cookie tracker stuff going. 
 			
 			$set_tracking_on_user = array('name'   => 'user_tracker_info', 'value'  => $tracker_data, 'expire' => '63072000', 'domain' => '.snippetboxx.com');	 //Expires in two years
-			set_cookie($set_tracking_on_user);					
+			set_cookie($set_tracking_on_user);		
+
+			
+
 			
 			//Insert user tracking into db
 			//$tracker_insert_array = array('user_id' => $uname, 'tracker_ip' => $user_ip, 'tracker_region' => '', 'tracker_date_created' => $time, 'tracker_date_updated' => $time, 'tracker_clicks' => 'login-temp', 'username' => $uname, 'agent' => $agent, 'referer' => $referer);

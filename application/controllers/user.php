@@ -10,6 +10,9 @@ class User extends Base {
 		$this->load->model( 'UserModel' );
 		//$user_tracker_info = $this->input->cookie('user_tracker_info', TRUE);
 		$user_tracker_info = explode(", ", $this->input->cookie('user_tracker_info', TRUE));
+		echo '<pre>';
+		print_r($user_tracker_info);
+		echo '</pre>';
 
 /*
 		if(is_array($user_tracker_info)){

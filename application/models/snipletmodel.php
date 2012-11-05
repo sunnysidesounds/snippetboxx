@@ -10,11 +10,8 @@ class SnipletModel extends CI_Model {
 	} //sniplet_exists
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/
-	public function insert_sniplet($title, $content, $url, $time){
-		//TODO: Add username value
-		$username = 001;
-		
-		if( !empty( $title ) && !empty( $content ) && !empty( $url ) && !empty( $time ) ) {				
+	public function insert_sniplet($title, $content, $url, $time, $username){
+		if( !empty( $title ) && !empty( $content ) && !empty( $url ) && !empty( $time ) && !empty( $username ) ) {				
 				$sql   = "INSERT INTO sniplets VALUES (NULL,?,?,?,?, ?);";
 				$query = $this->db->query( $sql, array($title , $content, $url, $time, $username));
 				return $query != false;	
@@ -24,13 +21,12 @@ class SnipletModel extends CI_Model {
 	} //insert_sniplet
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/
-	public function insert_tag($tag){
-		//TODO: Add username value
-		$username = 001;
+	public function insert_tag($tag, $username){
 		//If doesn't exist insert
 		if($this->tag_exists($tag) != 1){
-			$sql   = "INSERT INTO tags VALUES (NULL,?, ?);";
-			$query = $this->db->query( $sql, array($tag, $username));
+			$time = date('m-d-Y-g:ia');
+			$sql   = "INSERT INTO tags VALUES (NULL,?, ?, ?);";
+			$query = $this->db->query( $sql, array($tag, $username, $time));
 			$lastInsert = $this->db->insert_id();
 			return $lastInsert;
 			//return $query != false;
@@ -43,9 +39,7 @@ class SnipletModel extends CI_Model {
 	} //insert_tag
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/
-	public function insert_sniplet_to_tag($sniplet_id, $tag_id){
-		//TODO: Add username value
-		$username = 001;
+	public function insert_sniplet_to_tag($sniplet_id, $tag_id, $username){
 		$sql   = "INSERT INTO sniplets_to_tags VALUES (?,?,?);";
 		$query = $this->db->query( $sql, array($sniplet_id, $tag_id, $username));
 		return $query != false;
@@ -67,7 +61,6 @@ class SnipletModel extends CI_Model {
 			
 			foreach ($query->result() as $row){													
 				return $row->tag_id;				
-			
 			}	//foreach			
 		
 		} else {
@@ -95,8 +88,6 @@ class SnipletModel extends CI_Model {
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function get_tag_list($sniplet_id, $raw_array = 0) {
-		
-		
 		$array = array();
 		$sql = 'SELECT tag_id FROM sniplets_to_tags WHERE sniplet_id ="'.$sniplet_id.'";';
 		$query = $this->db->query( $sql );	
@@ -108,14 +99,10 @@ class SnipletModel extends CI_Model {
 				} else{
 					$array[] = $this->get_tag_name($row->tag_id);
 				}
-				
-				
-			
 			}	//foreach
 			
 			return $array;
 						
-		
 		} 
 	} //get_tag_list
 

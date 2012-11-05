@@ -1,5 +1,13 @@
 Change Log for Sniplet Application :
 ----------------------------------------------------------------------------------------------------------------------------
+11/4/12 Jason R Alexander "sunnysidesounds[at]gmail[dot]com"
+	-Version alpha 0.1.1
+	-Upgraded core structure to login, sign-up, user mangement system.
+	-Add user ownership to sniplets and tags
+	-Completed user profile UI, non-functioning currently though. 
+	-Modified bookmarklet to user management system add login.
+	-Add initial user group setup. Primarily for admin users to access the whole application. 
+
 9/4/12 Jason R Alexander "sunnysidesounds[at]gmail[dot]com"
 	-Version alpha 0.1.0
 	-Finialized basic login through the bookmarklet app and parent site.
