@@ -447,21 +447,6 @@ class Frontend extends Base {
 			
 			$out .= '</li>';
 
-			//$out .= '<li class="snplet_about_li">';
-			//$out .= '<h3>Who is this site for?</h3>';
-			//$out .= '<span><Content></span>';
-			//$out .= '</li>';
-
-			//$out .= '<li class="snplet_about_li">';
-			//$out .= '<h3>How do you use this site?</h3>';
-			//$out .= '<span><Content></span>';
-			//$out .= '</li>';
-
-			//$out .= '<li class="snplet_about_li">';
-			//$out .= '<h3>A step further.</h3>';
-			//$out .= '<span><Content></span>';
-			//$out .= '</li>';
-		
 		
 		$out .= '</ul>';
 		$out .= '</div>';

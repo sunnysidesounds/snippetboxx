@@ -366,22 +366,12 @@ class Backend extends Base {
 			//If you're on the main website
 			//Main Site
 			if(!$from_bookmarklet){
-				
 				echo base64_encode($uname);
-				//redirect('/');
-
 			//Bookmarklet
 			} else {
 				redirect("snippetform.php");
-				
-				//$data['username'] = $uname;
-				//$this->view( $view_name, $title, null );
-				//$this->view( 'globals/confirmed_bm', 'Sniplets', $data);
 			}
-			
-
-			
-						
+									
 		 } else {
 			$data['login_error'] = $this->ConfigModel->get_config('error_login_message');	
 		 	
@@ -389,10 +379,6 @@ class Backend extends Base {
 					
 				echo 'error:' . $data['login_error'];		 
 		 	} else {
-		 		//TODO: FIx this for bookmarklet
-		 		//$this->load->view( 'globals/login', $data);
-		 		//CI_ROOT+'login/?m=' + error_message
-		 		//redirect('login?m=' . $data['login_error']);
 		 		redirect("snippetform.php?m=".$data['login_error']);
 		 	}
 		 }

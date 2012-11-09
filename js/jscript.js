@@ -251,9 +251,6 @@ $("#sniplet_button").live('click', function(event) {
 		});
 
 
-
-
-
 	//LOGIN SUBMIT
 	/* -------------------------------------------------------------------------------------*/	
 	//$("form#sniplet_login_form").submit(function(event) {	
@@ -281,17 +278,9 @@ $("#sniplet_button").live('click', function(event) {
 					$('#search_load').hide();
 					$('#search_results').load(CI_ROOT+'login/?m=' + error_message + ' #search_results').show();
 				} else {
-					$('#search_load').hide();
-					username = $.base64.decode(server_response);
-					console.log("Success login: " + username);		
-					
-					//Old way of loading the user. 
-					//$('#search_results').load(CI_ROOT + 'user/account/?u='+ server_response).show();
-					//This way seems to load faster. 
-					$('#search_results').displayUser(server_response);
-
-					$('li.header_login').replaceWith('<li class="header_menu_li header_username" id="'+server_response+'"><a href="#">'+username+'</a></li>');
-					$('li.header_signup').replaceWith('<li class="header_menu_li header_logout"><a href="'+CI_ROOT+'logout/"> logout</a></li>');
+					//Set a logging in cookie and redirect this solves login being in the url after login. 
+					$.cookie('sniplet_just_logged_in', server_response, { expires: 30, path: '/', domain: '.snippetboxx.com' });
+					window.location = CI_ROOT;				
 				}
 	
 			}, //success		
@@ -722,7 +711,7 @@ $("#sniplet_button").live('click', function(event) {
 	/* -------------------------------------------------------------------------------------*/		
 	$(".header_tags").live('click', function(event) {						
 		event.preventDefault();
-		$.fn.displayRecords('all', 'abort');
+		//$.fn.displayRecords('all', 'abort');
 
 		//build sort dropdown
 		var sortData = $(this).getJson('frontend/sort_json');
@@ -910,12 +899,18 @@ $('#sniplet_messager').html('<a href="#" id="total_top">sniplets (' + snipletCou
 
 
 //On load if root url matches current url. Let display all records. 
-if(CI_ROOT == window.location){
-	console.log('displaying all records due to url match');
-	$.fn.displayRecords('all');
+if(CI_ROOT == window.location){	
+	var just_logged_in = $.cookie('sniplet_just_logged_in');
+	if(just_logged_in){
+
+		$('#search_results').displayUser(just_logged_in);
+		$.cookie('sniplet_just_logged_in', null, { expires: 30, path: '/', domain: '.snippetboxx.com' });
+
+	} else {
+		$.fn.displayRecords('all');
+
+	}
 }
-
-
 
 
 	$('#top-link').topLink({
