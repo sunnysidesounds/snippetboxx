@@ -99,11 +99,29 @@ class Base extends CI_Controller {
 		$data['show_log'] = $displayLog;
 		$data['copyright'] = $this->copyright();
 		$data['software_version'] = $this->version();
-		$data['site_logo'] = $this->logo();		
+		$data['site_logo'] = $this->logo();
+		$data['tag_top_ten'] = $this->top_ten_tags();		
 	
 		return $data;
 	} //set_site_assets
 	
+
+/*
+			$displayLog = $this->ConfigModel->get_config('show_changelog');
+			$displayAbout = $this->ConfigModel->get_config('show_about');
+			$displayLogin = $this->ConfigModel->get_config('show_login');
+			$displaySignup = $this->ConfigModel->get_config('show_signup');
+			
+			$data['show_login'] = $displayLogin;
+			$data['show_about'] = $displayAbout;
+			$data['show_log'] = $displayLog;
+			$data['show_signup'] = $displaySignup;
+			$data['copyright'] = $this->copyright();
+			$data['software_version'] = $this->version();
+			$data['site_logo'] = $this->logo();
+			$data['tag_top_ten'] = $this->top_ten_tags();
+*/
+
 	
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/
@@ -115,6 +133,38 @@ class Base extends CI_Controller {
 	
 		return $data;
 	}
+
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function tags_items($array){
+		$this->load->model( 'SearchModel' );
+		$out = '';
+		$out = '<ul class="tags_top_ten_ul">';
+		$out .= '<li class="tags_top_ten_li"><h5>Popular Tags: </h5></li>';
+		if(!empty($array)){
+			foreach($array as $tTen){
+				$tagName = $this->SearchModel->tag_name_by_id($tTen);
+				if($tagName != ''){
+					$out .= '<li class="tags_top_ten_li">';
+					$out .= '<a href="#" id="tagid_'.$tTen.'" class="top_ten_a">' . strtolower($tagName) . '</a>';
+					$out .= '</li>';
+				}
+			}
+		}
+		
+		$out .= '</ul>';
+		
+		return $out;
+	}
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function top_ten_tags(){
+		$out = '';	
+		$this->load->model( 'SearchModel' );
+		$topTen = $this->SearchModel->tags_count_ids();		
+		$out .= $this->tags_items($topTen);
+		return $out;
 	
+	} //top_ten_tags	
   	
 } //BaseController

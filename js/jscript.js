@@ -581,7 +581,7 @@ $("#sniplet_button").live('click', function(event) {
 				$('#search_tags').html(server_response).show();
 	
 			} //success		
-	}); //ajax		
+		}); //ajax		
 		
 		
 		

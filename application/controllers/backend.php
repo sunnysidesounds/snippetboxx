@@ -398,6 +398,15 @@ class Backend extends Base {
 		 }
 		
 	} //verify
+
+	//Remove are move to a debugger controller
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function mysession(){
+		echo "<pre>";
+		print_r($_SESSION);
+		echo "</pre>";
+	}
+
 	
 	
 

@@ -9,23 +9,10 @@ class Frontend extends Base {
 	public $language_default = "html";
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
-	public function index(){
-						
-			$this->load->model( 'ConfigModel' );
-			$displayLog = $this->ConfigModel->get_config('show_changelog');
-			$displayAbout = $this->ConfigModel->get_config('show_about');
-			$displayLogin = $this->ConfigModel->get_config('show_login');
-			$displaySignup = $this->ConfigModel->get_config('show_signup');
-			
-			$data['show_login'] = $displayLogin;
-			$data['show_about'] = $displayAbout;
-			$data['show_log'] = $displayLog;
-			$data['show_signup'] = $displaySignup;
-			$data['copyright'] = $this->copyright();
-			$data['software_version'] = $this->version();
-			$data['site_logo'] = $this->logo();
-			$data['tag_top_ten'] = $this->top_ten_tags();
-			$this->dynView( 'frontend/main', 'Sniplets', $data);
+	public function index(){						
+		$this->load->model( 'ConfigModel' );
+		$data = $this->set_site_assets();
+		$this->dynView( 'frontend/main', 'Sniplets', $data);
 	} //index
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
@@ -274,40 +261,6 @@ class Frontend extends Base {
 
 		echo '</ul>';
 	} //search_items
-
-	/* --------------------------------------------------------------------------------------------------------------------------*/	
-	public function tags_items($array){
-		$out = '';
-		$out = '<ul class="tags_top_ten_ul">';
-		$out .= '<li class="tags_top_ten_li"><h5>Popular Tags: </h5></li>';
-		if(!empty($array)){
-			foreach($array as $tTen){
-				$tagName = $this->SearchModel->tag_name_by_id($tTen);
-				if($tagName != ''){
-					$out .= '<li class="tags_top_ten_li">';
-					$out .= '<a href="#" id="tagid_'.$tTen.'" class="top_ten_a">' . strtolower($tagName) . '</a>';
-					$out .= '</li>';
-				}
-			}
-		}
-		
-		$out .= '</ul>';
-		
-		return $out;
-	}
-
-	/* --------------------------------------------------------------------------------------------------------------------------*/	
-	public function top_ten_tags(){
-		$out = '';
-		
-		$this->load->model( 'SearchModel' );
-		$topTen = $this->SearchModel->tags_count_ids();		
-		
-		$out .= $this->tags_items($topTen);
-			
-		return $out;
-	
-	} //top_ten_tags
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function random(){
@@ -619,39 +572,3 @@ class Frontend extends Base {
 
 
 } //Frontend
-
-
-
-			//Will use for tracker stuff
-			/*	$user_ip = isset($_SERVER['HTTP_X_REAL_IP']) ? $_SERVER['HTTP_X_REAL_IP'] : $_SERVER['REMOTE_ADDR'];	
-				
-				$time = date('m-d-Y-g:ia');
-				//TODO: Add username accounts
-				$tracker_insert_array = array('user_id' => '001',
-																	'tracker_ip' => $user_ip,
-																	'tracker_region' => '',
-																	'tracker_date_created' => $time, 
-																	'tracker_date_updated' => '', 
-																	'tracker_clicks' => $tracker_data);
-							
-				print_r($tracker_reduction_array);
-				echo '--<br />';
-				if($tracker_count == $count_tracker){				
-				
-					$checking = $this->TrackerModel->check_ip($user_ip);
-					if($checking){
-						echo 'in table';
-						$updating = $this->TrackerModel->update_tracker($tracker_insert_array);
-					} else {
-						echo 'not in table';
-						$inserting = $this->TrackerModel->insert_tracker($tracker_insert_array);
-					}
-				
-					
-				}
-				
-				*/
-
-
-
-
