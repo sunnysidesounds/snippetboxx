@@ -8,9 +8,13 @@ class Login extends Base {
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function index(){
 		$data = $this->set_site_assets();
-		$m = base64_decode($this->input->get('m'));	
+		$m = base64_decode($this->input->get('m'));
+		$signup = base64_decode($this->input->get('signup'));	
 		if($m){
 			$data['login_error'] = $m;
+		}
+		if($signup){
+			$data['signup_email'] = $signup;
 		}
 		if($this->session->userdata('login_state') == FALSE){							
 			$this->dynView( 'globals/login', 'Sniplets - Login', $data);

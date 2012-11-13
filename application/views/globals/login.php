@@ -9,8 +9,15 @@
 				<div id="login_form">
 					<?php 
 					if(isset($login_error)){ ?>
-						<div id="login_error"><?php echo $login_error; ?></div>
-					
+						<div id="login_error">
+						<?php echo $login_error; ?>
+							<div id="signup_email">
+							<?php if(isset($signup_email)){
+								echo '<br /><br />';
+								echo 'Email send to ' . $signup_email;
+							} ?>
+							</div>
+						</div>						
 					<?php
 					}
 					echo form_open('#', 'id="sniplet_login_form" name="sniplet_login_form"'); 

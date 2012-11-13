@@ -45,5 +45,19 @@ class AuthModel extends CI_Model {
 		}		
 	} //verify_user_email
 	
+	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function verify_confirmation($username, $email){
+		$clean_email = trim($email);	
+		$clean_username= trim($username);		
+		$sql = 'SELECT id FROM users WHERE email = "'. $clean_email .'" AND username="'.$clean_username.'" ';
+		$query = $this->db->query( $sql );
+		if($query->num_rows() == 1){
+			return true;	
+		} else {
+			return false;
+		}		
+	} //verify_confirmation
+
+
 
 } //AuthModel

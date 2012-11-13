@@ -74,6 +74,13 @@ h2 {
     display:none;
 }
 
+#login_error #signup_email {
+    color: #666666;
+    font-size: 11px;
+    font-weight: normal;
+    margin-top: -10px;
+}
+
 #login_error, #signup_error{
     color:#445A7E;
     font-size: 12px;
@@ -797,6 +804,11 @@ div#spboxx_search_container div#nomoreresults {
     margin: 55px auto auto;
     padding: 40px;
     width: 340px;
+}
+
+#signup_messager{
+    color:#445A7E; 
+    font-size:14px;
 }
 
 #bk_content {

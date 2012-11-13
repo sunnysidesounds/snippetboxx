@@ -151,16 +151,12 @@ class Backend extends Base {
 		$email_message = $today_date_formatted .$message;
 		
 		$this->email->message($email_message);
-		if($this->email->send())
-		{
-			echo 1;
-		}
-		
-		else
-		{
-			show_error($this->email->print_debugger());
+		if($this->email->send()){
+			return $this->ConfigModel->get_config('signup_success_message');
+		} else {
+			return $this->ConfigModel->get_config('signup_failure_message');
 		}		
-	}
+	} //mailConfirmation
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function mailSniplet($subject, $message){
@@ -237,27 +233,24 @@ class Backend extends Base {
 						if (valid_email($email)){
 							$user_ip = isset($_SERVER['HTTP_X_REAL_IP']) ? $_SERVER['HTTP_X_REAL_IP'] : $_SERVER['REMOTE_ADDR'];	
 							$user_array = array($username, $email, $this->prep_password($password), $default_group, $default_token, $username, date('m-d-Y-g:ia'), date('m-d-Y-g:ia'), $user_ip,0);
+							//Insert record
 							$insert_user_data = $this->UserModel->insert_user($user_array);
 							
 							//If user data return numerical insert id continue
 							if(is_numeric($insert_user_data)){
 														
 								//Send email get confirmation so we can change active from 0 to 1
-								//TODO: GET EMAIL TO WORK!
-								$emailConfirmationLink = '<a href="">test</a>';
-								
-								//$config['base_url']
-								
+								$emailConfirmationLink = '<a href="'.base_url().'confirmed?u='.base64_encode($username).'&e='.base64_encode($email).'&verify=1">HERE!</a>';
+																
 								$buildMessage = $this->ConfigModel->get_config('email_confirmation_message') . "<br /><br />";
 								$buildMessage .= "<b>Your Username: </b>" . $username . "<br />";
 								$buildMessage .= "<b>Your Email: </b>" . $email . "<br /><br />";	
 								$buildMessage .= "To verify your account click this link " . $emailConfirmationLink;							
 								$message = $buildMessage;
 								
-								$sendEmail = $this->mailConfirmation($email, $this->ConfigModel->get_config('email_confirmation_subject'), $message);
-								$this->dynView( 'globals/confirmed', 'Sniplets - Confirmation', $data);
-								
-								//Show email confirmation message page
+								$confirmMessage= $this->mailConfirmation($email, $this->ConfigModel->get_config('email_confirmation_subject'), $message);		
+								//TODO: Add "Are you sure you want to leave this page javascript"
+								redirect('login?m=' . base64_encode($confirmMessage) . '&signup=' . base64_encode($email));
 							
 							} else {
 								$data = array_merge($data, $this->set_signup_errors($this->ConfigModel->get_config('error_user_invalid_insert_return')));

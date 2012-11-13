@@ -121,6 +121,18 @@ class UserModel extends CI_Model {
 	} //insert_user
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function update_user_active($username){
+		$sql   = "UPDATE users SET active = 1 WHERE username = '".$username."'";
+		$query = $this->db->query( $sql);	
+		if($query){
+			//TODO: Add logging
+			return true;
+		} else {
+			return false;
+		}
+	} //update_user_active
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function update_user_login_time($username, $time){
 		$sql   = "UPDATE users SET date_last_login='".$time."' WHERE username = '".$username."';";
 		$query = $this->db->query( $sql);	

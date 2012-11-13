@@ -42,7 +42,7 @@ $route['default_controller'] = "frontend";
 $route['404_override'] = '';
 
 // BEGIN AUTHENTICATION LIBRARY ROUTES
-//$route['login'] = "admin/admin/login";
+//$route['confirmation'] = "backend/signup";
 //$route['logout'] = "admin/admin/logout";
 //$route['register'] = "admin/admin/register";
 //$route['admin/dashboard'] = "admin/admin/index";
