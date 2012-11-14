@@ -5,7 +5,7 @@
 			<?php echo '<img src="'.$gravatar.'" alt="'.$user.'\'s profile picture"/>'; ?>
 		</a>
 		<div id="sniplet_closer_button">
-			<a id="sniplet_button" href="#">hide</a>
+			<a id="sniplet_button" href="#">X</a>
 		</div>
 		<div class="sniplet_profile_content">
 			<div class="sniplet_profile_name"><?php echo trim($user); ?>'s profile</div>
@@ -32,11 +32,31 @@
 	<!--User profile sniplets & tags -->
 	<div class="sniplet_profile_data_container">
 		<div class="sniplet_profile_header">
-			<ul class="sniplet_profile_menu_hd">
-				<li class="sniplet_profile_menu_item">account settings</li>
-				<li class="sniplet_profile_menu_item">bookmarklet</li>
-				<li class="sniplet_profile_menu_item"><a id="sniplet_create_button" href="#"> create sniplet</a></li>
-			</ul>
+			<div id="sniplet_mini_profiler">
+				<?php
+					if(isset($gravatar_mini)){
+						echo '<img src="'.$gravatar_mini.'" alt="'.$user.'\'s profile picture" width="30px" />';
+					}
+				?>
+				<div class="sniplet_profile_name_mini"><?php echo trim($user); ?>'s profile</div>
+				<!--<div class="sniplet_profile_year_mini">member since <?php echo $user_year; ?></div>-->
+				<div class="sniplet_profile_data_mini">
+					<div class="sniplet_profile_totalsniplet_mini">
+						total sniplets <b><?php echo $sniplets_count;?></b>
+					</div>
+					<div class="sniplet_profile_totalstags_mini">
+						total tags <b><?php echo $tags_count; ?></b>
+					</div>
+				</div>
+			</div>
+			<div id="sniplet_bar_menu">
+				<ul class="sniplet_profile_menu_hd">
+					<li class="sniplet_profile_menu_item">account settings</li>
+					<li class="sniplet_profile_menu_item">bookmarklet</li>
+					<li class="sniplet_profile_menu_item"><a id="sniplet_create_button" href="#"> create sniplet</a></li>
+				</ul>
+			</div>
+
 		</div>
 		<div class="sniplet_profile_float">
 			<div class="sniplet_profile_title_tags">

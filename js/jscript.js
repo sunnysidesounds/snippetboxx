@@ -713,17 +713,22 @@ $(document).ready(function() {
 	/* -------------------------------------------------------------------------------------*/		
 	$("#sniplet_button").live('click', function(event) {
 		  event.preventDefault();
-		  $('#sniplet_profile_vcard').slideUp('fast', function() {
-	   		console.log('profile header hidden');
-	  	});
+		  $('#sniplet_profile_vcard').animate({ height: 'toggle', opacity: 'toggle' }, 'fast', function() {
+     	   		$(this).clog('profile header set to hide');
+	   		$('#sniplet_mini_profiler').show();
+	   		$('body').addClass("active_menuclick");
+    		});
+
+
 	});
 
 	//Display User Profile Page
 	/* -------------------------------------------------------------------------------------*/		
 	$(".header_username").live('click', function(event) {
 		$('#search_results').hide();
-		$.fn.displayRecords('all', 'abort');
-		event.preventDefault();		
+		//$.fn.displayRecords('all', 'abort');
+		event.preventDefault();
+		$('body').removeClass("active_menuclick");	
 		var username = this.id
 		$(this).displayUser(username);					
 	});
@@ -733,6 +738,7 @@ $(document).ready(function() {
 	$(".header_about").live('click', function(event) {
 		$('#search_results').hide();
 		event.preventDefault();		
+		$('body').removeClass("active_menuclick");
 		$(this).displayAbout();					
 	});
 
@@ -782,6 +788,7 @@ $(document).ready(function() {
 	/* -------------------------------------------------------------------------------------*/
 	$(".sniplet_click_tag").live('click', function(event) {
 		event.preventDefault();
+		$('body').removeClass("active_menuclick");
 		var selectedId = this.id;
 		$(this).displayTagsClicked(selectedId);	
 	});
@@ -799,6 +806,7 @@ $(document).ready(function() {
 	/* -------------------------------------------------------------------------------------*/		
 	$(".header_tags").live('click', function(event) {						
 		event.preventDefault();
+		$('body').removeClass("active_menuclick");
 		$(this).displayAllTags();					
 	});
 

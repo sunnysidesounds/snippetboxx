@@ -57,6 +57,7 @@ class User extends Base {
 			$data['user_tags'] = $this->display($tags, 'tags');
 			$data['user_snips'] = $this->display($sniplets, 'sniplets');
 			$data['gravatar'] = $this->build_gravatar($email);
+			$data['gravatar_mini'] = $this->build_gravatar($email, 1);
 			$data['user_year'] = $this->member_since($user);	
 
 			$this->load->view('user/profile', $data);
@@ -130,10 +131,15 @@ class User extends Base {
 	}//display
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
-	public function build_gravatar($email){
+	public function build_gravatar($email, $set = 0){
 		$this->load->model( 'ConfigModel' );	
 		$default = $this->ConfigModel->get_config('gravatar_photo_default');
-		$size = $this->ConfigModel->get_config('gravatar_photo_size');
+		if($set){
+			$size = $this->ConfigModel->get_config('gravatar_mini_photo_size');
+		} else {
+			$size = $this->ConfigModel->get_config('gravatar_photo_size');		
+		}
+		
 		$grav_url = "http://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?d=" . urlencode( base_url() .'img/' . $default ) . "&s=" . $size;
 
 		return $grav_url;

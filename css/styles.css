@@ -1262,6 +1262,10 @@ input.tag_edit_input {
     font-size: 11px;
 }
 
+#sniplet_button:hover {
+    text-decoration: none;
+}
+
 .error_in_login_ul {
     padding: 0px;
 }
@@ -1273,6 +1277,60 @@ input.tag_edit_input {
 
 .error_in_login_li a {
 
+}
+
+#sniplet_mini_profiler {
+    float: left;
+    width: 500px;
+    display: none;
+}
+
+#sniplet_mini_profiler img {
+    height:100%;
+}
+
+
+#sniplet_bar_menu {
+    float: right;
+}
+
+.sniplet_profile_name_mini {
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: 6px;
+    margin-top: 6px;
+}
+
+/*
+.sniplet_profile_year_mini {
+    font-size: 9px;
+    font-weight: normal;
+    font-style: italic;
+    margin-left: 4px;
+    margin-top: 10px;
+}
+*/
+
+.sniplet_profile_data_mini {
+    margin-left: 35px;
+    margin-top: 8px;
+}
+
+.sniplet_profile_totalsniplet_mini{
+
+}
+
+.sniplet_profile_totalstags_mini {
+
+}
+
+.sniplet_profile_totalsniplet_mini, .sniplet_profile_totalstags_mini{
+    display:inline;
+    margin-left: 10px;
+}
+
+.sniplet_profile_name_mini, #sniplet_mini_profiler img, .sniplet_profile_year_mini, .sniplet_profile_data_mini{
+    float: left;
 }
 
 
