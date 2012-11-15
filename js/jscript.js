@@ -339,6 +339,28 @@ $(document).ready(function() {
 
 	}; //displayUserTagsEdit
 
+	//Display User Profile Bookmmarklet
+	/* -------------------------------------------------------------------------------------*/	
+	$.fn.displayBookmarklet = function(environment){
+		$.fancybox({
+			'transitionIn': 'none',
+			'width' : 500,
+			'height' : 150,
+			'autoDimensions': false,
+			'transitionOut': 'none',
+			'onStart' : function(){
+            			$(this).clog('OnStart creates for bookmarklet version: ' + environment);
+        			},
+			'onComplete' : function(content){	
+				//Add class to click the scroller when in fancybox mode
+				$('body').addClass("active_menuclick");
+				$('div#fancybox-wrap div#fancybox-outer div#fancybox-content div div#bookmarklet_container').focus().select();
+			},
+			'type': 'ajax',
+			'href': CI_SITE + "backend/bookmarklet/" + environment
+		}); //fancybox	
+	}; //displayUserSnipletCreate
+
 	//Display User Profile Sniplet Create New Form
 	/* -------------------------------------------------------------------------------------*/	
 	$.fn.displayUserSnipletCreate = function(tid){
@@ -581,6 +603,7 @@ $(document).ready(function() {
 	/* -------------------------------------------------------------------------------------*/		
 	$("html, body").animate({ scrollTop: 0 }, "slow");
 	var sliderUDTime = 400;
+	var bookmarkletEnvironment = 'development'; //TODO: Make this more dynamics
 
 	//On Page Load
 	//On load if root url matches current url. Let display all records. 
@@ -707,6 +730,13 @@ $(document).ready(function() {
 		event.preventDefault();
 		var tid = this.id;
 		$(this).displayUserSnipletEdit(tid);
+	});
+
+	//Display User Profile Sniplet Show Bookmarklet
+	/* -------------------------------------------------------------------------------------*/	
+	$("#sniplet_bookmarklet_button").live('click', function(event) {
+		event.preventDefault();
+		$(this).displayBookmarklet(bookmarkletEnvironment);
 	});
 
 	//Display User Profile Click to Hide Header
@@ -867,7 +897,6 @@ $(document).ready(function() {
 			console.log('Error: in hover functionality');
 		}
 	}); //content hover/click
-
 
 }); //end of jQuery
 

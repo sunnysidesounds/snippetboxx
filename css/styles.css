@@ -1333,6 +1333,33 @@ input.tag_edit_input {
     float: left;
 }
 
+div#fancybox-wrap div#fancybox-outer div#fancybox-content div div#bookmarklet_container {
+    border: 1px solid #CCCCCC;
+    padding: 10px;
+    color: #445A7E;
+    height: 120px;
+    background-color:#f9f9f9;
+}
+
+div#fancybox-wrap div#fancybox-outer div#fancybox-content div div#bookmarklet_container div#bookmarklet_your_mark {
+   font-size: 13px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+div#fancybox-wrap div#fancybox-outer div#fancybox-content div div#bookmarklet_container div#sniplet_copy_container {
+    margin-top: 12px;
+}
+
+div#fancybox-wrap div#fancybox-outer div#fancybox-content div div#bookmarklet_container div#sniplet_copy_text {
+    float: left;
+    margin-left: 4px;
+    margin-top: 10px;
+}
+
+div#fancybox-wrap div#fancybox-outer div#fancybox-content div div#bookmarklet_container input#copy_bookmarklet {
+    float:left;
+}
 
 
 

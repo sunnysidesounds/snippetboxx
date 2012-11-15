@@ -21,7 +21,7 @@
 	<script type="text/javascript" src="<?= base_url() ?>js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="<?= base_url() ?>js/scrollpagination.js"></script>
 	<script type="text/javascript" src="<?= base_url()?>js/autosuggest/jquery.autoSuggest.js"></script>
-	
+
 	<script type="text/javascript">		
 		CI_ROOT = "<?=base_url() ?>";	
 		CI_SITE =  "<?=site_url() ?>";	

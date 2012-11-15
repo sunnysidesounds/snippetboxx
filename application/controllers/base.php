@@ -158,6 +158,30 @@ class Base extends CI_Controller {
 	}
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function bookmarklet($environment){
+		$this->load->model( 'ConfigModel' );
+		$bookmarklet = '';
+		$bookmarklet .= '<div id="bookmarklet_container"> ';
+			$bookmarklet .= '<div id="bookmarklet_your_mark">your bookmarklet</div>';
+		switch ($environment) {
+		    case "development":
+		        $bookmarklet .= $this->ConfigModel->get_config('bookmarklet_development_code');
+		        break;
+		    case "master":
+		        $bookmarklet .= $this->ConfigModel->get_config('bookmarklet_master_code');
+		        break;
+		}
+			$bookmarklet .= '<div id="sniplet_copy_container">';
+				$bookmarklet .= '<input type="image" title="Highlights text to Copy!" class="copy_sniplet_button copy_sniplet_fancy" id="copy_bookmarklet" alt="Copy!" src="'.base_url().'img/icon_copy.png">';
+				$bookmarklet .= '<div id="sniplet_copy_text">click to copy</div>';
+			$bookmarklet .= '</div>';
+		$bookmarklet .= '</div> ';
+
+		echo $bookmarklet;
+	
+	} //bookmarklet	
+  
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function top_ten_tags(){
 		$out = '';	
 		$this->load->model( 'SearchModel' );
@@ -166,5 +190,9 @@ class Base extends CI_Controller {
 		return $out;
 	
 	} //top_ten_tags	
-  	
+
+
+
+
+
 } //BaseController
