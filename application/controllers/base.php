@@ -163,17 +163,19 @@ class Base extends CI_Controller {
 		$bookmarklet = '';
 		$bookmarklet .= '<div id="bookmarklet_container"> ';
 			$bookmarklet .= '<div id="bookmarklet_your_mark">your bookmarklet</div>';
+			$bookmarklet .= '<div id="bookmarklet_me">';
 		switch ($environment) {
-		    case "development":
+		    case "dev":
 		        $bookmarklet .= $this->ConfigModel->get_config('bookmarklet_development_code');
 		        break;
-		    case "master":
+		    case "www":
 		        $bookmarklet .= $this->ConfigModel->get_config('bookmarklet_master_code');
 		        break;
 		}
+			$bookmarklet .= '</div>';
 			$bookmarklet .= '<div id="sniplet_copy_container">';
 				$bookmarklet .= '<input type="image" title="Highlights text to Copy!" class="copy_sniplet_button copy_sniplet_fancy" id="copy_bookmarklet" alt="Copy!" src="'.base_url().'img/icon_copy.png">';
-				$bookmarklet .= '<div id="sniplet_copy_text">click to copy</div>';
+				$bookmarklet .= '<div id="sniplet_copy_text">click to highlight</div>';
 			$bookmarklet .= '</div>';
 		$bookmarklet .= '</div> ';
 

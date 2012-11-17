@@ -592,9 +592,6 @@ $(document).ready(function() {
 	} //clog
 
 
-
-
-
 	/* ############################################################################ */
 	/* ---------------------------------------- Snippetboxx Logic -------------------------------------------------- */
 	/* ############################################################################ */
@@ -602,8 +599,12 @@ $(document).ready(function() {
 	//Misc Vaues and Global Settings
 	/* -------------------------------------------------------------------------------------*/		
 	$("html, body").animate({ scrollTop: 0 }, "slow");
+	
+	//This is the slider time
 	var sliderUDTime = 400;
-	var bookmarkletEnvironment = 'development'; //TODO: Make this more dynamics
+	
+	//Dynamically set boomarklet version master/development (values passed www and dev)
+	var bookmarkletEnvironment = window.location.host.substr(0,3);
 
 	//On Page Load
 	//On load if root url matches current url. Let display all records. 
@@ -840,6 +841,15 @@ $(document).ready(function() {
 		$(this).displayAllTags();					
 	});
 
+	//Hightlight / Copy Bookmarlet Button
+	/* -------------------------------------------------------------------------------------*/
+	$("div#sniplet_copy_container input.copy_sniplet_fancy").live('click', function() {
+		$('div#fancybox-wrap div#fancybox-outer div#fancybox-content div div#bookmarklet_container div#bookmarklet_me').html();
+		selectText('bookmarklet_me');
+		$('#sniplet_copy_text').hide();
+		$('#sniplet_copy_text').html('Ctrl/Command C to copy this sniplet.').show();
+	});
+
 	//Hightlight / Copy Button
 	/* -------------------------------------------------------------------------------------*/
 	//Had to rebind the copy buttons as the content is loaded dynamically.
@@ -848,7 +858,7 @@ $(document).ready(function() {
 		var select = $(selectedText).text();
 		selectText(selectedText);
 		$('.status_message').hide();
-		$('#status_message_' + this.id).html('Ctrl/Command C to copy this sniplet.').show();
+		$('#status_message_' + this.id).html('Ctrl/Command C to copy your bookmarklet.').show();
 	});
 
 	//Fixed Header that follows scroll
@@ -904,7 +914,7 @@ $(document).ready(function() {
 /* ############################################################################ */
 /* --------------------------------- Snippetboxx Javascript Functions/Methods --------------------------- */
 /* ############################################################################ */
-function selectText(element) {
+function selectText(element) { //NOTE: element --> don't use # or . for class or id just use it's name.
     var text = document.getElementById(element);
     if ($.browser.msie) {
         var range = document.body.createTextRange();
