@@ -8,14 +8,6 @@ class Base extends CI_Controller {
 	public function view( $view_name, $title ) {
 		$this->view( $view_name, $title, null );
 	} //view
-
-/* --------------------------------------------------------------------------------------------------------------------------*/	
-	public function bkView( $view_name, $title, $data) {       
-		$data['main_content'] = $view_name;
-		$data['title'] = $title;
-		$this->load->view('globals/bk_template', $data);
-	} // dynView
-
 		
 /* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function dynView( $view_name, $title, $data) {       
