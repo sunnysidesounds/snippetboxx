@@ -4,7 +4,9 @@
 		<div id="edit_tag_container">
 			<?php echo form_input('edit_tag', $tag_content, 'id="edit_tag" class="edit_tag_input" size="40"'); ?>
 		</div>
-		<?php echo form_submit('submit_tag_edit','Update', 'id="submit" '); ?>
+		<input type="hidden" value="<?php echo $tag_id; ?>" name="edit_tag_id" id="edit_tag_id" />
+		<?php echo form_submit('submit_tag_edit','Update', 'id="submit_tag_edit" '); ?>
+		<span id="processor"></span>
 	<?php echo form_close(); ?>
 
 	<div id="tags_metadata">

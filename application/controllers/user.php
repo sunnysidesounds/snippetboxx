@@ -153,5 +153,27 @@ class User extends Base {
 		return $grav_url;
 	} //tags	
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function tag_update(){
+		$this->load->model( 'UserModel' );
+		$edit_tag_title = $this->input->post('edit_tag');
+		$edit_tag_id = $this->input->post('edit_tag_id');
+		$username = $this->input->post('username');
+
+		$user_id = $this->UserModel->get_user_id($username);
+
+		$update = $this->UserModel->update_user_tag($edit_tag_title, $user_id, $edit_tag_id);
+
+		if($update){
+			echo 'Success in updating';
+		} else {
+			echo 'Error in updateing';
+		}
+
+	} //user_tag_update
+
+
+
+
 	
 } //Login

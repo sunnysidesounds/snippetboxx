@@ -158,6 +158,19 @@ class UserModel extends CI_Model {
 		}
 	} //update_user_login_ip
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function update_user_tag($title, $user_id, $tag_id){
+		$sql   = "UPDATE tags SET tag_keyword='".$title."' WHERE user_id = '".$user_id."' AND tag_id = '".$tag_id."' ;";
+		$query = $this->db->query( $sql);	
+		
+		if($query){
+			//TODO: Add logging
+			return true;
+		} else {
+			return false;
+		}
+	} //update_user_tag
+
 
 
 

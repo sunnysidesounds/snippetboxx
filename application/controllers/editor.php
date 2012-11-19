@@ -77,6 +77,7 @@ class Editor extends Base {
 			$date = $this->ConfigModel->get_config('tag_default_date');
 		} 
 
+		$data['tag_id'] = $id;
 		$data['tag_content'] = $this->EditorModel->get_tag_by_id($id);
 		$data['tag_date_created'] = $date;
 		$data['tag_total'] = $this->EditorModel->get_tag_count($id);
@@ -118,7 +119,6 @@ class Editor extends Base {
 		
 		echo $json;
 	} //get_prefill_categories
-
 
 
 

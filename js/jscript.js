@@ -332,12 +332,16 @@ $(document).ready(function() {
 				$('body').addClass("active_menuclick");
 				//Highlight text on fancybox load.
 				$('div#pop-up-snipletiter form#editor_tag_form div#edit_tag_container input#edit_tag.edit_tag_input').focus().select();
+
 			},
 			'type': 'ajax',
 			'href': CI_SITE + "editor/tag_form/" + tid
 		}); //fancybox	
 
 	}; //displayUserTagsEdit
+
+
+
 
 	//Display User Profile Bookmmarklet
 	/* -------------------------------------------------------------------------------------*/	
@@ -464,6 +468,42 @@ $(document).ready(function() {
 			} //success		
 		}); //ajax
 	} //displayUserSnipletEdit
+
+	//User Profile - Update User Tag Name
+	/* -------------------------------------------------------------------------------------*/	
+	$.fn.updateUserTagName = function(title, id, username) { 
+		var theUrl = CI_ROOT + 'user/tag_update/';
+		var cudder = $.ajax({
+			type: "POST",
+			url: theUrl,
+			data: 'edit_tag='+ title + '&edit_tag_id=' + id + '&username=' + username,
+			beforeSend:  function(server_response) {	
+				$('#pop-up-snipletiter').hide();		
+				
+				html = '<div id="tag_user_text_loader">Updating place wait...</div>';		
+				html += '<img id="tag_user_img_loader" src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '						
+				$('#pop-up-snipletiter').html(html).show();
+				 	
+			},
+			success: function(server_response){
+				$(this).clog(server_response);
+				//TODO: Look at maybe just refreshing divs and not the whole user profile. 
+				username = $.base64.encode(username);
+				$(this).displayUser(username);
+				setTimeout(function() {
+					$.fancybox.close();
+				}, 1000);
+			}, //success		
+			error: function(server_response){
+				$(this).clog("error: " + server_response);
+		
+			} //error			
+		}); //ajax
+
+
+
+
+	}
 
 	//Display About Page
 	/* -------------------------------------------------------------------------------------*/	
@@ -847,7 +887,7 @@ $(document).ready(function() {
 		$('div#fancybox-wrap div#fancybox-outer div#fancybox-content div div#bookmarklet_container div#bookmarklet_me').html();
 		selectText('bookmarklet_me');
 		$('#sniplet_copy_text').hide();
-		$('#sniplet_copy_text').html('Ctrl/Command C to copy this sniplet.').show();
+		$('#sniplet_copy_text').html('Ctrl/Command C to copy your bookmarklet.').show();
 	});
 
 	//Hightlight / Copy Button
@@ -858,7 +898,7 @@ $(document).ready(function() {
 		var select = $(selectedText).text();
 		selectText(selectedText);
 		$('.status_message').hide();
-		$('#status_message_' + this.id).html('Ctrl/Command C to copy your bookmarklet.').show();
+		$('#status_message_' + this.id).html('Ctrl/Command C to copy this sniplet.').show();
 	});
 
 	//Fixed Header that follows scroll
@@ -907,6 +947,21 @@ $(document).ready(function() {
 			console.log('Error: in hover functionality');
 		}
 	}); //content hover/click
+
+	//User profile submit edit tag
+	/* -------------------------------------------------------------------------------------*/
+	$("div#pop-up-snipletiter form#editor_tag_form input#submit_tag_edit").live('click', function(event) {
+		event.preventDefault();
+		var username = $.cookie('user_tracker_info');
+		username = username.split(',');
+		username = username[0];
+		tag_title = $('div#edit_tag_container input#edit_tag.edit_tag_input').val();
+		tag_id = $('div#pop-up-snipletiter form#editor_tag_form input#edit_tag_id').val();
+
+		console.log(username);
+		$(this).updateUserTagName(tag_title, tag_id, username); 
+		$('body').removeClass("active_menuclick");
+	});
 
 }); //end of jQuery
 
