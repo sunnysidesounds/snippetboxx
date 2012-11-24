@@ -1375,7 +1375,7 @@ div#fancybox-wrap div#fancybox-outer div#fancybox-content div div#bookmarklet_co
     margin-top: 40px;
 }
 
-#tags_secret_refresh:hover {
+#tags_secret_refresh:hover, #sniplet_secret_refresh:hover {
     text-decoration: none;
     color: #445A7E;
 }

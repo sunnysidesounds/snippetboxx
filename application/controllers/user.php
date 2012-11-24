@@ -187,6 +187,20 @@ class User extends Base {
 		//TODO: Add logic for failture ELSE clause
 	} //user_tags_raw
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function user_sniplet_raw(){
+		$user = base64_decode($this->input->get('u'));
+		$this->load->model( 'UserModel' );
+		$session_status = $this->session->userdata('login_state');
+		//Check if user has a session
+		if($session_status){
+			$sniplets = $this->UserModel->get_user_sniplets($this->UserModel->get_user_id($user));
+			$sniplets_html = $this->display($sniplets, 'sniplets');
+			echo $sniplets_html;
+		} 
+		//TODO: Add logic for failture ELSE clause
+	} //user_sniplet_raw
+
 
 
 
