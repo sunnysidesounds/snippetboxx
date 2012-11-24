@@ -172,6 +172,24 @@ class User extends Base {
 
 	} //user_tag_update
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function user_tags_raw(){
+		$user = base64_decode($this->input->get('u'));
+		$this->load->model( 'UserModel' );
+		$session_status = $this->session->userdata('login_state');
+		//Check if user has a session
+		if($session_status){
+			$tags = $this->UserModel->get_user_tags($this->UserModel->get_user_id($user));
+			$tags_html = $this->display($tags, 'tags');
+			echo $tags_html;
+
+		} 
+		//TODO: Add logic for failture ELSE clause
+	} //user_tags_raw
+
+
+
+
 
 
 

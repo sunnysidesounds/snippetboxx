@@ -295,6 +295,31 @@ $(document).ready(function() {
 			}); //ajax
 	}; //displayUser
 
+
+	//Display User Profile Tags RAW
+	/* -------------------------------------------------------------------------------------*/	
+	$.fn.displayUserTagsRaw = function(username){
+		var displayString = 'u='+ username;
+		var displayUrl = CI_ROOT + 'user/user_tags_raw/';		
+		$.ajax({
+			type: "GET",
+			url: displayUrl,
+			data: displayString,
+			beforeSend:  function() {					
+				//img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '
+				//$('#search_load').html(img).show();				
+			},
+			success: function(server_response){
+				$('div.sniplet_profile_float div.sniplet_profile_tags').html(server_response);					
+				//$('#search_load').hide();
+				//$('#search_results').html(server_response).show();					
+				//	$.fn.scrollThatPage(displayUrl, '?get=all_limit');									
+			} //success		
+		}); //ajax
+
+
+	}; //displayUserTagsRaw
+
 	//Display User Profile Tags
 	/* -------------------------------------------------------------------------------------*/	
 	$.fn.displayUserTags = function(tid){
@@ -489,7 +514,10 @@ $(document).ready(function() {
 				$(this).clog(server_response);
 				//TODO: Look at maybe just refreshing divs and not the whole user profile. 
 				username = $.base64.encode(username);
-				$(this).displayUser(username);
+				//$(this).displayUser(username);
+
+				$(this).displayUserTagsRaw(username);
+
 				setTimeout(function() {
 					$.fancybox.close();
 				}, 1000);
@@ -630,6 +658,12 @@ $(document).ready(function() {
 		var format_time = time.getHours()+':'+time.getMinutes()+':'+time.getSeconds();
 		console.log(format_time + ' : ' + message);
 	} //clog
+
+
+
+
+
+
 
 
 	/* ############################################################################ */
@@ -963,7 +997,27 @@ $(document).ready(function() {
 		$('body').removeClass("active_menuclick");
 	});
 
+	/* -------------------------------------------------------------------------------------*/
+	$("a#tags_secret_refresh").live('click', function(event) {
+		event.preventDefault();
+		var username = $.cookie('user_tracker_info');
+		username = username.split(',');
+		username = username[0];
+		username = $.base64.encode(username);
+
+		$(this).displayUserTagsRaw(username);
+		
+		//var tagContents = $(this).getJson('user/user_tags_raw/' + username);
+		//$('div.sniplet_profile_float div.sniplet_profile_tags').html(tagContents);
+	});
+
+
 }); //end of jQuery
+
+
+
+
+
 
 
 /* ############################################################################ */

@@ -60,7 +60,7 @@
 		</div>
 		<div class="sniplet_profile_float">
 			<div class="sniplet_profile_title_tags">
-				<div id="sniplet_your_tags">your tags</div>
+				<div id="sniplet_your_tags"><a id="tags_secret_refresh" href="#">your tags</a></div>
 			</div>
 			<div class="sniplet_profile_tags">	
 				<?php if(isset($user_tags)){ echo $user_tags; }?>
