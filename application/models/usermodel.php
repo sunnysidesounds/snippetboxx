@@ -22,6 +22,23 @@ class UserModel extends CI_Model {
 	} //get_user_id
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function get_user_sniplets_by_tags($username, $id){	
+		$sql = "SELECT snip.sniplet_id, snip.sniplet_title FROM sniplets snip
+			LEFT JOIN sniplets_to_tags stt ON stt.sniplet_id = snip.sniplet_id WHERE stt.tag_id = '".$id."' AND stt.user_id = '".$username."'; ";
+		$query = $this->db->query( $sql );	
+		$parent = array();
+		
+		if($query->num_rows()>0){	
+			
+			foreach ($query->result() as $row){													
+				$parent[] = array($row->sniplet_id, $row->sniplet_title);				
+			}	//foreach	
+			
+			return $parent;		
+		}		
+	} //get_user_sniplets_by_tags
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function get_user_tags($id){	
 		$sql = 'SELECT * FROM tags WHERE user_id ="'.$id.'" ORDER BY tag_keyword;';
 		$query = $this->db->query( $sql );	
@@ -34,7 +51,6 @@ class UserModel extends CI_Model {
 			}	//foreach	
 			
 			return $parent;		
-		
 		}		
 	} //get_user_tags
 
@@ -51,7 +67,6 @@ class UserModel extends CI_Model {
 			}	//foreach	
 			
 			return $parent;		
-		
 		} 	
 	} //get_user_sniplets
 

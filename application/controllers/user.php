@@ -79,7 +79,7 @@ class User extends Base {
 	} //member_since
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
-	public function display($array, $set = ''){	
+	public function display($array, $set = ''){	//TODO: Maybe move into base controller
 		$out = '';
 		if($set == 'tags'){
 			$out .= '<ul class="ul_user_list">';
@@ -146,14 +146,6 @@ class User extends Base {
 	} //build_gravatar
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
-	public function tags($user_id, $tag_id){
-		echo $user_id . '---';
-		echo $tag_id;
-
-		return $grav_url;
-	} //tags	
-
-	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function tag_update(){
 		$this->load->model( 'UserModel' );
 		$edit_tag_title = $this->input->post('edit_tag');
@@ -173,7 +165,7 @@ class User extends Base {
 	} //user_tag_update
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
-	public function user_tags_raw(){
+	public function user_tags_all(){
 		$user = base64_decode($this->input->get('u'));
 		$this->load->model( 'UserModel' );
 		$session_status = $this->session->userdata('login_state');
@@ -188,7 +180,7 @@ class User extends Base {
 	} //user_tags_raw
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
-	public function user_sniplet_raw(){
+	public function user_sniplet_all(){
 		$user = base64_decode($this->input->get('u'));
 		$this->load->model( 'UserModel' );
 		$session_status = $this->session->userdata('login_state');
@@ -201,7 +193,21 @@ class User extends Base {
 		//TODO: Add logic for failture ELSE clause
 	} //user_sniplet_raw
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function user_tags_id(){
+		$user = base64_decode($this->input->get('u'));
+		$tag_id = $this->input->get('tid');
 
+		$this->load->model( 'UserModel' );
+		$session_status = $this->session->userdata('login_state');
+		//Check if user has a session
+		if($session_status){
+			$sniplets = $this->UserModel->get_user_sniplets_by_tags($this->UserModel->get_user_id($user), $tag_id);			
+			$sniplets_html = $this->display($sniplets, 'sniplets');
+			echo $sniplets_html;
+		} 
+
+	} //user_tags_id	
 
 
 

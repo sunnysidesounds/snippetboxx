@@ -68,7 +68,7 @@
 		</div>
 		<div class="sniplet_profile_float">
 			<div class="sniplet_profile_title_sniplet">
-				<div class="sniplet_title_t" id="sniplet_your_sniplets"><a id="sniplet_secret_refresh" href="#">your sniplets</a></div>
+				<div class="sniplet_title_t" id="sniplet_your_sniplets"><a id="sniplet_secret_refresh" href="#">your sniplets</a><span id="your_loader_sniplet"><span></div>
 			</div>		
 			<div class="sniplet_profile_sniplets">	
 				<?php if(isset($user_snips)){echo $user_snips; }?>

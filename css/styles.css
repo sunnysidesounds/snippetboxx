@@ -1375,9 +1375,20 @@ div#fancybox-wrap div#fancybox-outer div#fancybox-content div div#bookmarklet_co
     margin-top: 40px;
 }
 
-#tags_secret_refresh:hover, #sniplet_secret_refresh:hover {
+#tags_secret_refresh:hover, #sniplet_secret_refresh:hover, a#sniplet_secret_refresh_2:hover {
     text-decoration: none;
     color: #445A7E;
+}
+
+span#your_loader_sniplet a#sniplet_secret_refresh_2 {
+    font-size:10px;
+    font-weight: normal;
+}
+
+
+
+#your_loader_sniplet {
+    margin-left: 10px;
 }
 
 

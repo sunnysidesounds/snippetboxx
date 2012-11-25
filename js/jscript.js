@@ -299,20 +299,18 @@ $(document).ready(function() {
 	/* -------------------------------------------------------------------------------------*/	
 	$.fn.displayUserSnipletRaw = function(username){
 		var displayString = 'u='+ username;
-		var displayUrl = CI_ROOT + 'user/user_sniplet_raw/';		
+		var displayUrl = CI_ROOT + 'user/user_sniplet_all/';		
 		$.ajax({
 			type: "GET",
 			url: displayUrl,
 			data: displayString,
 			beforeSend:  function() {					
-				//img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '
-				//$('#search_load').html(img).show();				
+				img = '<img src="' + CI_ROOT + 'img/loader2.gif" border="0" alt="loading..."/> '
+				$('span#your_loader_sniplet').html(img).show();			
 			},
 			success: function(server_response){
-				$('div.sniplet_profile_float div.sniplet_profile_sniplets').html(server_response);					
-				//$('#search_load').hide();
-				//$('#search_results').html(server_response).show();					
-				//	$.fn.scrollThatPage(displayUrl, '?get=all_limit');	
+				$('span#your_loader_sniplet').hide();
+				$('div.sniplet_profile_float div.sniplet_profile_sniplets').html(server_response);						
 			} //success		
 		}); //ajax
 
@@ -323,7 +321,7 @@ $(document).ready(function() {
 	/* -------------------------------------------------------------------------------------*/	
 	$.fn.displayUserTagsRaw = function(username){
 		var displayString = 'u='+ username;
-		var displayUrl = CI_ROOT + 'user/user_tags_raw/';		
+		var displayUrl = CI_ROOT + 'user/user_tags_all/';		
 		$.ajax({
 			type: "GET",
 			url: displayUrl,
@@ -345,25 +343,31 @@ $(document).ready(function() {
 
 	//Display User Profile Tags
 	/* -------------------------------------------------------------------------------------*/	
-	$.fn.displayUserTags = function(tid){
-		var displayString = 'tid='+ tid;
-		var displayUrl = CI_ROOT + 'user/tags/';		
+	$.fn.displayUserTagsById = function(username, tid){
+		var displayString = 'u='+username+'&tid='+ tid;
+		var displayUrl = CI_ROOT + 'user/user_tags_id/';		
+		//Display total results or when click results
+		var resultsCount = $(this).getJson('frontend/count_results/' + tid);
+		$('#sniplet_messager').html('<a href="#" id="total_top">sniplets (' + resultsCount + ')</a>');
+
 		$.ajax({
 			type: "GET",
 			url: displayUrl,
 			data: displayString,
 			beforeSend:  function() {					
-				//img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '
-				//$('#search_load').html(img).show();				
+				img = '<img src="' + CI_ROOT + 'img/loader2.gif" border="0" alt="loading..."/> '
+				$('span#your_loader_sniplet').html(img).show();				
 			},
 			success: function(server_response){					
-				//$('#search_load').hide();
-				//$('#search_results').html(server_response).show();					
-				//	$.fn.scrollThatPage(displayUrl, '?get=all_limit');									
-			} //success		
+				//$('span#your_loader_sniplet').hide();
+				$('span#your_loader_sniplet').html('<a id="sniplet_secret_refresh_2" href="#">(show all)</a>');
+				$('div.sniplet_profile_float div.sniplet_profile_sniplets').html(server_response);
+
+								
+			} //succest
 		}); //ajax
 
-	}; //displayUserTags
+	}; //displayUserTagsById
 
 	//Display User Profile Tags Edit Form
 	/* -------------------------------------------------------------------------------------*/	
@@ -543,6 +547,9 @@ $(document).ready(function() {
 
 				setTimeout(function() {
 					$.fancybox.close();
+
+					//TODO: if cookie is set we want to add this in --> $('body').addClass("active_menuclick"); to lock the screen.
+
 				}, 1000);
 			}, //success		
 			error: function(server_response){
@@ -773,9 +780,12 @@ $(document).ready(function() {
 	/* -------------------------------------------------------------------------------------*/	
 	$(".sniplet_tag_link").live('click', function(event) {
 		event.preventDefault();
+		var username = $.cookie('user_tracker_info');
+		username = username.split(',');
+		username = username[0];
+		username = $.base64.encode(username);
 		var tid = this.id;
-		alert('fuck yay! ' + tid);	
-		$(this).displayUserTags(tid);
+		$(this).displayUserTagsById(username, tid);
 	});
 
 	//Display User Profile Tags Edit (This is the rollover pop-up edit functionality)
@@ -845,6 +855,9 @@ $(document).ready(function() {
      	   		$(this).clog('profile header set to hide');
 	   		$('#sniplet_mini_profiler').show();
 	   		$('body').addClass("active_menuclick");
+
+			//TODO: Add this cookie to this event
+	   		//$.cookie('sniplet_just_logged_in', server_response, { expires: 30, path: '/', domain: '.snippetboxx.com' });
     		});
 
 
@@ -1041,6 +1054,18 @@ $(document).ready(function() {
 		username = $.base64.encode(username);
 		$(this).displayUserSnipletRaw(username);
 	});
+
+	//User profile show all sniplets link (show all) 
+	/* -------------------------------------------------------------------------------------*/
+	$("a#sniplet_secret_refresh_2").live('click', function(event) {
+		event.preventDefault();
+		var username = $.cookie('user_tracker_info');
+		username = username.split(',');
+		username = username[0];
+		username = $.base64.encode(username);
+		$(this).displayUserSnipletRaw(username);
+	});
+
 
 }); //end of jQuery
 
