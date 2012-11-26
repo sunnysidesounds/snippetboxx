@@ -392,8 +392,28 @@ $(document).ready(function() {
 
 	}; //displayUserTagsEdit
 
+	//Display User Profile Sniplet Display Link
+	/* -------------------------------------------------------------------------------------*/	
+	$.fn.displayUserSnipletLink = function(username, tid){
+
+		var page_url = $(this).getJson("user/user_sniplet_link?u= "+username+"&tid="  + tid);
+		$.fancybox({
+			'transitionIn': 'none',
+			'width' : 1024,
+			'height' : 768,
+			'autoDimensions': true,
+			'transitionOut': 'none',
+			'onComplete' : function(){
+				$('body').addClass("active_menuclick");
+				//Let's prepend a url in case user doesn't want the page in fancybox.
+				$('div#fancybox-content').prepend('<a id="sniplet_open_new_page" href="'+page_url+'" target="_blank">open this url new page</a>');
+			},
+			'type': 'iframe',
+			'href': page_url
+		}); //fancybox	
 
 
+	}; //displayUserSnipletLink
 
 	//Display User Profile Bookmmarklet
 	/* -------------------------------------------------------------------------------------*/	
@@ -815,6 +835,19 @@ $(document).ready(function() {
 		var tid = this.id;
 		$('.sniplet_link_edit_'+ tid).css({visibility: 'hidden'});
 	});
+
+	//Display User Profile Display Link
+	/* -------------------------------------------------------------------------------------*/	
+	$(".sniplet_link").live('click', function(event) {
+		event.preventDefault();
+		var username = $.cookie('user_tracker_info');
+		username = username.split(',');
+		username = username[0];
+		username = $.base64.encode(username);
+		var tid = this.id;
+		$(this).displayUserSnipletLink(username, tid);
+	});
+
 
 	//Display User Profile Tags Edit Form
 	/* -------------------------------------------------------------------------------------*/	

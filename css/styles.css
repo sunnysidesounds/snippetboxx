@@ -24,6 +24,7 @@ body {
 a {
     color: #445a7e;
     text-decoration: none;
+    outline: none;
 }
 
 a:hover {
@@ -1391,6 +1392,12 @@ span#your_loader_sniplet a#sniplet_secret_refresh_2 {
     margin-left: 10px;
 }
 
+#sniplet_open_new_page {
+    float: right;
+    margin-right: 26px;
+    padding-bottom: 5px;
+    outline: none;
+}
 
 
 

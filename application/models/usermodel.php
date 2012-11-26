@@ -79,11 +79,22 @@ class UserModel extends CI_Model {
 			foreach ($query->result() as $row){													
 				return $row->email;				
 			}	//foreach	
-					
-		
 		} 
 
 	} //get_user_email
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function get_user_link($username, $id){
+		$sql = 'SELECT sniplet_url FROM sniplets WHERE user_id ="'.$username.'" AND sniplet_id = "'.$id.'";';
+		$query = $this->db->query( $sql );			
+		if($query->num_rows()>0){	
+			
+			foreach ($query->result() as $row){													
+				return $row->sniplet_url;				
+			}	//foreach	
+		} 
+
+	} //get_user_link
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function get_user_year($username){

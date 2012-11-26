@@ -209,9 +209,24 @@ class User extends Base {
 
 	} //user_tags_id	
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function user_sniplet_link(){
+		$user = base64_decode($this->input->get('u'));
+		$sniplet_id = $this->input->get('tid');
+		$response_array = array();
 
+		$this->load->model( 'UserModel' );
+		$session_status = $this->session->userdata('login_state');
+		//Check if user has a session
+		if($session_status){
+			$sniplets_link = $this->UserModel->get_user_link($this->UserModel->get_user_id($user), $sniplet_id);			
+			//echo $sniplets_link;
+			//$response_array['link'] = $sniplets_link;
+			//echo $sniplets_link;
+			echo json_encode($sniplets_link);
+			//echo $this->file_get_contents_curl($sniplets_link);
+		} 
 
-
-
+	} //user_sniplet_link
 	
-} //Login
+} //User
