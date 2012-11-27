@@ -220,11 +220,13 @@ class User extends Base {
 		//Check if user has a session
 		if($session_status){
 			$sniplets_link = $this->UserModel->get_user_link($this->UserModel->get_user_id($user), $sniplet_id);			
-			//echo $sniplets_link;
-			//$response_array['link'] = $sniplets_link;
-			//echo $sniplets_link;
-			echo json_encode($sniplets_link);
-			//echo $this->file_get_contents_curl($sniplets_link);
+			//We need to check header reponse as some sites like Google have a DENY X-Frame-Options
+			$check_header_reponse = $this->check_x_frame($sniplets_link);
+			if(!$check_header_reponse){
+				echo json_encode($sniplets_link);
+			} else {
+				echo json_encode(base_url(). 'user/no_iframe_load/');
+			}
 		} 
 
 	} //user_sniplet_link

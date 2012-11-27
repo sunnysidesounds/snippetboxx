@@ -39,6 +39,7 @@ $(document).ready(function() {
 		}); //fancybox	
 	} //displaySnipletHover
 
+
 	//Display Sniplet List On Click 
 	/* -------------------------------------------------------------------------------------*/	
 	$.fn.displaySnipletClicked = function(id) {
@@ -397,21 +398,32 @@ $(document).ready(function() {
 	$.fn.displayUserSnipletLink = function(username, tid){
 
 		var page_url = $(this).getJson("user/user_sniplet_link?u= "+username+"&tid="  + tid);
+		page_url = decodeURI(page_url);
+		console.log(page_url);
+
 		$.fancybox({
 			'transitionIn': 'none',
 			'width' : 1024,
 			'height' : 768,
 			'autoDimensions': true,
 			'transitionOut': 'none',
+			'onStart' : function(){
+ 				
+        			},
 			'onComplete' : function(){
 				$('body').addClass("active_menuclick");
 				//Let's prepend a url in case user doesn't want the page in fancybox.
 				$('div#fancybox-content').prepend('<a id="sniplet_open_new_page" href="'+page_url+'" target="_blank">open this url new page</a>');
+
+				//This displays pre-loader until iframe has loaded. 
+			            $.fancybox.showActivity();
+			            $('#fancybox-frame').load(function(){
+			                $.fancybox.hideActivity();
+			            });
 			},
 			'type': 'iframe',
 			'href': page_url
 		}); //fancybox	
-
 
 	}; //displayUserSnipletLink
 
@@ -845,7 +857,14 @@ $(document).ready(function() {
 		username = username[0];
 		username = $.base64.encode(username);
 		var tid = this.id;
-		$(this).displayUserSnipletLink(username, tid);
+		//$('div#fancybox-loading').show();
+		//img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '
+		//$('div#fancybox-loading').html(img).show();
+		 //	setTimeout(function() {		
+				$(this).displayUserSnipletLink(username, tid);								
+		//	}, 1500); 
+
+		
 	});
 
 

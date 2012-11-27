@@ -9,6 +9,8 @@
 	<link rel='stylesheet' type='text/css' href='<?= base_url() ?>css/styles.css' />
 	<link rel='stylesheet' type='text/css' href='<?= base_url() ?>js/autosuggest/autoSuggest.css' />
 	<link rel="stylesheet" href="<?= base_url() ?>js/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
+	<!--<link rel="stylesheet" href="<?= base_url() ?>js/fancybox_2/jquery.fancybox.css?v=2.1.3" type="text/css" media="screen" />-->
+
 	<link rel="stylesheet" href="<?= base_url() ?>css/smoothness/jquery-ui.css" type="text/css" media="screen" />
 
 	<!--Frontend JS -->
@@ -18,6 +20,8 @@
 	<script type="text/javascript" src="<?= base_url() ?>js/jquery.base64.min.js"></script>
 	<script type="text/javascript" src="<?= base_url() ?>js/validation.js"></script>
 	<script type="text/javascript" src="<?= base_url() ?>js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	<!--<script type="text/javascript" src="<?= base_url() ?>js/fancybox_2/jquery.fancybox.pack.js?v=2.1.3"></script>-->
+
 	<script type="text/javascript" src="<?= base_url() ?>js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="<?= base_url() ?>js/scrollpagination.js"></script>
 	<script type="text/javascript" src="<?= base_url()?>js/autosuggest/jquery.autoSuggest.js"></script>

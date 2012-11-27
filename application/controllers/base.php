@@ -185,7 +185,52 @@ class Base extends CI_Controller {
 	
 	} //top_ten_tags	
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function check_x_frame($url){
+		//$url = $this->input->get('url');
+		$xframe = 'X-Frame-Options';
+		$xframeOptions = array('DENY', 'SAMEORIGIN');
 
+		$header = get_headers($url, 1);
+
+		if (array_key_exists($xframe, $header)) {
+    			$reponse = $header[$xframe];
+    			if(in_array($reponse, $xframeOptions)){
+    				return 1;
+    				//TODO: Add logging here. 
+    			}
+		}else {
+			return 0;
+		}
+
+	} //check_x_frame
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function check_x_frame_get(){ //Get request version
+		$url = $this->input->get('url');
+		$xframe = 'X-Frame-Options';
+		$xframeOptions = array('DENY', 'SAMEORIGIN');
+
+		$header = get_headers($url, 1);
+
+		if (array_key_exists($xframe, $header)) {
+    			$reponse = $header[$xframe];
+    			if(in_array($reponse, $xframeOptions)){
+    				return 1;
+    				//TODO: Add logging here. 
+    			}
+		}else {
+			return 0;
+		}
+
+	} //check_x_frame
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function no_iframe_load(){
+		$this->load->model( 'ConfigModel' );
+		$data['x_iframe_reponse'] = $this->ConfigModel->get_config('x_iframe_reponse');
+		$this->load->view('user/editor_noload', $data);
+	} //no_iframe_load
 
 
 
