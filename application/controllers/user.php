@@ -223,12 +223,14 @@ class User extends Base {
 			//We need to check header reponse as some sites like Google have a DENY X-Frame-Options
 			$check_header_reponse = $this->check_x_frame($sniplets_link);
 			if(!$check_header_reponse){
-				echo json_encode($sniplets_link);
+				echo json_encode(array('link' => $sniplets_link));
 			} else {
-				echo json_encode(base_url(). 'user/no_iframe_load/');
+				echo json_encode(array('no-link' => $sniplets_link));
 			}
 		} 
 
 	} //user_sniplet_link
+
+
 	
 } //User

@@ -1302,16 +1302,6 @@ input.tag_edit_input {
     margin-top: 6px;
 }
 
-/*
-.sniplet_profile_year_mini {
-    font-size: 9px;
-    font-weight: normal;
-    font-style: italic;
-    margin-left: 4px;
-    margin-top: 10px;
-}
-*/
-
 .sniplet_profile_data_mini {
     margin-left: 35px;
     margin-top: 8px;
@@ -1386,8 +1376,6 @@ span#your_loader_sniplet a#sniplet_secret_refresh_2 {
     font-weight: normal;
 }
 
-
-
 #your_loader_sniplet {
     margin-left: 10px;
 }
@@ -1397,5 +1385,18 @@ span#your_loader_sniplet a#sniplet_secret_refresh_2 {
     margin-right: 26px;
     padding-bottom: 5px;
     outline: none;
+}
+
+#sniplet_open_new_page_noload {
+    font-size: 15px;
+    outline: medium none;
+}
+
+div#fancybox-content div div#no_iframe_container {
+    background-color: #F9F9F9;
+    border: 1px solid #CCCCCC;
+    color: #445A7E;
+    height: 120px;
+    padding: 10px;
 }
 

@@ -397,33 +397,50 @@ $(document).ready(function() {
 	/* -------------------------------------------------------------------------------------*/	
 	$.fn.displayUserSnipletLink = function(username, tid){
 
-		var page_url = $(this).getJson("user/user_sniplet_link?u= "+username+"&tid="  + tid);
-		page_url = decodeURI(page_url);
-		console.log(page_url);
+		var page_json = $(this).getJson("user/user_sniplet_link?u= "+username+"&tid="  + tid);
 
-		$.fancybox({
-			'transitionIn': 'none',
-			'width' : 1024,
-			'height' : 768,
-			'autoDimensions': true,
-			'transitionOut': 'none',
-			'onStart' : function(){
- 				
-        			},
-			'onComplete' : function(){
-				$('body').addClass("active_menuclick");
-				//Let's prepend a url in case user doesn't want the page in fancybox.
-				$('div#fancybox-content').prepend('<a id="sniplet_open_new_page" href="'+page_url+'" target="_blank">open this url new page</a>');
+		$.each(page_json, function(key, value) {
+			var page_key = key;
+			var page_url = decodeURI(value);
 
-				//This displays pre-loader until iframe has loaded. 
-			            $.fancybox.showActivity();
-			            $('#fancybox-frame').load(function(){
-			                $.fancybox.hideActivity();
-			            });
-			},
-			'type': 'iframe',
-			'href': page_url
-		}); //fancybox	
+			if(page_key == 'no-link'){
+				//TODO: Use the jquery cross-domain plugin here
+				$.fancybox({
+					'transitionIn': 'none',
+					'width' : 500,
+					'height' : 150,
+					'autoDimensions': false,
+					'transitionOut': 'none',
+					'onComplete' : function(){
+						$('body').addClass("active_menuclick");
+						$('div#fancybox-content div#no_iframe_container').append('<br /><br /><a id="sniplet_open_new_page_noload" href="'+page_url+'" target="_blank">open in new page</a>');
+					},
+					'type': 'ajax',
+					'href': CI_SITE + "user/no_iframe_load/"
+				}); //fancybox
+			} else {
+				$.fancybox({
+					'transitionIn': 'none',
+					'width' : 1024,
+					'height' : 768,
+					'autoDimensions': true,
+					'transitionOut': 'none',
+					'onComplete' : function(){
+						$('body').addClass("active_menuclick");
+						//Let's prepend a url in case user doesn't want the page in fancybox.
+						$('div#fancybox-content').prepend('<a id="sniplet_open_new_page" href="'+page_url+'" target="_blank">open in new page</a>');
+						//This displays pre-loader until iframe has loaded. 
+					            $.fancybox.showActivity();
+					            $('#fancybox-frame').load(function(){
+					                $.fancybox.hideActivity();
+					            });
+					},
+					'type': 'iframe',
+					'href': page_url
+				}); //fancybox	
+			}
+
+		});
 
 	}; //displayUserSnipletLink
 
@@ -861,7 +878,7 @@ $(document).ready(function() {
 		//img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '
 		//$('div#fancybox-loading').html(img).show();
 		 //	setTimeout(function() {		
-				$(this).displayUserSnipletLink(username, tid);								
+		$(this).displayUserSnipletLink(username, tid);								
 		//	}, 1500); 
 
 		
@@ -1003,7 +1020,7 @@ $(document).ready(function() {
 		$(this).displayAllTags();					
 	});
 
-	//Hightlight / Copy Bookmarlet Button
+	//Hightlight / Copy Bookmarklet Button
 	/* -------------------------------------------------------------------------------------*/
 	$("div#sniplet_copy_container input.copy_sniplet_fancy").live('click', function() {
 		$('div#fancybox-wrap div#fancybox-outer div#fancybox-content div div#bookmarklet_container div#bookmarklet_me').html();
@@ -1118,6 +1135,19 @@ $(document).ready(function() {
 		$(this).displayUserSnipletRaw(username);
 	});
 
+	//User profile open in new page, close fancy box, open new tab
+	/* -------------------------------------------------------------------------------------*/
+	$("a#sniplet_open_new_page").live('click', function(event) {
+		$.fancybox.close();
+		$('body').removeClass("active_menuclick");
+	});
+
+	//User profile open in new page no load, close fancy box, open new tab
+	/* -------------------------------------------------------------------------------------*/
+	$("a#sniplet_open_new_page_noload").live('click', function(event) {
+		$.fancybox.close();
+		$('body').removeClass("active_menuclick");
+	});
 
 }); //end of jQuery
 
