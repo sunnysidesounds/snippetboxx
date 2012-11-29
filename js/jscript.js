@@ -775,6 +775,18 @@ $(document).ready(function() {
 		}
 	}
 
+	//Login Page
+	if('/login/' == window.location.pathname){
+		//When user click on header login this locks the scroller
+		$('body').addClass("active_menuclick");
+	//Signup Page
+	} else if ('/signup/' == window.location.pathname) {
+		//When user click on header login this locks the scroller
+		$('body').addClass("active_menuclick");
+	}
+
+
+
 	//Delete any old cookies on page load
 	/* -------------------------------------------------------------------------------------*/		
 	$.cookie('sniplet_tracker', null, { expires: 30, path: '/', domain: '.snippetboxx.com' });
@@ -1148,6 +1160,8 @@ $(document).ready(function() {
 		$.fancybox.close();
 		$('body').removeClass("active_menuclick");
 	});
+	
+
 
 }); //end of jQuery
 
