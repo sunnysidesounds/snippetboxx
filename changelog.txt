@@ -1,5 +1,13 @@
 Change Log for Sniplet Application :
 ----------------------------------------------------------------------------------------------------------------------------
+11/29/12 Jason R Alexander "sunnysidesounds[at]gmail[dot]com"
+	-Version alpha 0.1.3
+	-Finished edit tags functionality
+	-Finished tag sort sniplets on user profile
+	-Finished sniplet go to link and open link functionality. 
+	-Finished user profile header toggle.
+	-Clean-up on jscript.js
+
 11/7/12 Jason R Alexander "sunnysidesounds[at]gmail[dot]com"
 	-Version alpha 0.1.2
 	-Upgraded CI core from 2.1.0 to 2.1.3

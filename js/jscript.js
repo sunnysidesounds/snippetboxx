@@ -298,9 +298,7 @@ $(document).ready(function() {
 							$('#sniplet_mini_profiler').show();
 							$('body').addClass("active_menuclick");
 
-						}
-
-						
+						} //show_header
 					} //success		
 			}); //ajax
 	}; //displayUser
