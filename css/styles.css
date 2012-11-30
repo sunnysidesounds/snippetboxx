@@ -1302,6 +1302,20 @@ input.tag_edit_input {
     margin-top: 6px;
 }
 
+.sniplet_profile_showheader {
+    margin-left: 6px;
+    margin-top: 8px;
+    float:left;
+}
+
+#sniplet_profile_header {
+    font-size: 9px;
+}
+
+#sniplet_profile_header:hover {
+    text-decoration: none;
+}
+
 .sniplet_profile_data_mini {
     margin-left: 35px;
     margin-top: 8px;

@@ -284,12 +284,21 @@ $(document).ready(function() {
 							if(visable == false){
 								$('#sniplet_messager').show();
 							}			
-					},
+										},
 					success: function(server_response){
 						$('#search_load').hide();							
 						//Let's disable scroll pagination on this page.				
 						$('#search_results').attr('scrollpagination', 'disabled');
 						$('#search_results').html(server_response).show();
+
+						//Hide header if hide click cookie is zero.
+						var show_header = $.cookie('sniplet_show_header');
+						if(show_header == '0'){
+							$('#sniplet_profile_vcard').hide();
+							$('#sniplet_mini_profiler').show();
+							$('body').addClass("active_menuclick");
+
+						}
 
 						
 					} //success		
@@ -428,7 +437,8 @@ $(document).ready(function() {
 					'onComplete' : function(){
 						$('body').addClass("active_menuclick");
 						//Let's prepend a url in case user doesn't want the page in fancybox.
-						$('div#fancybox-content').prepend('<a id="sniplet_open_new_page" href="'+page_url+'" target="_blank">open in new page</a>');
+						var prependContent = '<a id="sniplet_open_new_page" href="'+page_url+'" target="_blank">open in new page</a>';
+						$('div#fancybox-content').prepend(prependContent);
 						//This displays pre-loader until iframe has loaded. 
 					            $.fancybox.showActivity();
 					            $('#fancybox-frame').load(function(){
@@ -792,6 +802,19 @@ $(document).ready(function() {
 	$.cookie('sniplet_tracker', null, { expires: 30, path: '/', domain: '.snippetboxx.com' });
 	$.cookie('ajax_stopper', null, { expires: 30, path: '/', domain: '.snippetboxx.com' });
 
+
+
+/*
+	$('#sniplet_mini_profiler').show();
+	var header_hideshow = $.cookie('user_tracker_info');
+	header_hideshow = header_hideshow.split(',');
+
+	header_hideshow = header_hideshow[5];
+
+	console.log(header_hideshow);
+	//#sniplet_profile_vcard
+*/
+
 	//Display Sniplet Counts in Header	
 	/* -------------------------------------------------------------------------------------*/		
 	var snipletCount = $(this).getJson('frontend/count_sniplets');
@@ -936,9 +959,7 @@ $(document).ready(function() {
      	   		$(this).clog('profile header set to hide');
 	   		$('#sniplet_mini_profiler').show();
 	   		$('body').addClass("active_menuclick");
-
-			//TODO: Add this cookie to this event
-	   		//$.cookie('sniplet_just_logged_in', server_response, { expires: 30, path: '/', domain: '.snippetboxx.com' });
+	   		$.cookie('sniplet_show_header', '0', { expires: 30, path: '/', domain: '.snippetboxx.com' });
     		});
 
 
@@ -952,7 +973,9 @@ $(document).ready(function() {
 		event.preventDefault();
 		$('body').removeClass("active_menuclick");	
 		var username = this.id
-		$(this).displayUser(username);					
+		$(this).displayUser(username);
+
+
 	});
 
 	//Display About Page on click
@@ -1161,6 +1184,16 @@ $(document).ready(function() {
 		$('body').removeClass("active_menuclick");
 	});
 	
+
+	/* -------------------------------------------------------------------------------------*/
+	$("a#sniplet_profile_header").live('click', function(event) {
+		event.preventDefault();
+		$('#sniplet_mini_profiler').hide();
+		 $('#sniplet_profile_vcard').animate({ height: 'toggle', opacity: 'toggle' }, 'fast', function() {
+	   		$('body').removeClass("active_menuclick");
+			$.cookie('sniplet_show_header', '1', { expires: 30, path: '/', domain: '.snippetboxx.com' });
+		});
+	});
 
 
 }); //end of jQuery

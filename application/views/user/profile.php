@@ -39,7 +39,7 @@
 					}
 				?>
 				<div class="sniplet_profile_name_mini"><?php echo trim($user); ?>'s profile</div>
-				<!--<div class="sniplet_profile_year_mini">member since <?php echo $user_year; ?></div>-->
+				<div class="sniplet_profile_showheader"><a id="sniplet_profile_header" href="#">(show)</a></div>
 				<div class="sniplet_profile_data_mini">
 					<div class="sniplet_profile_totalsniplet_mini">
 						total sniplets <b><?php echo $sniplets_count;?></b>
