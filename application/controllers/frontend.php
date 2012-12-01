@@ -151,50 +151,25 @@ class Frontend extends Base {
 			$recordCount = 0;
 			$totalCount = count($array);
 			
-			$view = 0;	
+			//$view = 0;	
 						
-			if($view == 0){
-				echo '<ul class="search_results_ul">';
-					foreach($array as $searchArr){				
-						if ($recordCount % $displayPerRow == 0 && $recordCount != 0){
-								echo '</ul><ul class="search_results_ul">';
-						} 										
-						echo '<li class="search_results_li" id="'.$searchArr['sniplet_id'].'">';
-							$this->search_items($searchArr);
-						echo '</li>';
-						$recordCount++;
-					} //foreach
-				
-				echo '</ul>';
-				echo '<br />';
+			//if($view == 0){
+			echo '<ul class="search_results_ul">';
+				foreach($array as $searchArr){				
+					if ($recordCount % $displayPerRow == 0 && $recordCount != 0){
+							echo '</ul><ul class="search_results_ul">';
+					} 										
+					echo '<li class="search_results_li" id="'.$searchArr['sniplet_id'].'">';
+						$this->search_items($searchArr);
+					echo '</li>';
+					$recordCount++;
+				} //foreach
+			
+			echo '</ul>';
+			echo '<br />';
 			
 						
-			} elseif($view == 1){
-						
-				echo '<table border="0" cellspacing="10">';
-				echo '<tr>';
-					foreach($array as $searchArr){				
-						if ($recordCount % $displayPerRow == 0 && $recordCount != 0){
-								echo '</tr><tr>';
-						} 				
-						echo '<td class="search_results_cube" width="300px">';
-							$this->search_items($searchArr);
-						echo '</td>';
-						
-						$recordCount++;
-					} //foreach
-				
-				if($totalCount == 2){
-					echo '<td>&nbsp;</td>';
-				}
-				elseif($totalCount == 1) {
-					echo '<td>&nbsp;</td>';
-					echo '<td>&nbsp;</td>';
-				}			
-				echo '</tr>';
-				echo '</table>';	
-				echo '<br />';
-			}
+			//} 
 		} //if empty	
 	}
 
@@ -324,7 +299,15 @@ class Frontend extends Base {
 				echo "Error: " . $display_mode;
 			}
 
+
+
+			//	print_r($value_set);
+
 				echo $this->search_list($value_set);	
+
+
+			//	$test =  json_encode($this->search_list($value_set));
+			//	echo $test;
 		
 		} else {
 			echo "Error: mode not set";

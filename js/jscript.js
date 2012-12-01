@@ -254,9 +254,12 @@ $(document).ready(function() {
 					$('#search_load').html(img).show();				
 				},
 				success: function(server_response){					
+				
 					$('#search_load').hide();
 					$('#search_results').html(server_response).show();					
 						$.fn.scrollThatPage(displayUrl, '?get=all_limit');									
+				
+
 				} //success		
 			}); //ajax
 		}else {
@@ -1182,7 +1185,7 @@ $(document).ready(function() {
 		$('body').removeClass("active_menuclick");
 	});
 	
-
+	//User profile header - This is the "(show)" link in the mini user profile.
 	/* -------------------------------------------------------------------------------------*/
 	$("a#sniplet_profile_header").live('click', function(event) {
 		event.preventDefault();
