@@ -232,6 +232,12 @@ class Base extends CI_Controller {
 		$this->load->view('user/editor_noload', $data);
 	} //no_iframe_load
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function dbug($value){
+		$this->load->library('firephp');
+		$this->firephp->log($value);
+	} //dbug
+
 
 
 } //BaseController

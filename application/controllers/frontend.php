@@ -13,6 +13,7 @@ class Frontend extends Base {
 		$this->load->model( 'ConfigModel' );
 		$data = $this->set_site_assets();
 		$this->dynView( 'frontend/main', 'Sniplets', $data);
+
 	} //index
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
@@ -238,7 +239,7 @@ class Frontend extends Base {
 	} //search_items
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
-	public function random(){
+/*	public function random(){
 		$out = '';
 		$this->load->model( 'SearchModel' );
 		$how_many = $this->input->get('rand');
@@ -261,7 +262,7 @@ class Frontend extends Base {
 		}
 		echo $this->search_list($new1);
 
-	}
+	} */
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function display(){
@@ -275,42 +276,20 @@ class Frontend extends Base {
 		$array = array();
 		
 		if(isset($mode)){
-			if($display_mode == 'random'){
-				for($i = 1; $i <= $how_many; $i++){
-					$value_set = $this->SearchModel->random_sniplet();
-					$array[] = $value_set[0];
-								
-				} //foreach	
-				//use only unigue values when doing random shit
-				foreach ($array as $k=>$na){
-		            $new[$k] = serialize($na);
-		        	$uniq = array_unique($new);
-		        }
-		        foreach($uniq as $k=>$ser){
-		            $new1[$k] = unserialize($ser);
-				}
-			}else if ($display_mode == 'all'){
 
-					$value_set = $this->display_all($records, $how_many);
-			
-			
+			if($display_mode == 'all'){
+				$value_set = $this->display_all($records, $how_many);
 			} else {
 				$display_mode = 'none';
-				echo "Error: " . $display_mode;
+				//echo "Error: " . $display_mode;
+				log_message('error', '$display_mode is not set! [frontend/display]');
 			}
-
-
-
-			//	print_r($value_set);
-
+				//Ouput results
 				echo $this->search_list($value_set);	
-
-
-			//	$test =  json_encode($this->search_list($value_set));
-			//	echo $test;
 		
 		} else {
-			echo "Error: mode not set";
+			///echo "Error: mode not set";
+			log_message('error', '$mode is not set! [frontend/display]');
 		}
 	
 	} //display
