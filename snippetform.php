@@ -177,7 +177,7 @@
 							} //error			
 						}); //ajax	
 					return submit;	 
-				  } //$.fn.submitCategory	
+				  } //$.fn.submitSniplet	
 		
 		
 

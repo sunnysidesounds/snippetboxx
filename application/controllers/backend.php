@@ -6,28 +6,7 @@ ini_set('display_errors', 1);
 class Backend extends Base {
 
 	private $errorPleaseLogin = 'You must log in to see this page.';
-	
-	/* --------------------------------------------------------------------------------------------------------------------------*/	
-	public function index(){
-		$this->load->model( 'ConfigModel' );	
-
-		//Set logo, top menu, version, copyright	
-		$data = $this->set_site_assets();
-			
-	
-		//TODO: Implement Login shit
-		$loggedIn = true; //Dev Variable
-				
-		if(!$loggedIn){			
-			$data['login_error'] = $this->errorPleaseLogin;			
-			
-			$this->dynView( 'globals/login', 'Sniplets', $data);
-		} else {					
-			$this->dynView( 'backend/main', 'Sniplets', $data); 
-		} //else
-			
-	} //index
-	
+		
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function sniplet(){
 		$snipTagArray = array();
@@ -39,20 +18,15 @@ class Backend extends Base {
 		$this->load->model( 'ConfigModel' );
 		$this->load->model('UserModel');
 
-
 		//Setup form values
 		$snippet = $this->input->post('snippetText');			
 		$tags = $this->input->post('as_values_snippetTaglet');
-
 		$username_id = $this->UserModel->get_user_id($this->input->post('snippetUser'));
-
-		//$username = $this->input->post('snippetUser');
 		$sendTo = $this->input->post('snippetSendTo');
 		$pageTitle = $this->input->post('snippetPageTitle');
 		$pageUrl = $this->input->post('snippetPageUrl');
 		$currentTime = $this->input->post('snippetCurrentTime');
 				
-		//$tagsArray = explode(",", $tags); //Keep original way to do it.
 		$tagsArray = array_map('trim',explode(",",$tags)); //This trims white space from the values as the ajax send us a funky string
 		$tagsArray = array_filter($tagsArray); //Filtering out all empty values due to the ending , coma in what ajax sends us.
 								
@@ -97,13 +71,14 @@ class Backend extends Base {
 							echo $return;
 						} else {
 							echo 'error';
+							 log_message('error', '$return is not 1 [backend/sniplet]');
 						}								
 					} //lastinsert								
-			
-			
+					
 				} else {
 					//insert failed
 					echo 'insert failed somehow';
+					log_message('error', 'insert failed somehow [backend/sniplet]');
 				}
 			
 			} else{
@@ -119,12 +94,12 @@ class Backend extends Base {
 			} //tags empty
 		}elseif($sendTo == 'email'){
 			if(!empty($tags)){
-						$subject = $this->ConfigModel->get_config('subject_email');						
-						$buildMessage = "TITLE: \n" . $pageTitle . "\n\n";
-						$buildMessage .= "URL: \n" . $pageUrl . "\n\n";
-						$buildMessage .= "SNIPLET: \n " . $snippet . "\n\n";		
-						$buildMessage .= "TAGS: \n" . $tags . "\n\n";						
-						$this->mailSniplet($subject, $buildMessage);
+				$subject = $this->ConfigModel->get_config('subject_email');						
+				$buildMessage = "TITLE: \n" . $pageTitle . "\n\n";
+				$buildMessage .= "URL: \n" . $pageUrl . "\n\n";
+				$buildMessage .= "SNIPLET: \n " . $snippet . "\n\n";		
+				$buildMessage .= "TAGS: \n" . $tags . "\n\n";						
+				$this->mailSniplet($subject, $buildMessage);
 			} //empty tags
 		} //send email	
 	} //sniplet
@@ -162,7 +137,6 @@ class Backend extends Base {
 	public function mailSniplet($subject, $message){
 		//Load model
 		$this->load->model( 'ConfigModel' );
-		//$this->email->initialize(array('mailtype' => TRUE));  
 		
 		$toEmail = $this->ConfigModel->get_config('to_email');
 		$fromEmail = $this->ConfigModel->get_config('from_email');
@@ -265,29 +239,18 @@ class Backend extends Base {
 						$data = array_merge($data, $this->set_signup_errors($this->ConfigModel->get_config('error_user_default_group')));
 						$this->dynView( 'globals/signup', 'Sniplets - Sign-up', $data);	
 					}//default_group
-				
-				
 				} else {
-				
 					//Merge errors data into data array for view
 					$data = array_merge($data, $this->set_signup_errors($this->ConfigModel->get_config('error_user_password_match')));
-					
 					$this->dynView( 'globals/signup', 'Sniplets', $data);			
 				}
 				// password match
 			//If bad character in username
 			} else {
-					//Merge errors data into data array for view
-					$data = array_merge($data, $this->set_signup_errors($this->ConfigModel->get_config('error_user_username_error')));
-					
-					$this->dynView( 'globals/signup', 'Sniplets', $data);	
-
-			}
-		
-
-
-						//Verify that default group is zero
-				
+				//Merge errors data into data array for view
+				$data = array_merge($data, $this->set_signup_errors($this->ConfigModel->get_config('error_user_username_error')));
+				$this->dynView( 'globals/signup', 'Sniplets', $data);	
+			}				
 		} else {
 			//Already an account (email/username match) direct to login page
 			$data['login_error'] = $this->ConfigModel->get_config('error_user_exists_message');			
@@ -378,6 +341,7 @@ class Backend extends Base {
 		
 	} //verify
 
+	
 	//Remove are move to a debugger controller
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function mysession(){

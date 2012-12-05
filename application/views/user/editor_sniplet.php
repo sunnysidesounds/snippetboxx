@@ -5,7 +5,7 @@
 		<div id="edit_sniplet_container">
 			<label for="edit_sniplet">title:</label><br />
 			<?php 
-				echo form_input('edit_sniplet', $sniplet_title, 'id="edit_sniplet" class="edit_sniplet_input" size="75"'); 
+				echo form_input('edit_sniplet_title', $sniplet_title, 'id="edit_sniplet" class="edit_sniplet_input" size="75"'); 
 			?>
 			<br />
 			<label for="edit_sniplet">your sniplet's url:</label><br />
@@ -17,7 +17,7 @@
 		</div>
 		<div id="edit_sniplet_container_spot">
 			<label for="edit_sniplet_tags">your sniplet's tags:</label><br/>
-			<?php echo form_input('edit_tags_sniplet', 'Loading...', 'id="edit_tags_sniplet" class="edit_tags_sniplet_input"'); ?>
+			<?php echo form_input('edit_sniplet_tags', 'Loading...', 'id="edit_tags_sniplet" class="edit_tags_sniplet_input"'); ?>
 			
 			<!--<select id="sniplet_multi_tag" name="sniplet_multi_tags"multiple="multiple">
 			<?php
@@ -36,7 +36,8 @@
 			</select> -->
 		</div>
 		<div id="edit_sniplet_container_submit">
-			<input type="hidden" name="edit_update_time" value="<?php echo date('m-d-Y-g:ia'); ?>">
+			<input id="sniplet_username_id" type="hidden" name="edit_sniplet_username" value="<?php echo $sniplet_username_id; ?>">
+			<input id="sniplet_update_time" type="hidden" name="edit_sniplet_update_time" value="<?php echo date('m-d-Y-g:ia'); ?>">
 			<input id="edit_submit" type="submit" value="Update" />
 		</div>
 
