@@ -36,7 +36,8 @@
 			</select> -->
 		</div>
 		<div id="edit_sniplet_container_submit">
-			<input id="sniplet_username_id" type="hidden" name="edit_sniplet_username" value="<?php echo $sniplet_username_id; ?>">
+			<input id="sniplet_id" type="hidden" name="edit_sniplet_id" value="<?php echo $id; ?>">
+			<input id="sniplet_username_id" type="hidden" name="edit_sniplet_username" value="<?php echo $sniplet_username; ?>">
 			<input id="sniplet_update_time" type="hidden" name="edit_sniplet_update_time" value="<?php echo date('m-d-Y-g:ia'); ?>">
 			<input id="edit_submit" type="submit" value="Update" />
 		</div>

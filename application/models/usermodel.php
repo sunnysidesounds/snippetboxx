@@ -198,6 +198,23 @@ class UserModel extends CI_Model {
 	} //update_user_tag
 
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function update_user_sniplet($title, $text, $user_id, $sniplet_id){
+		$text = mysql_real_escape_string($text);
+		$sql   = "UPDATE sniplets SET sniplet_title='".$title."', sniplet_content='".$text."' WHERE user_id = '".$user_id."' AND sniplet_id = '".$sniplet_id."' ;";
+		$sql   = "UPDATE sniplets SET sniplet_title='".$title."' WHERE user_id = '".$user_id."' AND sniplet_id = '".$sniplet_id."' ;";
+		echo $sql;
+		$query = $this->db->query( $sql);	
+		
+		if($query){
+			//TODO: Add logging
+			return true;
+		} else {
+			return false;
+		}
+	} //update_user_sniplet
+
+
 
 
 

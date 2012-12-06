@@ -65,12 +65,12 @@ class Editor extends Base {
 
 		$user_cookie_array = explode(", ", $this->input->cookie('user_tracker_info', TRUE));
 		$username = $user_cookie_array[0];
-		$username_id = $this->UserModel->get_user_id($username);
+		//$username_id = $this->UserModel->get_user_id($username);
 
 		$data['sniplet_multiple_tags'] = $new_tags_array;
 		$data['sniplet_multiple_all_tags'] = $all_tags_array;
-		$data['sniplet_multiple_all_tags'] = $all_tags_array;
-		$data['sniplet_username_id'] = $username_id;
+		//$data['sniplet_multiple_all_tags'] = $all_tags_array;
+		$data['sniplet_username'] = $username;
 
 		$this->load->view('user/editor_sniplet', $data);
 	}

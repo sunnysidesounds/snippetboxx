@@ -165,6 +165,53 @@ class User extends Base {
 	} //user_tag_update
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function sniplet_update(){
+		$this->load->model( 'UserModel' );
+		$title = base64_decode($this->input->post('title'));
+		$text = base64_decode($this->input->post('text'));
+
+		$tags = $this->input->post('tags');	
+		$sniplet_id = $this->input->post('sniplet_id');
+		
+		$username = $this->input->post('username');
+		$user_id = $this->UserModel->get_user_id($username);	
+		$update_time = $this->input->post('update_time');	
+
+		$tagsArray = array_map('trim',explode(",",$tags)); //This trims white space from the values as the ajax send us a funky string
+		$tagsArray = array_filter($tagsArray); //Filtering out all empty values due to the ending , coma in what ajax sends us.
+
+		if(!empty($tags) && !empty($title) && !empty($user_id) && !empty($text)){
+				//$update   = "UPDATE sniplets SET sniplet_title='".$title."', sniplet_content='".$text."' WHERE user_id = '".$user_id."' AND sniplet_id = '".$sniplet_id."' ;";
+				$update = $this->UserModel->update_user_sniplet($title, $text, $user_id, $sniplet_id);
+/*
+						//Insert tags
+						foreach($tagsArray as $tag){
+							//insert and return tag ip
+							$addTags = $this->SnipletModel->insert_tag($tag, $username_id);
+							//Build sniplet tag pairs to insert
+							if(!empty($addTags)){
+								//sniplet id, tag id
+								$snipTagPairs = $lastInsert . ', ' . $addTags;												
+								$snipTagArray[] = $snipTagPairs;
+							}
+						}
+					
+						//Insert sniplet to tags
+						foreach($snipTagArray as $pairs){
+							$pairsArray = explode(", ", $pairs);
+							$sniplet_id = $pairsArray[0];
+							$tag_id = $pairsArray[1];						
+							$addSnipletToTag = $this->SnipletModel->insert_sniplet_to_tag($sniplet_id, $tag_id, $username_id);
+							$snipletCompleteArray[] = $addSnipletToTag;
+						}
+*/
+
+		}
+
+		echo $update;
+	} //sniplet_update
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function user_tags_all(){
 		$user = base64_decode($this->input->get('u'));
 		$this->load->model( 'UserModel' );
@@ -230,7 +277,5 @@ class User extends Base {
 		} 
 
 	} //user_sniplet_link
-
-
 	
 } //User

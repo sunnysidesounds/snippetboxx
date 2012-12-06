@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 class Backend extends Base {
 
 	private $errorPleaseLogin = 'You must log in to see this page.';
-		
+	
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function sniplet(){
 		$snipTagArray = array();

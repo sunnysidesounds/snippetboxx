@@ -584,20 +584,36 @@ $(document).ready(function() {
 
 	//User Profile - Update User Sniplet
 	/* -------------------------------------------------------------------------------------*/	
-	//alert(sniplet_title + sniplet_text + sniplet_tags + sniplet_user_id + sniplet_update_time);
-	 $.fn.updateUserSniplet = function(title, text, tags, user_id, update_time) { 
-	console.log(title + '------' + text + '---------' + tags + '------------' + user_id + '---------' + update_time);
-	//'edit_tag='+ title + '&edit_tag_id=' + id + '&username=' + username,
-	/* 	var theUrl = CI_ROOT + 'backend/sniplet';	   
+	 $.fn.updateUserSniplet = function(title, text, tags, username, update_time, sniplet_id) { 
+	 	title = $.base64.encode(title);
+	 	text = $.base64.encode(text);
+	 	var theUrl = CI_ROOT + 'user/sniplet_update';	   
 		var submit = $.ajax({
 			type: "POST",
 			url: theUrl,
-			data: $(this).serialize(),
+			data: "title=" + title + "&text=" + text + "&tags=" + tags + "&username=" + username + "&update_time" + update_time + "&sniplet_id=" + sniplet_id,
 			beforeSend:  function(server_response) {					
-					
+				$('#pop-up-snipletiter').hide();		
+				$('body').addClass("active_menuclick");
+				html = '<div id="tag_user_text_loader">Updating place wait...</div>';		
+				html += '<img id="tag_user_img_loader" src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '						
+				$('#pop-up-snipletiter').html(html).show();	
 			},
 			success: function(server_response){											
- 
+ 				$(this).clog(server_response);
+				//TODO: Look at maybe just refreshing divs and not the whole user profile. 
+				username = $.base64.encode(username);
+				//$(this).displayUser(username);
+				$('body').addClass("active_menuclick");
+				$(this).displayUserSnipletRaw(username);
+
+				setTimeout(function() {
+
+					$.fancybox.close();
+
+					//TODO: if cookie is set we want to add this in --> $('body').addClass("active_menuclick"); to lock the screen.
+
+				}, 1000);
 									
 			}, //success		
 			
@@ -605,7 +621,7 @@ $(document).ready(function() {
 			error: function(server_response){
 		
 			} //error			
-		}); //ajax */	
+		}); //ajax 	
  
 	} //$.fn.updateUserSniplet	
 
@@ -1162,9 +1178,12 @@ $(document).ready(function() {
 		sniplet_text = $('div#edit_sniplet_container_area textarea#edit_sniplet_text').val();
 		sniplet_tags = $('div#edit_sniplet_container_spot ul#as-selections-edit-tags-sniplet-input.as-selections li#as-original-edit-tags-sniplet-input.as-original input#as-values-edit-tags-sniplet-input.as-values').val();
 		sniplet_user_id = $('div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_submit input#sniplet_username_id').val();
+		sniplet_id = $('div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_submit input#sniplet_id').val();
 		sniplet_update_time = $('div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_submit input#sniplet_update_time').val();
 
-		$(this).updateUserSniplet(sniplet_title, sniplet_text, sniplet_tags, sniplet_user_id, sniplet_update_time);
+		console.log(sniplet_id);
+
+		$(this).updateUserSniplet(sniplet_title, sniplet_text, sniplet_tags, sniplet_user_id, sniplet_update_time, sniplet_id);
 		//$('body').removeClass("active_menuclick");
 		//		alert(sniplet_title + sniplet_text + sniplet_tags + sniplet_user_id + sniplet_update_time);
 	});
