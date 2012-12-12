@@ -1,6 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class SearchModel extends CI_Model {
+require_once( 'basemodel.php' );
+
+class SearchModel extends BaseModel {
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function search_with_like($term, $limit = ''){

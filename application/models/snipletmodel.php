@@ -1,6 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class SnipletModel extends CI_Model {
+require_once( 'basemodel.php' );
+
+class SnipletModel extends BaseModel {
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function sniplet_exists($title) {

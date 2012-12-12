@@ -1,6 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class AuthModel extends CI_Model {
+require_once( 'basemodel.php' );
+
+class AuthModel extends BaseModel {
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function verify_login_status($dirty_user, $dirty_pass){ 

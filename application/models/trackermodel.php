@@ -1,6 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class TrackerModel extends CI_Model {
+require_once( 'basemodel.php' );
+
+class TrackerModel extends BaseModel {
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function insert_tracker($array) {

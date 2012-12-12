@@ -167,8 +167,8 @@ class User extends Base {
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function sniplet_update(){
 		$this->load->model( 'UserModel' );
-		$title = base64_decode($this->input->post('title'));
-		$text = base64_decode($this->input->post('text'));
+		$title = $this->input->post('title');
+		$text = $this->input->post('text');
 
 		$tags = $this->input->post('tags');	
 		$sniplet_id = $this->input->post('sniplet_id');

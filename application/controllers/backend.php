@@ -182,14 +182,14 @@ class Backend extends Base {
 		//Set logo, top menu, version, copyright		
 		$data = $this->set_site_assets();
 		
-		$username = $this->input->post('username');
-		$email = $this->input->post('email');
-		$password = $this->input->post('password');
-		$re_password = $this->input->post('re_password');
-		$default_group = $this->input->post('default_group');
+		$username = $this->input->post('username', TRUE);
+		$email = $this->input->post('email', TRUE);
+		$password = $this->input->post('password', TRUE);
+		$re_password = $this->input->post('re_password', TRUE);
+		$default_group = $this->input->post('default_group', TRUE);
 		$default_token = $default_group;
-		$date_created = $this->input->post('date_created');
-		$ip_address = $this->input->post('ip_address');
+		$date_created = $this->input->post('date_created', TRUE);
+		$ip_address = $this->input->post('ip_address', TRUE);
 		
 		//Verified username and email doesn't already exist
 		$username_verified = $this->AuthModel->verify_username($username);

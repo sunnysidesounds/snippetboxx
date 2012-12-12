@@ -1,6 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class EditorModel extends CI_Model {
+require_once( 'basemodel.php' );
+
+class EditorModel extends BaseModel {
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function get_tag_by_id($id){

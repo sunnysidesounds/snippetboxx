@@ -585,8 +585,8 @@ $(document).ready(function() {
 	//User Profile - Update User Sniplet
 	/* -------------------------------------------------------------------------------------*/	
 	 $.fn.updateUserSniplet = function(title, text, tags, username, update_time, sniplet_id) { 
-	 	title = $.base64.encode(title);
-	 	text = $.base64.encode(text);
+	 	//title = $.base64.encode(title);
+	 	//text = $.base64.encode(text);
 	 	var theUrl = CI_ROOT + 'user/sniplet_update';	   
 		var submit = $.ajax({
 			type: "POST",
@@ -1180,6 +1180,8 @@ $(document).ready(function() {
 		sniplet_user_id = $('div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_submit input#sniplet_username_id').val();
 		sniplet_id = $('div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_submit input#sniplet_id').val();
 		sniplet_update_time = $('div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_submit input#sniplet_update_time').val();
+
+	
 
 		console.log(sniplet_id);
 
