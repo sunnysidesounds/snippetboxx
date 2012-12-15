@@ -8,11 +8,7 @@ class BaseModel extends CI_Model {
 		foreach ($dirty as $key => $value) {
 			$cleaned[$key] = $this->db->escape_str($value);
 		}
-
 		return $cleaned;
-
 	} //clean_db_array
-
-
 
 } //BaseModel

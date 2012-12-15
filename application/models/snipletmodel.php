@@ -18,6 +18,7 @@ class SnipletModel extends BaseModel {
 				$query = $this->db->query( $sql, array($title , $content, $url, $time, $username));
 				return $query != false;	
 		} else {
+			log_message('error', 'insert_sniplet failed: [snipletmodel/insert_sniplet]');
 			return false;
 		}
 	} //insert_sniplet
@@ -37,7 +38,6 @@ class SnipletModel extends BaseModel {
 			$getTagId = $this->get_tag_id($tag);
 			return $getTagId;
 		}
-
 	} //insert_tag
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/
@@ -56,45 +56,34 @@ class SnipletModel extends BaseModel {
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function get_tag_id($tag) {
-		
-		$sql = 'SELECT tag_id FROM tags WHERE tag_keyword ="'.$tag.'";';
-		$query = $this->db->query( $sql );	
+		$sql = 'SELECT tag_id FROM tags WHERE tag_keyword =?;';
+		$query = $this->db->query( $sql , array($tag));	
 		if($query->num_rows()>0){	
-			
 			foreach ($query->result() as $row){													
 				return $row->tag_id;				
-			}	//foreach			
-		
+			}//foreach			
 		} else {
-			//TODO: Change this
-			echo 'No Records';
+			log_message('error', 'get_tag_id failed: [snipletmodel/get_tag_id]');
 		}		
-
 	} //get_tag_id
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function get_tag_name($tag_id) {
-		
-		$sql = 'SELECT tag_keyword FROM tags WHERE tag_id ="'.$tag_id.'";';
-		$query = $this->db->query( $sql );	
+		$sql = 'SELECT tag_keyword FROM tags WHERE tag_id =?;';
+		$query = $this->db->query( $sql, array($tag_id));	
 		if($query->num_rows()>0){	
-			
 			foreach ($query->result() as $row){													
 				return $row->tag_keyword;				
-			
-			}	//foreach			
-		
+			}//foreach			
 		} 
-
 	} //get_tag_id
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function get_tag_list($sniplet_id, $raw_array = 0) {
 		$array = array();
-		$sql = 'SELECT tag_id FROM sniplets_to_tags WHERE sniplet_id ="'.$sniplet_id.'";';
-		$query = $this->db->query( $sql );	
+		$sql = 'SELECT tag_id FROM sniplets_to_tags WHERE sniplet_id =?;';
+		$query = $this->db->query( $sql , array($sniplet_id));	
 		if($query->num_rows()>0){	
-			
 			foreach ($query->result() as $row){															
 				if(!$raw_array == 0){
 					$array[] = '<a href="#" id="sniplettagid_'.$row->tag_id.'" class="sniplet_click_tag">' . $this->get_tag_name($row->tag_id) . '</a>';
@@ -102,10 +91,7 @@ class SnipletModel extends BaseModel {
 					$array[] = $this->get_tag_name($row->tag_id);
 				}
 			}	//foreach
-			
-			return $array;
-						
+			return $array;	
 		} 
 	} //get_tag_list
-
 } //SnipletModel

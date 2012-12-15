@@ -9,18 +9,13 @@ class UserModel extends BaseModel {
 		$sql = 'SELECT id FROM users WHERE username =?;';
 		$query = $this->db->query( $sql , array($username));	
 		if($query->num_rows()>0){	
-			
 			foreach ($query->result() as $row){													
 				return $row->id;				
-			
-			}	//foreach			
-		
+			}//foreach
 		} else {
-			//TODO: Change this
+			log_message('error', 'get_user_id method failed for username: '+$username+' [usermodel/get_user_id] ');
 			echo 'No Records';
 		}		
-	
-	
 	} //get_user_id
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
@@ -29,9 +24,7 @@ class UserModel extends BaseModel {
 			LEFT JOIN sniplets_to_tags stt ON stt.sniplet_id = snip.sniplet_id WHERE stt.tag_id =? AND stt.user_id =?; ";
 		$query = $this->db->query( $sql, array($id, $username));	
 		$parent = array();
-		
 		if($query->num_rows()>0){	
-			
 			foreach ($query->result() as $row){													
 				$parent[] = array($row->sniplet_id, $row->sniplet_title);				
 			}	//foreach	
@@ -45,9 +38,7 @@ class UserModel extends BaseModel {
 		$sql = 'SELECT * FROM tags WHERE user_id =? ORDER BY tag_keyword;';
 		$query = $this->db->query( $sql, array($id));	
 		$parent = array();
-		
-		if($query->num_rows()>0){	
-			
+		if($query->num_rows()>0){
 			foreach ($query->result() as $row){													
 				$parent[] = array($row->tag_id, $row->tag_keyword);				
 			}	//foreach	
@@ -61,9 +52,7 @@ class UserModel extends BaseModel {
 		$sql = 'SELECT * FROM sniplets WHERE user_id =? ORDER BY sniplet_title;';
 		$query = $this->db->query( $sql , array($id));	
 		$parent = array();
-		
 		if($query->num_rows()>0){	
-			
 			foreach ($query->result() as $row){													
 				$parent[] = array($row->sniplet_id, $row->sniplet_title);				
 			}	//foreach	
@@ -77,7 +66,6 @@ class UserModel extends BaseModel {
 		$sql = 'SELECT email FROM users WHERE username =?;';
 		$query = $this->db->query( $sql , array($username));			
 		if($query->num_rows()>0){	
-			
 			foreach ($query->result() as $row){													
 				return $row->email;				
 			}	//foreach	
@@ -105,8 +93,6 @@ class UserModel extends BaseModel {
 			foreach ($query->result() as $row){													
 				return $row->date_created;				
 			}	//foreach	
-					
-		
 		} 
 
 	} //get_user_year
@@ -209,7 +195,6 @@ class UserModel extends BaseModel {
 	public function update_user_sniplet($title, $text, $user_id, $sniplet_id){
 		$text = mysql_real_escape_string($text);
 		$sql   = "UPDATE sniplets SET sniplet_title='".$this->db->escape_str($title)."', sniplet_content='".$this->db->escape_str($text)."' WHERE user_id = '".$this->db->escape_str($user_id)."' AND sniplet_id = '".$this->db->escape_str($sniplet_id)."' ;";
-		//$sql   = "UPDATE sniplets SET sniplet_title='".$title."' WHERE user_id = '".$user_id."' AND sniplet_id = '".$sniplet_id."' ;";
 		echo $sql;
 		$query = $this->db->query( $sql);	
 		
@@ -220,9 +205,5 @@ class UserModel extends BaseModel {
 			return false;
 		}
 	} //update_user_sniplet
-
-
-
-
 
 } //UserModal Class
