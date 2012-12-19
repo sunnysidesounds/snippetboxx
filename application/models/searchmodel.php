@@ -277,20 +277,6 @@ class SearchModel extends BaseModel {
 			return '';
 		}
 	} //sniplet_greater_than
-
-	/* --------------------------------------------------------------------------------------------------------------------------*/
-/*	public function random_sniplet(){ //NOT USING WILL REMOVE
-		$sql = 'SELECT * FROM sniplets ORDER BY rand() LIMIT 1;';
-		$array = array();
-		$query = $this->db->query( $sql );
-		if($query->num_rows()>0){
-			foreach ($query->result_array() as $row){								
-				$array[] = $row;
-			} //foreach
-			return $array;
-		} //if 0		
-	} //random_sniplet
-*/
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function record_count($column, $table){

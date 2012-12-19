@@ -237,33 +237,7 @@ class Frontend extends Base {
 
 		echo '</ul>';
 	} //search_items
-	
-	/* --------------------------------------------------------------------------------------------------------------------------*/	
-/*	public function random(){
-		$out = '';
-		$this->load->model( 'SearchModel' );
-		$how_many = $this->input->get('rand');
-	
 		
-		$array = array();
-		
-		for($i = 1; $i <= $how_many; $i++){
-			$random = $this->SearchModel->random_sniplet();			
-			$array[] = $random[0];
-		}
-
-		//use only unigue values		
-		foreach ($array as $k=>$na){
-            		$new[$k] = serialize($na);
-        			$uniq = array_unique($new);
-        		}
-        		foreach($uniq as $k=>$ser){
-            		$new1[$k] = unserialize($ser);
-		}
-		echo $this->search_list($new1);
-
-	} */
-	
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function display(){
 		$this->load->model( 'SearchModel' );
