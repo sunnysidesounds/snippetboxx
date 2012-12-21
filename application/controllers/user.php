@@ -181,8 +181,11 @@ class User extends Base {
 		$tagsArray = array_filter($tagsArray); //Filtering out all empty values due to the ending , coma in what ajax sends us.
 
 		if(!empty($tags) && !empty($title) && !empty($user_id) && !empty($text)){
-				//$update   = "UPDATE sniplets SET sniplet_title='".$title."', sniplet_content='".$text."' WHERE user_id = '".$user_id."' AND sniplet_id = '".$sniplet_id."' ;";
+				//This updates title and text
 				$update = $this->UserModel->update_user_sniplet($title, $text, $user_id, $sniplet_id);
+				echo $tags;
+				//TODO: Add tags
+
 /*
 						//Insert tags
 						foreach($tagsArray as $tag){

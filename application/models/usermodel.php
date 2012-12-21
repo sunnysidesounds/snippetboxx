@@ -194,8 +194,7 @@ class UserModel extends BaseModel {
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function update_user_sniplet($title, $text, $user_id, $sniplet_id){
 		$text = mysql_real_escape_string($text);
-		$sql   = "UPDATE sniplets SET sniplet_title='".$this->db->escape_str($title)."', sniplet_content='".$this->db->escape_str($text)."' WHERE user_id = '".$this->db->escape_str($user_id)."' AND sniplet_id = '".$this->db->escape_str($sniplet_id)."' ;";
-		echo $sql;
+		$sql   = "UPDATE sniplets SET sniplet_title='".$this->db->escape_str($title)."', sniplet_content='".$text."' WHERE user_id = '".$this->db->escape_str($user_id)."' AND sniplet_id = '".$this->db->escape_str($sniplet_id)."' ;";
 		$query = $this->db->query( $sql);	
 		
 		if($query){

@@ -132,7 +132,12 @@ $config['subclass_prefix'] = 'MY_';
 | DO NOT CHANGE THIS UNLESS YOU FULLY UNDERSTAND THE REPERCUSSIONS!!
 |
 */
-$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
+
+//Original Way
+//$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
+
+//Modifing these characters to fixed the "Disallowed Key Characters." error that happenings something when user edits their sniplet. 
+$config['permitted_uri_chars'] = 'a-z 0-9~%\.\:_\+-,?&=';
 
 
 /*
