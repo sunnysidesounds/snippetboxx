@@ -165,6 +165,34 @@ class UserModel extends BaseModel {
 	} //update_user_login_time
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function update_user_sniplet_time($username, $sniplet_id, $time){
+		$sql   = "UPDATE sniplets SET update_sniplet_time= ? WHERE user_id = ? AND sniplet_id = ?;";
+		$query = $this->db->query( $sql, array($time, $username, $sniplet_id));	
+		
+		if($query){
+			return true;
+		} else {
+			log_message('error', 'Update Failed : [usermodel/update_user_sniplet_time]');
+			return false;
+		}
+	} //update_user_sniplet_time
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function update_user_tag_time($username, $tag_id, $time){
+		$sql   = "UPDATE tags SET update_tag_time= ? WHERE user_id = ? AND tag_id = ?;";
+		$query = $this->db->query( $sql, array($time, $username, $tag_id));	
+		
+		if($query){
+			return true;
+		} else {
+			log_message('error', 'Update Failed : [usermodel/update_user_tag_time]');
+			return false;
+		}
+	} //update_user_tag_time
+
+
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function update_user_login_ip($username, $ip){
 		$sql   = "UPDATE users SET last_ip_login=? WHERE username = ?;";
 		$query = $this->db->query( $sql, array($ip, $username));	

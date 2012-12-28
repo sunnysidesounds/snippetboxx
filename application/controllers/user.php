@@ -151,10 +151,11 @@ class User extends Base {
 		$edit_tag_title = $this->input->post('edit_tag');
 		$edit_tag_id = $this->input->post('edit_tag_id');
 		$username = $this->input->post('username');
-
 		$user_id = $this->UserModel->get_user_id($username);
-
 		$update = $this->UserModel->update_user_tag($edit_tag_title, $user_id, $edit_tag_id);
+		//Update tag update date
+		$time = date('m-d-Y-g:ia');
+		$this->UserModel->update_user_tag_time($user_id, $edit_tag_id, $time);
 
 		if($update){
 			echo 'Success in updating';
@@ -237,53 +238,16 @@ class User extends Base {
 
 						} //foreach
 
-					
-					
+						
+						
+
 					} else {
 						echo 'error';
 					}
-
-
-
-
-				//	foreach($post_array as $post_values){
-				//		
-						//print_r($post_values);
-
-
-				//	}
-
-
-
-					//print_r($post_array);
-					//print_r($db_array);
-
-					//foreach($snipTagArray as $pairs){
-
-					//}
-
-
-
-
+					$time = date('m-d-Y-g:ia');
+					$this->UserModel->update_user_sniplet_time($user_id, $sniplet_id, $time);
 
 				}
-
-
-				//TODO: Add tags
-
-/*
-						//Insert tags
-					
-						//Insert sniplet to tags
-						foreach($snipTagArray as $pairs){
-							$pairsArray = explode(", ", $pairs);
-							$sniplet_id = $pairsArray[0];
-							$tag_id = $pairsArray[1];						
-							$addSnipletToTag = $this->SnipletModel->insert_sniplet_to_tag($sniplet_id, $tag_id, $username_id);
-							$snipletCompleteArray[] = $addSnipletToTag;
-						}
-*/
-
 		}
 
 	} //sniplet_update
