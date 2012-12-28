@@ -14,8 +14,10 @@ class SnipletModel extends BaseModel {
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function insert_sniplet($title, $content, $url, $time, $username){
 		if( !empty( $title ) && !empty( $content ) && !empty( $url ) && !empty( $time ) && !empty( $username ) ) {				
-				$sql   = "INSERT INTO sniplets VALUES (NULL,?,?,?,?, ?);";
-				$query = $this->db->query( $sql, array($title , $content, $url, $time, $username));
+				$sql   = "INSERT INTO sniplets VALUES (NULL,?,?,?,?,?,?);";
+				//Current time is update time.
+				$update_time = $time;
+				$query = $this->db->query( $sql, array($title , $content, $url, $time, $username, $update_time));
 				return $query != false;	
 		} else {
 			log_message('error', 'insert_sniplet failed: [snipletmodel/insert_sniplet]');
@@ -47,8 +49,10 @@ class SnipletModel extends BaseModel {
 		//If doesn't exist insert
 		if($this->tag_exists($tag) != 1){
 			$time = date('m-d-Y-g:ia');
-			$sql   = "INSERT INTO tags VALUES (NULL,?, ?, ?);";
-			$query = $this->db->query( $sql, array($tag, $username, $time));
+			//Current time is update time. 
+			$update_time = $time;
+			$sql   = "INSERT INTO tags VALUES (NULL,?, ?, ?, ?);";
+			$query = $this->db->query( $sql, array($tag, $username, $time, $update_time));
 			$lastInsert = $this->db->insert_id();
 			return $lastInsert;
 			//return $query != false;
