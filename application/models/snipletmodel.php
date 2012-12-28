@@ -24,6 +24,25 @@ class SnipletModel extends BaseModel {
 	} //insert_sniplet
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function update_tag($tag, $username){
+		//If doesn't exist insert
+	/*	if($this->tag_exists($tag) != 1){
+			$time = date('m-d-Y-g:ia');
+			$sql   = "INSERT INTO tags VALUES (NULL,?, ?, ?);";
+			$query = $this->db->query( $sql, array($tag, $username, $time));
+			$lastInsert = $this->db->insert_id();
+			return $lastInsert;
+			//return $query != false;
+		} else {
+			//else return tag id
+			$getTagId = $this->get_tag_id($tag);
+			return $getTagId;
+		}*/
+	} //update_tag
+
+
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function insert_tag($tag, $username){
 		//If doesn't exist insert
 		if($this->tag_exists($tag) != 1){

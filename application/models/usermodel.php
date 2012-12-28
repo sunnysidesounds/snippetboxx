@@ -14,7 +14,6 @@ class UserModel extends BaseModel {
 			}//foreach
 		} else {
 			log_message('error', 'get_user_id method failed for username: '+$username+' [usermodel/get_user_id] ');
-			echo 'No Records';
 		}		
 	} //get_user_id
 
@@ -204,5 +203,34 @@ class UserModel extends BaseModel {
 			return false;
 		}
 	} //update_user_sniplet
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function replace_user_tags($sniplet_id, $tag_id, $user_id){
+		$sql = 'REPLACE INTO sniplets_to_tags (sniplet_id, tag_id, user_id) VALUES ("'.$this->db->escape_str($sniplet_id).'", "'.$this->db->escape_str($tag_id).'", "'.$this->db->escape_str($user_id).'")';
+		//echo $sql . '<br />';
+		$query = $this->db->query( $sql);	
+		
+		if($query){
+			return true;
+		} else {
+			log_message('error', 'Update Failed : [usermodel/replace_user_tags]');
+			return false;
+		}
+	} //replace_user_tags
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function delete_user_tag($sniplet_id, $tag_id, $user_id){
+		$sql = 'DELETE FROM sniplets_to_tags WHERE sniplet_id = ? AND tag_id = ? AND user_id = ?;';
+		$query = $this->db->query($sql, array($sniplet_id, $tag_id, $user_id));	
+		if($query){
+			return true;
+		} else {
+			log_message('error', 'Update Failed : [usermodel/delete_user_tag]');
+			return false;
+		}
+	} //replace_user_tags
+
+
+
 
 } //UserModal Class

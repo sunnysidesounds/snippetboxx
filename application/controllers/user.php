@@ -167,8 +167,17 @@ class User extends Base {
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function sniplet_update(){
 		$this->load->model( 'UserModel' );
+		$this->load->model( 'SnipletModel' );
 		$title = $this->input->post('title');
 		$text = $this->input->post('text');
+
+		//$snipTagArray = array();
+
+	//	$verified = array();
+		$post_array = array();
+		$db_array = array();
+		$delete_array = array();
+
 
 		$tags = $this->input->post('tags');	
 		$sniplet_id = $this->input->post('sniplet_id');
@@ -183,21 +192,87 @@ class User extends Base {
 		if(!empty($tags) && !empty($title) && !empty($user_id) && !empty($text)){
 				//This updates title and text
 				$update = $this->UserModel->update_user_sniplet($title, $text, $user_id, $sniplet_id);
-				echo $tags;
+				if($update){
+					//$lastInsert = $this->db->insert_id();
+					//Slap value in a aray
+					$tags_array = explode(",", $tags);
+					//Remove all empties from the exploded array
+					$tags_array = array_filter($tags_array);
+
+					//insert tags or return id that already exsist. 
+					foreach($tags_array as $tag){
+						$addTags = $this->SnipletModel->insert_tag($tag, $user_id);
+						if(!empty($addTags)){
+							$post_array[] = array('sniplet_id' => $sniplet_id, 'tag_id' => $addTags, 'user_id' => $user_id);
+						}
+					}
+
+					//Get our current data set of tags - sniplet
+					$db_arr = $this->SnipletModel->get_tag_list($sniplet_id, 0);
+					foreach($db_arr as $tag_name){
+						$db_array[] = array('sniplet_id' => $sniplet_id, 'tag_id' => $this->SnipletModel->get_tag_id($tag_name), 'user_id' => $user_id);
+					}
+					//Get counts
+					$db_array_count = count($db_array);
+					$post_array_count = count($post_array);
+
+					//REPLACE: Update user tags. if tags posted are greater or equal replace and insert the new data. 
+					if($post_array_count >= $db_array_count){
+						echo ' post is equal or greater than db';
+						foreach($post_array as $post_values){
+							echo $this->UserModel->replace_user_tags($post_values['sniplet_id'], $post_values['tag_id'], $post_values['user_id']);
+						}		
+
+					//DELETE: If Update user tags, if tags posted are less than db. Then delete tag from db
+					} elseif($post_array_count < $db_array_count){
+						echo 'post is less than db';
+						foreach ($db_array as $db_values) {
+							//See if tag_id is present in a multipe dimentional array
+							$value_set = $this->in_array_r($db_values['tag_id'], $post_array);
+							//If it is not present in the post array, referencing the db values, let's remove it. 
+							if($value_set != 1){
+								echo 'deleting ' . $db_values['tag_id'];
+								$this->UserModel->delete_user_tag($db_values['sniplet_id'], $db_values['tag_id'], $db_values['user_id']);
+							}
+
+						} //foreach
+
+					
+					
+					} else {
+						echo 'error';
+					}
+
+
+
+
+				//	foreach($post_array as $post_values){
+				//		
+						//print_r($post_values);
+
+
+				//	}
+
+
+
+					//print_r($post_array);
+					//print_r($db_array);
+
+					//foreach($snipTagArray as $pairs){
+
+					//}
+
+
+
+
+
+				}
+
+
 				//TODO: Add tags
 
 /*
 						//Insert tags
-						foreach($tagsArray as $tag){
-							//insert and return tag ip
-							$addTags = $this->SnipletModel->insert_tag($tag, $username_id);
-							//Build sniplet tag pairs to insert
-							if(!empty($addTags)){
-								//sniplet id, tag id
-								$snipTagPairs = $lastInsert . ', ' . $addTags;												
-								$snipTagArray[] = $snipTagPairs;
-							}
-						}
 					
 						//Insert sniplet to tags
 						foreach($snipTagArray as $pairs){
@@ -211,7 +286,6 @@ class User extends Base {
 
 		}
 
-		echo $update;
 	} //sniplet_update
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	

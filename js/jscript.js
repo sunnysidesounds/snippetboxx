@@ -591,7 +591,8 @@ $(document).ready(function() {
 		var submit = $.ajax({
 			type: "POST",
 			url: theUrl,
-			data: "title=" + title + "&text=" + text + "&tags=" + tags + "&username=" + username + "&update_time" + update_time + "&sniplet_id=" + sniplet_id,
+			data: ({'title': title, 'text': text, 'tags': tags, 'username': username, 'update_time': update_time, 'sniplet_id': sniplet_id}), //<--- Use Object
+			//data: "title=" + title + "&text=" + text + "&tags=" + tags + "&username=" + username + "&update_time" + update_time + "&sniplet_id=" + sniplet_id,
 			beforeSend:  function(server_response) {					
 				$('#pop-up-snipletiter').hide();		
 				$('body').addClass("active_menuclick");
