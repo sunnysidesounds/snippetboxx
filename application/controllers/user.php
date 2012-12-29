@@ -160,29 +160,25 @@ class User extends Base {
 		if($update){
 			echo 'Success in updating';
 		} else {
-			echo 'Error in updateing';
+			echo 'Error in updateing'; //TODO: Add logging
 		}
 
 	} //user_tag_update
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function sniplet_update(){
+		//TODO: This method is to big, reduce it into smaller methods. 
 		$this->load->model( 'UserModel' );
 		$this->load->model( 'SnipletModel' );
 		$title = $this->input->post('title');
 		$text = $this->input->post('text');
 
-		//$snipTagArray = array();
-
-	//	$verified = array();
 		$post_array = array();
 		$db_array = array();
 		$delete_array = array();
 
-
 		$tags = $this->input->post('tags');	
-		$sniplet_id = $this->input->post('sniplet_id');
-		
+		$sniplet_id = $this->input->post('sniplet_id');		
 		$username = $this->input->post('username');
 		$user_id = $this->UserModel->get_user_id($username);	
 		$update_time = $this->input->post('update_time');	
@@ -237,10 +233,6 @@ class User extends Base {
 							}
 
 						} //foreach
-
-						
-						
-
 					} else {
 						echo 'error';
 					}

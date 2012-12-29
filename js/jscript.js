@@ -592,28 +592,26 @@ $(document).ready(function() {
 			type: "POST",
 			url: theUrl,
 			data: ({'title': title, 'text': text, 'tags': tags, 'username': username, 'update_time': update_time, 'sniplet_id': sniplet_id}), //<--- Use Object
-			//data: "title=" + title + "&text=" + text + "&tags=" + tags + "&username=" + username + "&update_time" + update_time + "&sniplet_id=" + sniplet_id,
 			beforeSend:  function(server_response) {					
+				
+				//TODO: Ticket #64 bug
+
 				$('#pop-up-snipletiter').hide();		
-				$('body').addClass("active_menuclick");
-				html = '<div id="tag_user_text_loader">Updating place wait...</div>';		
-				html += '<img id="tag_user_img_loader" src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '						
+			//	$('body').addClass("active_menuclick");
+				html = '<div id="sniplet_user_text_loader">Updating place wait...</div>';		
+				html += '<img id="sniplet_user_img_loader" src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '						
 				$('#pop-up-snipletiter').html(html).show();	
 			},
 			success: function(server_response){											
  				$(this).clog(server_response);
-				//TODO: Look at maybe just refreshing divs and not the whole user profile. 
 				username = $.base64.encode(username);
 				//$(this).displayUser(username);
-				$('body').addClass("active_menuclick");
+			//	$('body').addClass("active_menuclick");
 				$(this).displayUserSnipletRaw(username);
 
 				setTimeout(function() {
-
 					$.fancybox.close();
-
 					//TODO: if cookie is set we want to add this in --> $('body').addClass("active_menuclick"); to lock the screen.
-
 				}, 1000);
 									
 			}, //success		
@@ -637,7 +635,7 @@ $(document).ready(function() {
 			data: 'edit_tag='+ title + '&edit_tag_id=' + id + '&username=' + username,
 			beforeSend:  function(server_response) {	
 				$('#pop-up-snipletiter').hide();		
-				$('body').addClass("active_menuclick");
+			//	$('body').addClass("active_menuclick");
 				html = '<div id="tag_user_text_loader">Updating place wait...</div>';		
 				html += '<img id="tag_user_img_loader" src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '						
 				$('#pop-up-snipletiter').html(html).show();
@@ -648,7 +646,7 @@ $(document).ready(function() {
 				//TODO: Look at maybe just refreshing divs and not the whole user profile. 
 				username = $.base64.encode(username);
 				//$(this).displayUser(username);
-				$('body').addClass("active_menuclick");
+			//	$('body').addClass("active_menuclick");
 				$(this).displayUserTagsRaw(username);
 
 				setTimeout(function() {

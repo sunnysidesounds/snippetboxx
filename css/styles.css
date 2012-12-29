@@ -1380,6 +1380,21 @@ div#fancybox-wrap div#fancybox-outer div#fancybox-content div div#bookmarklet_co
     margin-top: 25px;
 }
 
+#sniplet_user_text_loader {
+    text-align: center;
+    color: #445A7E;
+    font-weight: bold;
+    margin-top: 250px;
+}
+
+#sniplet_user_img_loader {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+}
+
+
 #tags_secret_refresh:hover, #sniplet_secret_refresh:hover, a#sniplet_secret_refresh_2:hover {
     text-decoration: none;
     color: #445A7E;
