@@ -49,7 +49,7 @@ class Editor extends Base {
 		$new_tags_array = array();
 		$tags_array = $this->EditorModel->get_tags_by_sniplet($id);
 		
-		//TODO: Probably need to change this to view all by user. As this list could become huge when loading the sniplet eidtor if all tags from everyone.
+		//TODO: Probably need to change this to view all by user. As this list could become huge when loading the sniplet editor if all tags from everyone.
 		$all_tags_array = $this->EditorModel->get_tag_all();
 
 		if(!empty($tags_array)){
@@ -92,20 +92,6 @@ class Editor extends Base {
 		$this->load->view('user/editor_tag', $data);
 
 	} //update_tag
-
-	/* --------------------------------------------------------------------------------------------------------------------------*/
-	public function update_sniplet($id){
-		echo $id;
-
-
-	} //update_sniplet
-
-
-	/* --------------------------------------------------------------------------------------------------------------------------*/	
-	public function get_tags_for_form(){
-
-	
-	} //taglet
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function get_prefill_categories($id){

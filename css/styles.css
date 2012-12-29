@@ -1104,9 +1104,22 @@ div#sniplet_login div#login_form form div.login_block label, div#bk_content div#
     float:left;
 }
 
+.sniplet_link_delete {
+    float:right;
+    visibility:hidden;
+    margin-right: 10px;
+}
+
 .sniplet_link_edit {
     float:right;
     visibility:hidden;
+    margin-right: 10px;
+}
+
+.sniplet_link_view {
+    float:right;
+    visibility:hidden;
+    margin-right: 10px;
 }
 
 .sniplet_tag_edit {

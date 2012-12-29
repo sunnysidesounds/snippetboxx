@@ -80,14 +80,17 @@ class User extends Base {
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function display($array, $set = ''){	//TODO: Maybe move into base controller
+		$this->load->model( 'ConfigModel' );
+		$sniplet_length = $this->ConfigModel->get_config('user_sniplet_string_length');	
+		//TODO: Split this out into other methods/functions
 		$out = '';
 		if($set == 'tags'){
 			$out .= '<ul class="ul_user_list">';
 			if(!empty($array)){
 				foreach($array as $outer){
 					$out .= '<li id="'.$outer[0].'" class="li_user_list li_user_tags">';
-					$out .= '<a id="'.$outer[0].'" class="sniplet_tag_link sniplet_tag_link_'.$outer[0].'" href="#">'.$outer[1].'</a>';
-					$out .= '<a id="'.$outer[0].'" class="sniplet_tag_edit sniplet_tag_edit_'.$outer[0].'" href="#">edit</a>';
+					$out .= '<a title="'.$outer[1].'" id="'.$outer[0].'" class="sniplet_tag_link sniplet_tag_link_'.$outer[0].'" href="#">'.$outer[1].'</a>';
+					$out .= '<a title="edit your tag" id="'.$outer[0].'" class="sniplet_tag_edit sniplet_tag_edit_'.$outer[0].'" href="#">edit</a>';
 					$out .= '</li>';					
 				}
 			} else {
@@ -99,12 +102,18 @@ class User extends Base {
 			$out .= '<ul class="ul_user_list">';
 			if(!empty($array)){
 				foreach($array as $outer){
-					$out .= '<li id="'.$outer[0].'" class="li_user_list li_user_sniplets">';
-					$out .= '<a id="'.$outer[0].'" class="sniplet_link sniplet_link_'.$outer[0].'" href="#">'.$outer[1].'</a>';
-					$out .= '<a id="'.$outer[0].'" class="sniplet_link_edit sniplet_link_edit_'.$outer[0].'" href="#">edit</a>';
-					//$out .= '<a href="#">'.$outer[1].'</a>';
-					//sniplet_link_edit_s_185
+					//Limit our user sniplet string length
+					if (strlen($outer[1]) > $sniplet_length){
+   						$sniplet_title = substr($outer[1], 0, $sniplet_length) . '...';
+   					} else {
+   						$sniplet_title = $outer[1];
+   					}
 
+					$out .= '<li id="'.$outer[0].'" class="li_user_list li_user_sniplets">';
+					$out .= '<a title="'.$outer[1].' id="'.$outer[0].'" class="sniplet_link sniplet_link_'.$outer[0].'" href="#">'.$sniplet_title.'</a>';
+					$out .= '<a title="delete your sniplet" id="'.$outer[0].'" class="sniplet_link_delete sniplet_link_delete_'.$outer[0].'" href="#">delete</a>';
+					$out .= '<a title="edit your sniplet" id="'.$outer[0].'" class="sniplet_link_edit sniplet_link_edit_'.$outer[0].'" href="#">edit</a>';
+					$out .= '<a title="view url of your sniplet" id="'.$outer[0].'" class="sniplet_link sniplet_link_view sniplet_link_view_'.$outer[0].'" href="#">view</a>';
 					$out .= '</li>';					
 				}
 			} else {
@@ -113,18 +122,6 @@ class User extends Base {
 			$out .= '</ul>';
 
 		}
-		//$out = '';
-		//$out .= '<ul class="ul_user_list">';
-		//if(!empty($array)){
-		//	foreach($array as $outer){
-		//		$out .= '<li id="'.$outer[0].'" class="li_user_list">';
-		//		$out .= '<a href="#">'.$outer[1].'</a>';
-		//		$out .= '</li>';					
-		//	}
-		//} else {
-		// $out .= '<li class="li_user_list li_user_none">You don\'t have any '.$set.' yet!, <a href="#" id="'.$set.'_learn_more" class="user_learn_more" >Learn how...</a></li>';
-		//}
-		//$out .= '</ul>';
 	
 		return $out;
 	
