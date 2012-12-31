@@ -60,6 +60,8 @@ $(document).ready(function() {
 							
 					$('div#fancybox-wrap div#fancybox-outer div#fancybox-content div ul.sniplet_data_ul li.status_message').hide();
 					$('div#fancybox-wrap div#fancybox-outer div#fancybox-content div ul.sniplet_data_ul li#status_message_' + this.id).html('Ctrl/Command C to copy this sniplet.').show();		
+				
+
 				});
 			},
 			'type': 'ajax',
@@ -126,13 +128,16 @@ $(document).ready(function() {
 
 	//Display Tags List On click. 
 	/* -------------------------------------------------------------------------------------*/	
-	$.fn.displayTagsClicked = function(selectedId) {
+	$.fn.displayTagsClicked = function(selectedId, fancybox) {
+		//If fancybox param is not set, let's disabled
+		if (typeof fancybox === "undefined" || fancybox===null) {fancybox = "disabled";
+		} else {fancybox = "enabled";	}
+
 		id = selectedId.split('_')[1];
 		var dataString = 'taglet='+ id;
 		//Display total results or when click results
 		var resultsCount = $(this).getJson('frontend/count_results/' + id);
 		$('#sniplet_messager').html('<a href="#" id="total_top">sniplets (' + resultsCount + ')</a>');
-
 		$("#tags_slider").slideUp(sliderUDTime);
 		var theUrl = CI_ROOT + 'frontend/search/';
 		
@@ -149,9 +154,11 @@ $(document).ready(function() {
 			success: function(server_response){
 				$('#search_load').hide();	
 				$('#search_results').html(server_response).show();
-				
 				$.fn.scrollThatPage(theUrl, '?get=tag_limit&' +dataString);
-	
+				//If fancybox is set. Let's close it on click
+				if(fancybox == "enabled"){
+					$.fancybox.close();
+				}
 			} //success		
 		}); //ajax
 	} //displayTagsClicked
@@ -1106,11 +1113,24 @@ $(document).ready(function() {
 
 	//Tags In Sniplets On click
 	/* -------------------------------------------------------------------------------------*/
-	$(".sniplet_click_tag").live('click', function(event) {
+	$("div#spboxx_search_container div#search_results a.sniplet_click_tag").live('click', function(event) {
 		event.preventDefault();
 		$('body').removeClass("active_menuclick");
 		var selectedId = this.id;
 		$(this).displayTagsClicked(selectedId);	
+		console.log('Clicking tag in sniplets');
+	});
+
+
+
+	//Tags In Sniplets On click In Fancybox pop-up
+	/* -------------------------------------------------------------------------------------*/
+	$("div#fancybox-content a.sniplet_click_tag").live('click', function(event) {
+		event.preventDefault();
+		$('body').removeClass("active_menuclick");
+		console.log('Clicking tag in sniplets fancbox');
+		var selectedId = this.id;
+		$(this).displayTagsClicked(selectedId, 1);	
 	});
 
 	//Tags On All Tags On Click

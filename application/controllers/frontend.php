@@ -213,21 +213,21 @@ class Frontend extends Base {
 				$tags = 'N/A';
 			}
 		//	echo '<li class="sniplet_data_li sniplet_zoom"><img class="sniplet_zoom_img" src="'.base_url().'img/zoom_mag.png" alt="Zoom Sniplet" border="0" /></li>';
-			echo '<li class="sniplet_data_li sniplet_tags"><b>Tags:</b> ' . $tags . '</li>';
-			echo '<li class="sniplet_data_li sniplet_created sniplet_time"><b>Created at:</b> ' . $array['create_sniplet_time'] . '</li>';
+			echo '<li class="sniplet_data_li sniplet_tags"><b>tags:</b> ' . $tags . '</li>';
+			echo '<li class="sniplet_data_li sniplet_created sniplet_time"><b>created at:</b> ' . $array['create_sniplet_time'] . '</li>';
 			if(!empty($array['score'])){
 				$score = number_format($array['score'], 4, '.', '');
-				echo '<li class="sniplet_data_li sniplet_score"><b>Search Score:</b> ' . $score . '</li>';
+				echo '<li class="sniplet_data_li sniplet_score"><b>search score:</b> ' . $score . '</li>';
 			}
 			if($fancybox == 0){
 				echo '<li class="sniplet_data_li copy_it">
-					<input type="image" title="View Sniplet Closer!" class="view_sniplet_button" id="sniplet_view_'.$array['sniplet_id'].'" alt="View!" src="'.base_url().'img/zoom_mag.png" >
-					<input type="image" title="Highlights text to Copy!" class="copy_sniplet_button" id="'.$array['sniplet_id'].'" alt="Copy!" src="'.base_url().'img/icon_copy.png">
-					<input type="image" title="Send email of Sniplet!" class="email_sniplet_button" id="sniplet_email_'.$array['sniplet_id'].'" alt="Email!" src="'.base_url().'img/icon_mail.png">
+					<input type="image" title="view sniplet closer" class="view_sniplet_button" id="sniplet_view_'.$array['sniplet_id'].'" alt="view" src="'.base_url().'img/zoom_mag.png" >
+					<input type="image" title="highlights text to copy" class="copy_sniplet_button" id="'.$array['sniplet_id'].'" alt="copy" src="'.base_url().'img/icon_copy.png">
+					<input type="image" title="send email of sniplet" class="email_sniplet_button" id="sniplet_email_'.$array['sniplet_id'].'" alt="email" src="'.base_url().'img/icon_mail.png">
 					</li>';
 			} else {
 				echo '<li class="sniplet_data_li copy_it">
-					<input type="image" title="Highlights text to Copy!" class="copy_sniplet_button copy_sniplet_fancy" id="'.$array['sniplet_id'].'" alt="Copy!" src="'.base_url().'img/icon_copy.png">
+					<input type="image" title="highlights text to copy" class="copy_sniplet_button copy_sniplet_fancy" id="'.$array['sniplet_id'].'" alt="copy" src="'.base_url().'img/icon_copy.png">
 					</li>';
 			}
 			echo '<li class="sniplet_data_li status_message" id="status_message_'.$array['sniplet_id'].'">';
