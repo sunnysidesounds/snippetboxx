@@ -505,7 +505,7 @@ $(document).ready(function() {
 					var tagUrl = CI_SITE + 'backend/taglet/';	
 					$("div#fancybox-wrap div#fancybox-outer div#fancybox-content div div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_spot input#edit_tags_sniplet.edit_tags_sniplet_input").autoSuggest(tagUrl, {
 						minChars: 2, 
-						matchCase: true,
+						matchCase: false,
 						asHtmlID: 'edit-tags-sniplet-input',
 						//selectionLimit: 8,
 						retrieveLimit: 2
@@ -543,7 +543,7 @@ $(document).ready(function() {
 
 					$("div#fancybox-wrap div#fancybox-outer div#fancybox-content div div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_spot input#edit_tags_sniplet.edit_tags_sniplet_input").autoSuggest(tagUrl, {
 						minChars: 2, 
-						matchCase: true,
+						matchCase: false,
 						asHtmlID: 'edit-tags-sniplet-input',
 						//selectionLimit: 8,
 						retrieveLimit: 2,
