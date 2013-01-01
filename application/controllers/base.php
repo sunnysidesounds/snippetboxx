@@ -4,12 +4,12 @@ ini_set('display_errors', 1);
 
 class Base extends CI_Controller {
 
-/* --------------------------------------------------------------------------------------------------------------------------*/	
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function view( $view_name, $title ) {
 		$this->view( $view_name, $title, null );
 	} //view
 		
-/* --------------------------------------------------------------------------------------------------------------------------*/	
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function dynView( $view_name, $title, $data) {       
 		$data['main_content'] = $view_name;
 		$data['title'] = $title;
@@ -17,7 +17,7 @@ class Base extends CI_Controller {
 	} // dynView
 
 
-/* --------------------------------------------------------------------------------------------------------------------------*/		
+	/* --------------------------------------------------------------------------------------------------------------------------*/		
 	public function logo(){
 		$this->load->model( 'ConfigModel' );
 		$site_logo = $this->ConfigModel->get_config('site_logo');
@@ -25,7 +25,7 @@ class Base extends CI_Controller {
 	} //logo
 
 
-/* --------------------------------------------------------------------------------------------------------------------------*/	
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function version(){
 		$this->load->model( 'ConfigModel' );
 		$version = $this->ConfigModel->get_config('version');
@@ -33,7 +33,7 @@ class Base extends CI_Controller {
 	} //version
 
 
-/* --------------------------------------------------------------------------------------------------------------------------*/	
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function copyright(){
 		$this->load->model( 'ConfigModel' );
 		$copyright = $this->ConfigModel->get_config('copyright');
@@ -41,7 +41,7 @@ class Base extends CI_Controller {
 	} //copyright
 	
 
-/* --------------------------------------------------------------------------------------------------------------------------*/	
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function changelog(){	
 		$this->load->model( 'ConfigModel' );
 		$filePath = $this->ConfigModel->get_config('changelog');
@@ -51,15 +51,61 @@ class Base extends CI_Controller {
 			echo '<span id="backtohome"><a href="'.base_url().'" >back to home</a></span>';
 			echo '<h3>Snippetboxx.com: (a.k.a Sniplet) ' . $this->version() . '</h3><br />';
 			$this->get_changelog();
-			echo '<br />File Source: ' . $filePath;		
+			//echo '<br />File Source: ' . $filePath;		
 			echo '</div>';
 		}
 	} //changelog
 	
 	
-/* --------------------------------------------------------------------------------------------------------------------------*/	
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function get_changelog(){
 		$this->load->model( 'ConfigModel' );
+		$filePath = $this->ConfigModel->get_config('changelog');
+		$url = 'https://github.com/sunnysidesounds/snippetboxx/commits/master.atom?login=sunnysidesounds&token=8b9a22eef63c428a18a620773fb4a502';
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+		$output = curl_exec($ch);
+		$info = curl_getinfo($ch);
+
+		$xml = simplexml_load_string($output);
+
+			echo '<pre>';
+		//	print_r($xml);
+			echo '</pre>';
+
+
+		$handle = @fopen($filePath, "r");
+		if ($handle) {
+		    while (($buffer = fgets($handle, 4096)) !== false) {
+		        echo nl2br($buffer);
+		    }
+		    if (!feof($handle)) {
+		        echo "Error: unexpected fgets() fail\n";
+		    }
+		    fclose($handle);		    
+		}
+
+
+		echo '<br />';
+		//echo 'Github Committs: <br />';
+		foreach ($xml->entry as $item) {
+			echo '<pre>';
+		//	print_r($item);
+			echo '</pre>';
+		//	echo $item->updated .' '. $item->title . '<br />';
+		}
+
+
+		curl_close($ch);
+
+
+
+//
+	/*	$this->load->model( 'ConfigModel' );
 		$filePath = $this->ConfigModel->get_config('changelog');	
 			$handle = @fopen($filePath, "r");
 		if ($handle) {
@@ -71,6 +117,8 @@ class Base extends CI_Controller {
 		    }
 		    fclose($handle);		    
 		}	
+	*/
+
 	} //get_changelog
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/

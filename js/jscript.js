@@ -1106,6 +1106,7 @@ $(document).ready(function() {
 	/* -------------------------------------------------------------------------------------*/
 	$(".top_ten_a").live('click', function(event) {		
 		event.preventDefault();
+		$("#search_sniplets").val(' '); //remove content from search, if any
 		$('body').removeClass("active_menuclick");
 		var selectedId = this.id;
 		$(this).displayTagsClicked(selectedId);
@@ -1115,18 +1116,18 @@ $(document).ready(function() {
 	/* -------------------------------------------------------------------------------------*/
 	$("div#spboxx_search_container div#search_results a.sniplet_click_tag").live('click', function(event) {
 		event.preventDefault();
+		$("#search_sniplets").val(' '); //remove content from search, if any
 		$('body').removeClass("active_menuclick");
 		var selectedId = this.id;
 		$(this).displayTagsClicked(selectedId);	
 		console.log('Clicking tag in sniplets');
 	});
 
-
-
 	//Tags In Sniplets On click In Fancybox pop-up
 	/* -------------------------------------------------------------------------------------*/
 	$("div#fancybox-content a.sniplet_click_tag").live('click', function(event) {
 		event.preventDefault();
+		$("#search_sniplets").val(' '); //remove content from search, if any
 		$('body').removeClass("active_menuclick");
 		console.log('Clicking tag in sniplets fancbox');
 		var selectedId = this.id;
@@ -1137,6 +1138,7 @@ $(document).ready(function() {
 	/* -------------------------------------------------------------------------------------*/
 	$(".at_tags").live('click', function(event) {
 		event.preventDefault();
+		$("#search_sniplets").val(' '); //remove content from search, if any
 		$('body').removeClass("active_menuclick");
 		var selectedId = this.id;
 		$(this).displayTagsClicked(selectedId);
@@ -1146,6 +1148,7 @@ $(document).ready(function() {
 	/* -------------------------------------------------------------------------------------*/		
 	$(".header_tags").live('click', function(event) {						
 		event.preventDefault();
+		$("#search_sniplets").val(' '); //remove content from search, if any
 		$('body').removeClass("active_menuclick");
 		$(this).displayAllTags();					
 	});

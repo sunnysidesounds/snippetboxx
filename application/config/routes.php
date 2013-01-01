@@ -41,6 +41,8 @@
 $route['default_controller'] = "frontend";
 $route['404_override'] = '';
 
+$route['changelog'] = "base/changelog";
+
 // BEGIN AUTHENTICATION LIBRARY ROUTES
 //$route['confirmation'] = "backend/signup";
 //$route['logout'] = "admin/admin/logout";
