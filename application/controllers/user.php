@@ -113,7 +113,8 @@ class User extends Base {
 					$out .= '<a title="'.$outer[1].' id="'.$outer[0].'" class="sniplet_link sniplet_link_'.$outer[0].'" href="#">'.$sniplet_title.'</a>';
 					$out .= '<a title="delete your sniplet" id="'.$outer[0].'" class="sniplet_link_delete sniplet_link_delete_'.$outer[0].'" href="#">delete</a>';
 					$out .= '<a title="edit your sniplet" id="'.$outer[0].'" class="sniplet_link_edit sniplet_link_edit_'.$outer[0].'" href="#">edit</a>';
-					$out .= '<a title="view url of your sniplet" id="'.$outer[0].'" class="sniplet_link sniplet_link_view sniplet_link_view_'.$outer[0].'" href="#">view</a>';
+					$out .= '<a title="view url of your sniplet" id="'.$outer[0].'" class="sniplet_link sniplet_link_url sniplet_link_url_'.$outer[0].'" href="#">url</a>';
+					$out .= '<a title="view your sniplet" id="'.$outer[0].'" class="sniplet_link sniplet_link_view sniplet_link_view_'.$outer[0].'" href="#">view</a>';
 					$out .= '</li>';					
 				}
 			} else {

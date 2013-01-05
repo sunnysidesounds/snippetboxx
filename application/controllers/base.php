@@ -49,7 +49,7 @@ class Base extends CI_Controller {
 		if($displayLog){
 			echo '<div id="sniplet_page" class="sniplet_min_height">';
 			echo '<span id="backtohome"><a href="'.base_url().'" >back to home</a></span>';
-			echo '<h3>Snippetboxx.com: (a.k.a Sniplet) ' . $this->version() . '</h3><br />';
+			echo '<h3>Snippetboxx.com: ' . $this->version() . '</h3><br />';
 			$this->get_changelog();
 			//echo '<br />File Source: ' . $filePath;		
 			echo '</div>';
@@ -61,7 +61,8 @@ class Base extends CI_Controller {
 	public function get_changelog(){
 		$this->load->model( 'ConfigModel' );
 		$filePath = $this->ConfigModel->get_config('changelog');
-		$url = 'https://github.com/sunnysidesounds/snippetboxx/commits/master.atom?login=sunnysidesounds&token=8b9a22eef63c428a18a620773fb4a502';
+		//TODO: add token and per page stuff
+		$url = 'https://api.github.com/repos/sunnysidesounds/snippetboxx/commits?access_token=337d4de0a78430a3e53bc6ba4efe5e5a0917d894&per_page=100';
 
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
@@ -71,12 +72,16 @@ class Base extends CI_Controller {
 		$output = curl_exec($ch);
 		$info = curl_getinfo($ch);
 
-		$xml = simplexml_load_string($output);
+		$output = json_decode($output);
+		//Github way
+		foreach ($output as $github_key => $github_value) {
+			$date = date("M d, Y", strtotime($github_value->commit->author->date));
+			echo $date . ' ' . $github_value->commit->author->name .' ' .$github_value->commit->message . '<br />';
 
-			echo '<pre>';
-		//	print_r($xml);
-			echo '</pre>';
+		}
 
+
+/* Old file changelog way
 
 		$handle = @fopen($filePath, "r");
 		if ($handle) {
@@ -88,36 +93,10 @@ class Base extends CI_Controller {
 		    }
 		    fclose($handle);		    
 		}
-
-
-		echo '<br />';
-		//echo 'Github Committs: <br />';
-		foreach ($xml->entry as $item) {
-			echo '<pre>';
-		//	print_r($item);
-			echo '</pre>';
-		//	echo $item->updated .' '. $item->title . '<br />';
-		}
-
+*/
 
 		curl_close($ch);
 
-
-
-//
-	/*	$this->load->model( 'ConfigModel' );
-		$filePath = $this->ConfigModel->get_config('changelog');	
-			$handle = @fopen($filePath, "r");
-		if ($handle) {
-		    while (($buffer = fgets($handle, 4096)) !== false) {
-		        echo nl2br($buffer);
-		    }
-		    if (!feof($handle)) {
-		        echo "Error: unexpected fgets() fail\n";
-		    }
-		    fclose($handle);		    
-		}	
-	*/
 
 	} //get_changelog
 

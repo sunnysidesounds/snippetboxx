@@ -953,6 +953,20 @@ $(document).ready(function() {
 		$('.sniplet_link_edit_'+ tid).css({visibility: 'hidden'});
 	});
 
+	//Display User Profile Sniplet View URL (This is the rollover pop-up view url functionality)
+	/* -------------------------------------------------------------------------------------*/	
+	$(".li_user_sniplets").live('mouseover', function(event) {
+		event.preventDefault();
+		var tid = this.id;
+		$('.sniplet_link_url_'+ tid).css({visibility: 'visible'});
+	});
+
+	$(".li_user_sniplets").live('mouseout', function(event) {
+		event.preventDefault();
+		var tid = this.id;
+		$('.sniplet_link_url_'+ tid).css({visibility: 'hidden'});
+	});
+
 	//Display User Profile Sniplet View (This is the rollover pop-up view functionality)
 	/* -------------------------------------------------------------------------------------*/	
 	$(".li_user_sniplets").live('mouseover', function(event) {
@@ -967,7 +981,7 @@ $(document).ready(function() {
 		$('.sniplet_link_view_'+ tid).css({visibility: 'hidden'});
 	});
 
-	//Display User Profile Sniplet Delete (This is the rollover pop-up Delete functionality)
+	//Display User Profile Sniplet Delete (This is the rollover pop-up delete functionality)
 	/* -------------------------------------------------------------------------------------*/	
 	$(".li_user_sniplets").live('mouseover', function(event) {
 		event.preventDefault();
