@@ -1448,7 +1448,29 @@ div#fancybox-content div div#no_iframe_container {
     padding: 10px;
 }
 
-.changelog_github {
-    
+.changelog_github_ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 0 10px;
 }
+
+.changelog_github_li {
+    display: inline;
+    margin-right: 10px;
+    font-size: 11px;
+    color: #445A7E;
+}
+
+.changelog_github_date {
+
+}
+
+.changelog_github_name {
+
+}
+
+.changelog_github_message {
+
+}
+
 

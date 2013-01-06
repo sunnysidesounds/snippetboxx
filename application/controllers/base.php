@@ -50,10 +50,10 @@ class Base extends CI_Controller {
 	public function github_format_commits($date, $name, $message){
 		$date = date("M d, Y", strtotime($date));
 		$output = '';
-		$output .= '<ul class="changelog_github ul">';
-			$output .= '<li class="changelog_github_date">' . $date . '</li>';
-			$output .= '<li class="changelog_github_name">' . $name . '</li>';
-			$output .= '<li class="changelog_github_message">' . $message . '</li>';
+		$output .= '<ul class="changelog_github_ul">';
+			$output .= '<li class="changelog_github_li changelog_github_date">' . $date . '</li>';
+			$output .= '<li class="changelog_github_li changelog_github_name">' . $name . '</li>';
+			$output .= '<li class="changelog_github_li changelog_github_message">' . $message . '</li>';
 		$output .= '</ul>';
     
 		return $output;
