@@ -16,14 +16,12 @@ class Base extends CI_Controller {
 		$this->load->view('globals/template', $data);
 	} // dynView
 
-
 	/* --------------------------------------------------------------------------------------------------------------------------*/		
 	public function logo(){
 		$this->load->model( 'ConfigModel' );
 		$site_logo = $this->ConfigModel->get_config('site_logo');
 		return $site_logo;
 	} //logo
-
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function version(){
@@ -32,38 +30,69 @@ class Base extends CI_Controller {
 		return $version;	
 	} //version
 
-
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function copyright(){
 		$this->load->model( 'ConfigModel' );
 		$copyright = $this->ConfigModel->get_config('copyright');
 		return $copyright;	
 	} //copyright
-	
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function github_api_url(){
+		$this->load->model( 'ConfigModel' );
+		$token = $this->ConfigModel->get_config('github_token');
+		$perPage = $this->ConfigModel->get_config('github_commits_per_page');
+		$url = 'https://api.github.com/repos/sunnysidesounds/snippetboxx/commits?access_token='.$token.'&per_page=' . $perPage;
+		return $url;
+	} //github_api_url
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function github_format_commits($date, $name, $message){
+		$date = date("M d, Y", strtotime($date));
+		$output = '';
+		$output .= '<ul class="changelog_github ul">';
+			$output .= '<li class="changelog_github_date">' . $date . '</li>';
+			$output .= '<li class="changelog_github_name">' . $name . '</li>';
+			$output .= '<li class="changelog_github_message">' . $message . '</li>';
+		$output .= '</ul>';
+    
+		return $output;
+	} //github_format_commits
+	
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function changelog(){	
 		$this->load->model( 'ConfigModel' );
-		$filePath = $this->ConfigModel->get_config('changelog');
 		$displayLog = $this->ConfigModel->get_config('show_changelog');
 		if($displayLog){
-			echo '<div id="sniplet_page" class="sniplet_min_height">';
-			echo '<span id="backtohome"><a href="'.base_url().'" >back to home</a></span>';
-			echo '<h3>Snippetboxx.com: ' . $this->version() . '</h3><br />';
-			$this->get_changelog();
-			//echo '<br />File Source: ' . $filePath;		
-			echo '</div>';
+			$data = $this->set_site_assets();
+			$data['s_version'] = $this->version();
+			$data['display_changelog'] = $this->get_changelog();
+			$this->dynView( 'frontend/changelog', 'Sniplets', $data);
 		}
 	} //changelog
-	
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function get_changelog(){
 		$this->load->model( 'ConfigModel' );
 		$filePath = $this->ConfigModel->get_config('changelog');
-		//TODO: add token and per page stuff
-		$url = 'https://api.github.com/repos/sunnysidesounds/snippetboxx/commits?access_token=337d4de0a78430a3e53bc6ba4efe5e5a0917d894&per_page=100';
+		$output = $this->get_curl_json($this->github_api_url());
 
+		$array = array();
+		foreach ($output as $github_key => $github_value) {				
+			//if we know that the github_value is not an object we know something is wrong with the api connection
+			if(is_object($github_value)){
+				$array[] = $this->github_format_commits($github_value->commit->author->date, $github_value->commit->author->name, $github_value->commit->message);
+			//fall back to old changelog file if api fails
+			} else {
+				log_message('error', 'get_changelog failed : github_value not a object [base/get_changelog]');
+				return $this->read_file_to_array($filePath);
+			}		
+		}
+		return $array;
+	} //get_changelog
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function get_curl_json($url){
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -71,39 +100,32 @@ class Base extends CI_Controller {
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 		$output = curl_exec($ch);
 		$info = curl_getinfo($ch);
-
+		curl_close($ch);
 		$output = json_decode($output);
-		//Github way
-		foreach ($output as $github_key => $github_value) {
-			$date = date("M d, Y", strtotime($github_value->commit->author->date));
-			echo $date . ' ' . $github_value->commit->author->name .' ' .$github_value->commit->message . '<br />';
+		return $output;
+	} //curl_json
 
-		}
-
-
-/* Old file changelog way
-
+	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function read_file_to_array($filePath){
 		$handle = @fopen($filePath, "r");
+		$array = array();
 		if ($handle) {
 		    while (($buffer = fgets($handle, 4096)) !== false) {
-		        echo nl2br($buffer);
+		        $array[] = nl2br($buffer);
 		    }
 		    if (!feof($handle)) {
-		        echo "Error: unexpected fgets() fail\n";
+		        $array[] = "Error: unexpected fgets() fail\n";
 		    }
+		    return $array;
+
 		    fclose($handle);		    
 		}
-*/
-
-		curl_close($ch);
-
-
-	} //get_changelog
+	} //read_file
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function prep_password($password){
 	     return sha1($password.$this->config->item('encryption_key'));
-	}	
+	} //prep_password
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function set_site_assets(){
@@ -123,26 +145,7 @@ class Base extends CI_Controller {
 	
 		return $data;
 	} //set_site_assets
-	
-
-/*
-			$displayLog = $this->ConfigModel->get_config('show_changelog');
-			$displayAbout = $this->ConfigModel->get_config('show_about');
-			$displayLogin = $this->ConfigModel->get_config('show_login');
-			$displaySignup = $this->ConfigModel->get_config('show_signup');
-			
-			$data['show_login'] = $displayLogin;
-			$data['show_about'] = $displayAbout;
-			$data['show_log'] = $displayLog;
-			$data['show_signup'] = $displaySignup;
-			$data['copyright'] = $this->copyright();
-			$data['software_version'] = $this->version();
-			$data['site_logo'] = $this->logo();
-			$data['tag_top_ten'] = $this->top_ten_tags();
-*/
-
-	
-	
+		
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function set_signup_errors($error){	
 		$this->load->model( 'ConfigModel' );
@@ -151,8 +154,7 @@ class Base extends CI_Controller {
 		$data['date_created'] = $time = date('m-d-Y-g:ia');	
 	
 		return $data;
-	}
-
+	} //set_signup_errors
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function tags_items($array){
@@ -174,7 +176,7 @@ class Base extends CI_Controller {
 		$out .= '</ul>';
 		
 		return $out;
-	}
+	} //tags_items
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function bookmarklet($environment){
