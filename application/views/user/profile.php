@@ -56,11 +56,12 @@
 					<li class="sniplet_profile_menu_item"><a id="sniplet_create_button" href="#"> create sniplet</a></li>
 				</ul>
 			</div>
-
 		</div>
 		<div class="sniplet_profile_float">
 			<div class="sniplet_profile_title_tags">
-				<div id="sniplet_your_tags"><a id="tags_secret_refresh" href="#">your tags</a></div>
+				<div id="sniplet_your_tags">
+					<a id="tags_secret_refresh" title="edit your tags" href="#">your tags</a> | <a id="tags_your_tags_used" title="view tags not owned by you" href="#">tags you used</a> 
+				</div>
 			</div>
 			<div class="sniplet_profile_tags">	
 				<?php if(isset($user_tags)){ echo $user_tags; }?>
@@ -68,33 +69,12 @@
 		</div>
 		<div class="sniplet_profile_float">
 			<div class="sniplet_profile_title_sniplet">
-				<div class="sniplet_title_t" id="sniplet_your_sniplets"><a id="sniplet_secret_refresh" href="#">your sniplets</a><span id="your_loader_sniplet"><span></div>
+				<div class="sniplet_title_t" id="sniplet_your_sniplets"><a id="sniplet_secret_refresh" title="edit your sniplets" href="#">your sniplets</a><span id="your_loader_sniplet"><span></div>
 			</div>		
 			<div class="sniplet_profile_sniplets">	
 				<?php if(isset($user_snips)){echo $user_snips; }?>
 			</div>
 		</div>
-	<!--	<div class="sniplet_profile_float">
-			<div class="sniplet_profile_title_editor">
-				<div id="sniplet_your_editor">your sniplet editor</div>
-			</div>		
-			<div class="sniplet_profile_editor">	
-
-			</div>
-		</div> -->
-
-
-		<!--<ul class="sniplet_user_ul">
-			<li class="snplet_user_li sniplet_user_tags">			
-				<h4>your tags</h4>	
-
-			<?php if(isset($user_tags)){ echo $user_tags; }?>
-			</li>
-			<li class="snplet_user_li sniplet_user_sniplets">			
-				<h4>your sniplets</h4>		
-				<?php if(isset($user_snips)){echo $user_snips; }?>
-			</li>
-		</ul>-->
 	</div>
 
 </div>

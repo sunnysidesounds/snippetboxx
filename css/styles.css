@@ -1086,8 +1086,11 @@ div#sniplet_login div#login_form form div.login_block label, div#bk_content div#
 
 
 #sniplet_your_tags, #sniplet_your_sniplets, #sniplet_your_editor {
-    padding-left: 15px;
+    border-bottom: 2px solid #CCCCCC;
+    margin-left: 15px;
+    margin-right: 23px;
     padding-top: 10px;
+    padding-bottom: 2px;
 }
 
 .sniplet_profile_float {
@@ -1492,4 +1495,20 @@ div#fancybox-content div div#no_iframe_container {
     font-size: 12px;
     font-weight: bold;
     margin-bottom: 12px;
+}
+
+#sniplet_secret_refresh {
+    padding-right: 5px;
+    padding-top: 2px;
+}
+
+#tags_secret_refresh {
+    padding-right: 5px;
+    padding-top: 2px;
+}
+
+#tags_your_tags_used {
+    margin-left: 4px;
+    padding-right: 5px;
+    padding-top: 2px;
 }

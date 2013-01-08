@@ -97,7 +97,21 @@ class User extends Base {
 			 	$out .= '<li class="li_user_list li_user_none">You don\'t have any '.$set.' yet!, <a href="#" id="'.$set.'_learn_more" class="user_learn_more" >Learn how...</a></li>';
 			}
 			$out .= '</ul>';
-		
+
+		} elseif($set == 'tags_not_owned'){
+			$out .= '<ul class="ul_user_list">';
+			if(!empty($array)){
+				foreach($array as $outer){
+					$out .= '<li id="'.$outer[0].'" class="li_user_list li_user_tags">';
+					$out .= '<a title="'.$outer[1].'" id="'.$outer[0].'" class="sniplet_tag_link sniplet_tag_link_'.$outer[0].'" href="#">'.$outer[1].'</a>';
+					$out .= '</li>';					
+				}
+			} else {
+			 	$out .= '<li class="li_user_list li_user_none">You don\'t have any '.$set.' yet!, <a href="#" id="'.$set.'_learn_more" class="user_learn_more" >Learn how...</a></li>';
+			}
+			$out .= '</ul>';
+
+
 		} elseif($set == 'sniplets'){
 			$out .= '<ul class="ul_user_list">';
 			if(!empty($array)){
@@ -236,11 +250,24 @@ class User extends Base {
 					}
 					$time = date('m-d-Y-g:ia');
 					$this->UserModel->update_user_sniplet_time($user_id, $sniplet_id, $time);
-
 				}
 		}
 
 	} //sniplet_update
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function user_tags_not_owned(){
+		$user = base64_decode($this->input->get('u'));
+		$this->load->model( 'UserModel' );
+		$session_status = $this->session->userdata('login_state');
+		//Check if user has a session
+		if($session_status){	
+			$tags = $this->UserModel->get_user_tags_not_own($this->UserModel->get_user_id($user));
+			$tags_html = $this->display($tags, 'tags_not_owned');
+			echo $tags_html;
+		} 
+		//TODO: Add logic for failture ELSE clause
+	} //user_tags_not_owned
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function user_tags_all(){

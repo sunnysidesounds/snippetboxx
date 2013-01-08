@@ -388,6 +388,30 @@ $(document).ready(function() {
 
 	}; //displayUserTagsRaw
 
+	//Display User Profile Tags RAW
+	/* -------------------------------------------------------------------------------------*/	
+	$.fn.displayUserTagsNotOwned = function(username){
+		var displayString = 'u='+ username;
+		var displayUrl = CI_ROOT + 'user/user_tags_not_owned/';		
+		$.ajax({
+			type: "GET",
+			url: displayUrl,
+			data: displayString,
+			beforeSend:  function() {					
+				//img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '
+				//$('#search_load').html(img).show();				
+			},
+			success: function(server_response){
+				$('div.sniplet_profile_float div.sniplet_profile_tags').html(server_response);					
+				//$('#search_load').hide();
+				//$('#search_results').html(server_response).show();					
+				//	$.fn.scrollThatPage(displayUrl, '?get=all_limit');									
+			} //success		
+		}); //ajax
+
+
+	}; //displayUserTagsNotOwned
+
 	//Display User Profile Tags
 	/* -------------------------------------------------------------------------------------*/	
 	$.fn.displayUserTagsById = function(username, tid){
@@ -1306,6 +1330,17 @@ $(document).ready(function() {
 		console.log(username);
 		$(this).updateUserTagName(tag_title, tag_id, username); 
 		$('body').removeClass("active_menuclick");
+	});
+
+	//User profile secret tag refresh link, used for other stuff too. 
+	/* -------------------------------------------------------------------------------------*/
+	$("a#tags_your_tags_used").live('click', function(event) {
+		event.preventDefault();
+		var username = $.cookie('user_tracker_info');
+		username = username.split(',');
+		username = username[0];
+		username = $.base64.encode(username);
+		$(this).displayUserTagsNotOwned(username);
 	});
 
 	//User profile secret tag refresh link, used for other stuff too. 
