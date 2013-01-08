@@ -84,7 +84,7 @@
 					</li>
 					<?php if($show_log){ ?>
 					<li class="header_menu_li header_changelog">
-						<a href="<?= base_url() ?>changelog/">changelog</a>
+						<a href="#">changelog</a>
 					</li>
 					<?php }?>
 					<li class="header_menu_li software_version">

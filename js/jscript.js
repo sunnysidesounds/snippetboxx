@@ -274,7 +274,36 @@ $(document).ready(function() {
 			$(this).clog('aborted display all records');
 		}		
 	}; //displayRecords
-		
+
+	//Display User Profile
+	/* -------------------------------------------------------------------------------------*/	
+	$.fn.displayChangelog = function(source){
+		var changeVal = 'is_set='+ source;
+		var changeUrl = CI_ROOT + 'base/changelog/';
+		$.ajax({
+					type: "GET",
+					url: changeUrl,
+					data: changeVal,
+					beforeSend:  function() {					
+						$('#search_results').hide();
+						$("html, body").animate({ scrollTop: 0 }, "slow");
+						img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '						
+						$('#search_load').html(img).show();									
+							//Check if message is visable, if not show it.
+							var visable = $('#sniplet_messager').is(":visible");
+							if(visable == false){
+								$('#sniplet_messager').show();
+							}			
+										},
+					success: function(server_response){
+						$('#search_load').hide();							
+						//Let's disable scroll pagination on this page.				
+						$('#search_results').attr('scrollpagination', 'disabled');
+						$('#search_results').html(server_response).show();
+					} //success		
+			}); //ajax
+	}; //displayChangelog
+	
 	//Display User Profile
 	/* -------------------------------------------------------------------------------------*/	
 	$.fn.displayUser = function(username){
@@ -1165,6 +1194,15 @@ $(document).ready(function() {
 		$("#search_sniplets").val(' '); //remove content from search, if any
 		$('body').removeClass("active_menuclick");
 		$(this).displayAllTags();					
+	});
+
+	//Display Changelog On Click Header
+	/* -------------------------------------------------------------------------------------*/		
+	$(".header_changelog").live('click', function(event) {						
+		event.preventDefault();
+		$("#search_sniplets").val(' '); //remove content from search, if any
+		$('body').removeClass("active_menuclick");	
+		$(this).displayChangelog(1);			
 	});
 
 	//Hightlight / Copy Bookmarklet Button

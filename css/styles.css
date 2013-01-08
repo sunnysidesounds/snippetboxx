@@ -952,6 +952,19 @@ div#sniplet_login div#login_form form div.login_block label, div#bk_content div#
     padding-left: 5px;
 }
 
+.sniplet_changelog_data_container {
+    margin: auto;
+    padding: 0;
+    width: 900px;
+    min-height: 550px;
+    background: none repeat scroll 0 0 #ffffff;
+    box-shadow: 0 1px 2px rgba(34, 25, 25, 0.1);
+    border:1px solid rgba(34, 25, 25, 0.2);
+    margin-top:10px;
+    margin-bottom:10px;
+    overflow:auto;
+}
+
 .sniplet_profile_data_container {
     margin: auto;
     padding: 0;
@@ -1449,14 +1462,15 @@ div#fancybox-content div div#no_iframe_container {
 }
 
 .changelog_github_ul {
+    border-top: 1px solid #CCCCCC;
     list-style-type: none;
-    margin: 0;
-    padding: 0 0 10px;
+    margin: 0 20px 0 0;
+    padding: 5px 0;
 }
 
 .changelog_github_li {
     display: inline;
-    margin-right: 10px;
+    margin-right: 60px;
     font-size: 11px;
     color: #445A7E;
 }
@@ -1473,4 +1487,9 @@ div#fancybox-content div div#no_iframe_container {
 
 }
 
-
+.sniplet_changelog_header {
+    color: #445A7E;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}

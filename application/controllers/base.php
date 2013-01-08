@@ -64,10 +64,9 @@ class Base extends CI_Controller {
 		$this->load->model( 'ConfigModel' );
 		$displayLog = $this->ConfigModel->get_config('show_changelog');
 		if($displayLog){
-			$data = $this->set_site_assets();
-			$data['s_version'] = $this->version();
+			//$data = $this->set_site_assets();
 			$data['display_changelog'] = $this->get_changelog();
-			$this->dynView( 'frontend/changelog', 'Sniplets', $data);
+			$this->load->view('frontend/changelog', $data);
 		}
 	} //changelog
 	
@@ -81,7 +80,7 @@ class Base extends CI_Controller {
 		foreach ($output as $github_key => $github_value) {				
 			//if we know that the github_value is not an object we know something is wrong with the api connection
 			if(is_object($github_value)){
-				$array[] = $this->github_format_commits($github_value->commit->author->date, $github_value->commit->author->name, $github_value->commit->message);
+				$array[] = $this->github_format_commits($github_value->commit->author->date, $github_value->commit->author->name, strtolower($github_value->commit->message));
 			//fall back to old changelog file if api fails
 			} else {
 				log_message('error', 'get_changelog failed : github_value not a object [base/get_changelog]');

@@ -1,8 +1,8 @@
 
-<div id="spboxx_container">
+<div class="sniplet_changelog_data_container">
 
 	<div id="spboxx_search_container">
-		<h3>Changelog: <?php echo $s_version; ?></h3><br />
+		<h3 class="sniplet_changelog_header">our live commits changelog:</h3>
 		<?php
 			 if(isset($display_changelog)){
 				foreach ($display_changelog as $changes) {
@@ -13,10 +13,6 @@
 
 
 		?>
-
-	
-
-
 	</div>
 	
 </div>
