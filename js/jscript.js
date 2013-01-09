@@ -214,6 +214,39 @@ $(document).ready(function() {
 		}, 1000 );
 	} //searchAsTypeSniplet
 
+	//Search As You Type - Display Sniplets. 
+	/* -------------------------------------------------------------------------------------*/	
+	$.fn.displayUserAccountSettings = function(username) {
+			var theUrl = CI_ROOT + 'user/account_settings';
+			var username = 'u=' + username;
+			$.ajax({
+				type: "GET",
+				url: theUrl,
+				data: username,
+				beforeSend:  function() {					
+				//	$('#search_results').hide();								
+				//	img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '
+				//	$('#search_load').html(img).show();	
+				},
+				success: function(server_response){
+				//	$('#search_load').hide();	
+				 	
+				 //	if(server_response.length == 0){			 	
+				//	 	$('#nomoreresults').fadeIn();				 	
+				//	 	setTimeout(function() {
+				//			$('#nomoreresults').fadeOut();									
+				//		}, 1000); 
+				//	} else {						
+				//		$('#search_results').html(server_response).show();		
+				//		$.fn.scrollThatPage(theUrl, '?get=search&' +dataString);					
+				//	}
+					
+				} //success		
+			}); //ajax		
+	} //searchAsTypeSniplet
+
+
+
 
 	//Scroll To Top
 	/* -------------------------------------------------------------------------------------*/	
@@ -639,8 +672,7 @@ $(document).ready(function() {
 				
 			} //success		
 		}); //ajax
-	} //displayUserSnipletEdit
-
+	} //displayAbout
 
 	//User Profile - Update User Sniplet
 	/* -------------------------------------------------------------------------------------*/	
@@ -1086,9 +1118,21 @@ $(document).ready(function() {
 	/* -------------------------------------------------------------------------------------*/	
 	$("#sniplet_create_button").live('click', function(event) {
 		event.preventDefault();
-		var tid = this.id;
+		var tid = 0;
 		$(this).displayUserSnipletCreate(tid);
 	});
+
+	//Display User Profile Account Settings Form
+	/* -------------------------------------------------------------------------------------*/	
+	$("#sniplet_settings_button").live('click', function(event) {
+		event.preventDefault();
+		var username = $.cookie('user_tracker_info');
+		username = username.split(',');
+		username = username[0];
+		username = $.base64.encode(username);	
+		$(this).displayUserAccountSettings(username);
+	});
+
 
 	//Display User Profile Sniplet Create Edit Form
 	/* -------------------------------------------------------------------------------------*/	
@@ -1301,6 +1345,21 @@ $(document).ready(function() {
 		}
 	}); //content hover/click
 
+	//User profile submit create sniplet
+	/* -------------------------------------------------------------------------------------*/
+	$("div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_submit input#create_submit").live('click', function(event) {
+		event.preventDefault();
+		alert('create');
+		//sniplet_title = $('div#edit_sniplet_container input#edit_sniplet.edit_sniplet_input').val();
+		//sniplet_text = $('div#edit_sniplet_container_area textarea#edit_sniplet_text').val();
+		//sniplet_tags = $('div#edit_sniplet_container_spot ul#as-selections-edit-tags-sniplet-input.as-selections li#as-original-edit-tags-sniplet-input.as-original input#as-values-edit-tags-sniplet-input.as-values').val();
+		//sniplet_user_id = $('div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_submit input#sniplet_username_id').val();
+		//sniplet_id = $('div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_submit input#sniplet_id').val();
+		//sniplet_update_time = $('div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_submit input#sniplet_update_time').val();
+
+		//$(this).updateUserSniplet(sniplet_title, sniplet_text, sniplet_tags, sniplet_user_id, sniplet_update_time, sniplet_id);
+	});
+
 
 	//User profile submit edit sniplet
 	/* -------------------------------------------------------------------------------------*/
@@ -1313,13 +1372,7 @@ $(document).ready(function() {
 		sniplet_id = $('div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_submit input#sniplet_id').val();
 		sniplet_update_time = $('div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_submit input#sniplet_update_time').val();
 
-	
-
-		console.log(sniplet_id);
-
 		$(this).updateUserSniplet(sniplet_title, sniplet_text, sniplet_tags, sniplet_user_id, sniplet_update_time, sniplet_id);
-		//$('body').removeClass("active_menuclick");
-		//		alert(sniplet_title + sniplet_text + sniplet_tags + sniplet_user_id + sniplet_update_time);
 	});
 
 	//User profile submit edit tag

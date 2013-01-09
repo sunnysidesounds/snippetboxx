@@ -51,7 +51,7 @@
 			</div>
 			<div id="sniplet_bar_menu">
 				<ul class="sniplet_profile_menu_hd">
-					<li class="sniplet_profile_menu_item">account settings</li>
+					<li class="sniplet_profile_menu_item"><a id="sniplet_settings_button" href="#"> account settings</a></li>
 					<li class="sniplet_profile_menu_item"><a id="sniplet_bookmarklet_button" href="#"> bookmarklet</a></li>
 					<li class="sniplet_profile_menu_item"><a id="sniplet_create_button" href="#"> create sniplet</a></li>
 				</ul>

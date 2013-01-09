@@ -37,7 +37,17 @@ class User extends Base {
 
 	}//index
 
-	
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function account_settings(){
+		$username = base64_decode($this->input->get('u'));
+		$session_status = $this->session->userdata('login_state');
+
+		if($session_status){
+			echo $username;
+		}
+
+
+	} //account_settings
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function account(){
