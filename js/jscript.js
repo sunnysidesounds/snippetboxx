@@ -466,8 +466,8 @@ $(document).ready(function() {
 	//Display User Profile Sniplet Display Link
 	/* -------------------------------------------------------------------------------------*/	
 	$.fn.displayUserSnipletLink = function(username, tid){
-
-		var page_json = $(this).getJson("user/user_sniplet_link?u= "+username+"&tid="  + tid);
+		
+		var page_json = $(this).getJson("user/user_sniplet_link?u="+username+"&tid="  + tid);
 
 		$.each(page_json, function(key, value) {
 			var page_key = key;
@@ -1049,25 +1049,30 @@ $(document).ready(function() {
 	});
 
 
-	//Display User Profile Display Link
+	//Display User Profile Display Sniplet
 	/* -------------------------------------------------------------------------------------*/	
 	$(".sniplet_link").live('click', function(event) {
 		event.preventDefault();
 		var username = $.cookie('user_tracker_info');
 		username = username.split(',');
 		username = username[0];
-		username = $.base64.encode(username);
+		username = $.base64.encode(username);	
 		var tid = this.id;
-		//$('div#fancybox-loading').show();
-		//img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '
-		//$('div#fancybox-loading').html(img).show();
-		 //	setTimeout(function() {		
-		$(this).displayUserSnipletLink(username, tid);								
-		//	}, 1500); 
-
-		
+		tid = 'sniplet_content_' + tid;
+		$(this).displaySnipletClicked(tid);							
 	});
 
+	//Display User Profile Display Link
+	/* -------------------------------------------------------------------------------------*/	
+	$(".sniplet_link_url").live('click', function(event) {
+		event.preventDefault();
+		var username = $.cookie('user_tracker_info');
+		username = username.split(',');
+		username = username[0];
+		username = $.base64.encode(username);	
+		var tid = this.id;
+		$(this).displayUserSnipletLink(username, tid);								
+	});
 
 	//Display User Profile Tags Edit Form
 	/* -------------------------------------------------------------------------------------*/	

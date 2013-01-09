@@ -1,5 +1,10 @@
 Change Log for Sniplet Application :
 ----------------------------------------------------------------------------------------------------------------------------
+01/08/13 Jason R Alexander "sunnysidesounds[at]gmail[dot]com"
+	-Version alpha 0.1.5
+	-Add changelog github functionality
+	-User profile updates.
+
 12/18/12 Jason R Alexander "sunnysidesounds[at]gmail[dot]com"
 	-Version alpha 0.1.4
 	-Fixed SQL Injections issues.
