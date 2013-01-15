@@ -1512,3 +1512,37 @@ div#fancybox-content div div#no_iframe_container {
     padding-right: 5px;
     padding-top: 2px;
 }
+
+div#delete_sniplet_container {
+    background-color: #F9F9F9;
+    border: 1px solid #CCCCCC;
+    color: #445A7E;
+    height: 120px;
+    padding: 10px;
+    text-align: center;
+}
+
+div#delete_sniplet_text div {
+    font-size: 15px;
+    padding-bottom: 20px;
+    padding-top: 5px;
+}
+
+div#delete_sniplet_text {
+    padding-top: 32px;
+    
+}
+
+div#delete_sniplet_container a {
+    background-color: #F0F0F0;
+    border: 1px solid #CCCCCC;
+    color: #666666;
+    cursor: pointer;
+    margin-left: 2px;
+    padding: 4px;
+}
+
+div#delete_sniplet_container a:hover {
+    text-decoration: none;
+}
+

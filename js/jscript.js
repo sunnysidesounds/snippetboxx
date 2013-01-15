@@ -604,6 +604,31 @@ $(document).ready(function() {
 		}); //fancybox	
 	}; //displayUserSnipletCreate
 
+	//Display User Profile Delete Sniplet
+	/* -------------------------------------------------------------------------------------*/	
+	$.fn.deleteSniplet = function(tid){
+		$.fancybox({
+			'transitionIn': 'none',
+			'width' : 500,
+			'height' : 150,
+			'autoDimensions': false,
+			'transitionOut': 'none',
+			'onStart' : function(){
+            			//$(this).clog('OnStart creates for bookmarklet version: ' + environment);
+        			},
+			'onComplete' : function(content){	
+				//Add class to click the scroller when in fancybox mode
+				$('body').addClass("active_menuclick");
+				//$('div#fancybox-wrap div#fancybox-outer div#fancybox-content div div#bookmarklet_container').focus().select();
+			
+			},
+			'type': 'ajax',
+			'href': CI_SITE + "user/sniplet_delete?tid=" + tid
+		}); //fancybox	
+	
+
+	}; //deleteSniplet
+
 	//Display User Profile Sniplet Edit Form
 	/* -------------------------------------------------------------------------------------*/	
 	$.fn.displayUserSnipletEdit = function(tid){
@@ -673,6 +698,7 @@ $(document).ready(function() {
 			} //success		
 		}); //ajax
 	} //displayAbout
+
 
 	//User Profile - Update User Sniplet
 	/* -------------------------------------------------------------------------------------*/	
@@ -1104,6 +1130,29 @@ $(document).ready(function() {
 		username = $.base64.encode(username);	
 		var tid = this.id;
 		$(this).displayUserSnipletLink(username, tid);								
+	});
+
+	//Display User Profile Delete Sniplet
+	/* -------------------------------------------------------------------------------------*/	
+	$(".sniplet_link_delete").live('click', function(event) {
+		event.preventDefault();
+		var tid = this.id;
+		$(this).deleteSniplet(tid);
+	});
+
+	//Display User Profile Delete Sniplet Confirmed YES
+	/* -------------------------------------------------------------------------------------*/	
+	$(".sniplet_delete_yes").live('click', function(event) {
+		event.preventDefault();
+		var tid = this.id;
+		alert(tid);
+	});
+
+	//Display User Profile Delete Sniplet Confirmed NO
+	/* -------------------------------------------------------------------------------------*/	
+	$(".sniplet_delete_no").live('click', function(event) {
+		event.preventDefault();
+		$.fancybox.close();
 	});
 
 	//Display User Profile Tags Edit Form

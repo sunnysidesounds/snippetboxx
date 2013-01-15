@@ -52,13 +52,16 @@ class User extends Base {
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function account(){
 		$this->load->model( 'UserModel' );
+		$this->load->model( 'ConfigModel' );
+		$limit = $this->ConfigModel->get_config('user_profile_sniplet_record_default');
 		$session_status = $this->session->userdata('login_state');
+
 		//Check if user has a session
 		if($session_status){
 
 			$user = base64_decode($this->input->get('u'));
 			$tags = $this->UserModel->get_user_tags($this->UserModel->get_user_id($user));
-			$sniplets = $this->UserModel->get_user_sniplets($this->UserModel->get_user_id($user));
+			$sniplets = $this->UserModel->get_user_sniplets($this->UserModel->get_user_id($user), $limit);
 			$email = $this->UserModel->get_user_email($user);
 			
 			$data['tags_count'] = $this->UserModel->get_user_count_tags($this->UserModel->get_user_id($user));
@@ -191,6 +194,45 @@ class User extends Base {
 	} //user_tag_update
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function sniplet_delete(){
+		$this->load->model( 'UserModel' );
+		$this->load->model( 'EditorModel' );
+		$this->load->model( 'ConfigModel' );
+		$sniplet_id = $this->input->get('tid');
+		$sniplet_title_raw = $this->EditorModel->get_sniplet_by_id($sniplet_id);
+		//TODO: Turn string length into it's own method. 
+		$sniplet_length = $this->ConfigModel->get_config('user_sniplet_string_length');
+		if (strlen($sniplet_title_raw) > $sniplet_length){
+				$sniplet_title = substr($sniplet_title_raw, 0, $sniplet_length) . '...';
+			} else {
+				$sniplet_title = $sniplet_title_raw;
+			}
+
+		$out = '';	
+		$session_status = $this->session->userdata('login_state');
+		//Check if user has a session
+		if($session_status){
+			$out .= '<div id="delete_sniplet_container">';
+			$out .= '<div id="delete_sniplet_text">Are you sure you want to delete? <br /> <div>' . $sniplet_title . '</span></div>';
+			$out .= '<a title="yes delete sniplet!" id="'.$sniplet_id.'" class="sniplet_delete_yes" href="#">yes</a> ';
+			$out .= '<a title="no don\'t delete sniplet!" class="sniplet_delete_no" href="#">no</a>';
+			$out .= '</div>';
+		}
+		echo $out;
+
+	} //sniplet_delete
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function sniplet_delete_confirm($username, $sniplet_id){
+		$session_status = $this->session->userdata('login_state');
+		//Check if user has a session
+		if($session_status){
+			$this->UserModel->delete_sniplet($user, $sniplet_id);
+			$this->UserModel->delete_sniplet_tags($user, $sniplet_id);
+		}
+	} //sniplet_delete_confirm
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function sniplet_update(){
 		//TODO: This method is to big, reduce it into smaller methods. 
 		$this->load->model( 'UserModel' );
@@ -301,10 +343,12 @@ class User extends Base {
 	public function user_sniplet_all(){
 		$user = base64_decode($this->input->get('u'));
 		$this->load->model( 'UserModel' );
+		$this->load->model( 'ConfigModel' );
+		$limit = $this->ConfigModel->get_config('user_profile_sniplet_record_default');
 		$session_status = $this->session->userdata('login_state');
 		//Check if user has a session
 		if($session_status){
-			$sniplets = $this->UserModel->get_user_sniplets($this->UserModel->get_user_id($user));
+			$sniplets = $this->UserModel->get_user_sniplets($this->UserModel->get_user_id($user), $limit);
 			$sniplets_html = $this->display($sniplets, 'sniplets');
 			echo $sniplets_html;
 		} 
@@ -349,6 +393,5 @@ class User extends Base {
 			}
 		} 
 
-	} //user_sniplet_link
-	
+	} //user_sniplet_link	
 } //User

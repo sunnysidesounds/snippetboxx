@@ -63,8 +63,13 @@ class UserModel extends BaseModel {
 	} //get_user_tags
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
-	public function get_user_sniplets($id){	
-		$sql = 'SELECT * FROM sniplets WHERE user_id =? ORDER BY sniplet_title;';
+	public function get_user_sniplets($id, $limit = ''){
+		if(!empty($limit)){
+			$limit = 'LIMIT ' . $limit;
+		} else {
+			$limit = '';
+		}		
+		$sql = 'SELECT * FROM sniplets WHERE user_id =? ORDER BY sniplet_title '.$limit.';';
 		$query = $this->db->query( $sql , array($id));	
 		$parent = array();
 		if($query->num_rows()>0){	
@@ -272,8 +277,37 @@ class UserModel extends BaseModel {
 			log_message('error', 'Update Failed : [usermodel/delete_user_tag]');
 			return false;
 		}
-	} //replace_user_tags
+	} //delete_user_tag
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function delete_sniplet_tags($sniplet_id, $user_id){
+		$sql = 'DELETE FROM sniplets_to_tags WHERE sniplet_id = ? AND user_id = ?;';
+		echo $sql;
+/*
+		$query = $this->db->query($sql, array($sniplet_id, $user_id));	
+		if($query){
+			return true;
+		} else {
+			log_message('error', 'Update Failed : [usermodel/delete_user_sniplet]');
+			return false;
+		}
+*/
+	} //delete_sniplet_tags	
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function delete_sniplet($sniplet_id, $user_id){
+		$sql = 'DELETE FROM sniplets WHERE sniplet_id = ? AND user_id = ?;';
+		echo $sql;
+/*
+		$query = $this->db->query($sql, array($sniplet_id, $user_id));	
+		if($query){
+			return true;
+		} else {
+			log_message('error', 'Update Failed : [usermodel/delete_sniplet]');
+			return false;
+		}
+*/
+	} //delete_sniplet	
 
 
 
