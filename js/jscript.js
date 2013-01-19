@@ -21,8 +21,8 @@ $(document).ready(function() {
 	$.fn.displaySnipletHover = function(id) {
 		$.fancybox({
 			'transitionIn': 'none',
-			'width' : 700,
-			'height' : 500,
+			'width' : 1020,
+			'height' : 796,
 			'autoDimensions': false,
 			'transitionOut': 'none',
 			'onComplete' : function(){
@@ -40,7 +40,7 @@ $(document).ready(function() {
 	} //displaySnipletHover
 
 
-	//Display Sniplet List On Click 
+	//Display Sniplet User Admin On Click 
 	/* -------------------------------------------------------------------------------------*/	
 	$.fn.displaySnipletClicked = function(id) {
 		$.fancybox({
