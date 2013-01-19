@@ -223,12 +223,19 @@ class User extends Base {
 	} //sniplet_delete
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
-	public function sniplet_delete_confirm($username, $sniplet_id){
+	public function sniplet_delete_confirm(){
+		$this->load->model( 'UserModel' );
+		$username = base64_decode($this->input->post('u'));
+		$user_id = $this->UserModel->get_user_id($username);
+		$sniplet_id = $this->input->post('tid');
 		$session_status = $this->session->userdata('login_state');
 		//Check if user has a session
 		if($session_status){
-			$this->UserModel->delete_sniplet($user, $sniplet_id);
-			$this->UserModel->delete_sniplet_tags($user, $sniplet_id);
+			$deleteSet1 = $this->UserModel->delete_sniplet($sniplet_id, $user_id);
+			$deleteSet2 = $this->UserModel->delete_sniplet_tags($sniplet_id, $user_id);
+			if($deleteSet1 && $deleteSet2){
+				echo $sniplet_id;
+			}
 		}
 	} //sniplet_delete_confirm
 

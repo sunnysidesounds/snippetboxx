@@ -282,31 +282,29 @@ class UserModel extends BaseModel {
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function delete_sniplet_tags($sniplet_id, $user_id){
 		$sql = 'DELETE FROM sniplets_to_tags WHERE sniplet_id = ? AND user_id = ?;';
-		echo $sql;
-/*
 		$query = $this->db->query($sql, array($sniplet_id, $user_id));	
 		if($query){
+			log_message('info', 'Delete Success: [usermodel/delete_user_sniplet] (user_id: '.$user_id.' - sniplet_id:' . $sniplet_id . ')');
 			return true;
 		} else {
-			log_message('error', 'Update Failed : [usermodel/delete_user_sniplet]');
+			log_message('error', 'Delete Failed : [usermodel/delete_user_sniplet]');
 			return false;
 		}
-*/
+
 	} //delete_sniplet_tags	
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function delete_sniplet($sniplet_id, $user_id){
 		$sql = 'DELETE FROM sniplets WHERE sniplet_id = ? AND user_id = ?;';
-		echo $sql;
-/*
 		$query = $this->db->query($sql, array($sniplet_id, $user_id));	
 		if($query){
+			log_message('info', 'Delete Success: [usermodel/delete_user_sniplet] (user_id: '.$user_id.' - sniplet_id:' . $sniplet_id . ')');
 			return true;
 		} else {
-			log_message('error', 'Update Failed : [usermodel/delete_sniplet]');
+			log_message('error', 'Delete Failed : [usermodel/delete_sniplet]');
 			return false;
 		}
-*/
+		
 	} //delete_sniplet	
 
 

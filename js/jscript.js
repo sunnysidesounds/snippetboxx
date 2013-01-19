@@ -629,6 +629,35 @@ $(document).ready(function() {
 
 	}; //deleteSniplet
 
+	/* -------------------------------------------------------------------------------------*/	
+	$.fn.deleteSnipletConfirmed= function(username, sniplet_id){
+		var theUrl = CI_ROOT + 'user/sniplet_delete_confirm';	
+		var snipletLogin = $.ajax({
+			type: "POST",
+			url: theUrl,
+			data: 'u='+ username + '&tid='+sniplet_id,
+			beforeSend:  function(server_response) {					
+		/*		img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '
+				$('#search_load').html(img).show();	
+				$('#login_form').hide();	*/
+			},
+			success: function(server_response){
+				console.log(server_response);
+				if(server_response == sniplet_id){
+					$(this).displayUserSnipletRaw(username);
+					$.fancybox.close();
+				}
+//$(this).displayUserSnipletRaw(username);
+
+
+			}, //success		
+			error: function(server_response){
+				console.log("error: " + server_response);
+		
+			} //error			
+		}); //ajax
+	} //deleteSnipletConfirmed
+
 	//Display User Profile Sniplet Edit Form
 	/* -------------------------------------------------------------------------------------*/	
 	$.fn.displayUserSnipletEdit = function(tid){
@@ -786,7 +815,7 @@ $(document).ready(function() {
 
 	}
 
-	//Display About Page
+	//verify user login 
 	/* -------------------------------------------------------------------------------------*/	
 	$.fn.userVerify= function(user, pass){
 		var theUrl = CI_ROOT + 'backend/verify';	
@@ -1144,8 +1173,13 @@ $(document).ready(function() {
 	/* -------------------------------------------------------------------------------------*/	
 	$(".sniplet_delete_yes").live('click', function(event) {
 		event.preventDefault();
+		var username = $.cookie('user_tracker_info');
+		username = username.split(',');
+		username = username[0];
+		username = $.base64.encode(username);	
 		var tid = this.id;
-		alert(tid);
+		console.log('delete id is:' + tid)
+		$(this).deleteSnipletConfirmed(username, tid);
 	});
 
 	//Display User Profile Delete Sniplet Confirmed NO
