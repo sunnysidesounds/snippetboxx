@@ -5,8 +5,8 @@ require_once( 'base.php' );
 
 class Frontend extends Base {
 
-	public $languages = array("html", "php", "python", "javascript", "perl", "mysql", "bash");
-	public $language_default = "html";
+	//public $languages = array("html", "php", "python", "javascript", "perl", "mysql", "bash", "ruby", "java", "perl");
+	//public $language_default = "html";
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function index(){						
@@ -178,19 +178,21 @@ class Frontend extends Base {
 	public function search_items($array, $fancybox = 0, $title_length = 50){
 		$this->load->model( 'SnipletModel' );
 		$this->load->library('geshilib');
-		
+
+		$this->load->model( 'ConfigModel' );
+		$highlight_languages = explode(", ", $this->ConfigModel->get_config('highlight_languages'));		
 		$this->SnipletModel->get_tag_list($array['sniplet_id'], $raw_array = 1);
-		
 		$formatTitle = substr($array['sniplet_title'], 0, $title_length); 
 		
 		echo '<ul class="sniplet_data_ul">';
 			echo '<li class="sniplet_data_li sniplet_title"><a id="sniplet_id_'.$array['sniplet_id'].'" href="'.$array['sniplet_url'].'" target="_blank" title="'.$array['sniplet_title'].' --> ('.$array['sniplet_url'].')"> ' . $formatTitle . '... </a></li>';
 			
 			//This outputs syntax highlights depending on tag list 
-			$snipletTags = $this->SnipletModel->get_tag_list($array['sniplet_id'], $raw_array = 1);			
+			$snipletTags = $this->SnipletModel->get_tag_list($array['sniplet_id'], $raw_array = 1);		
+
 			foreach($snipletTags as $snipArr){
 				$cleaned = strip_tags(strtolower(trim($snipArr)));				
-				if (in_array($cleaned, $this->languages)) {
+				if (in_array($cleaned, $highlight_languages)) {
 					//If only one item					
 					if(count($snipletTags) == 1){
 						$setLanguageType = $cleaned;
@@ -199,7 +201,7 @@ class Frontend extends Base {
 						break;
 					}				
 				}else{
-					$setLanguageType = $this->language_default;
+					$setLanguageType = $this->ConfigModel->get_config('highlight_languages_default');
 					break;
 				}
 								
