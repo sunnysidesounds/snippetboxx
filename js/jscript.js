@@ -22,7 +22,7 @@ $(document).ready(function() {
 		$.fancybox({
 			'transitionIn': 'none',
 			'width' : 1020,
-			'height' : 796,
+			'height' : 650,
 			'autoDimensions': false,
 			'transitionOut': 'none',
 			'onComplete' : function(){
@@ -45,8 +45,8 @@ $(document).ready(function() {
 	$.fn.displaySnipletClicked = function(id) {
 		$.fancybox({
 			'transitionIn': 'none',
-			'width' : 700,
-			'height' : 500,
+			'width' : 1020,
+			'height' : 650,
 			'autoDimensions': false,
 			'transitionOut': 'none',
 			'onComplete' : function(){

@@ -35,6 +35,7 @@ class Editor extends Base {
 		
 		$data['id'] = $id;		
 		$snipelt_title = $this->EditorModel->get_sniplet_by_id($id);
+
 		//Set title, if no title use default from config table.
 		if(!empty($snipelt_title)){
 			$data['sniplet_title'] = $snipelt_title;
@@ -65,12 +66,15 @@ class Editor extends Base {
 
 		$user_cookie_array = explode(", ", $this->input->cookie('user_tracker_info', TRUE));
 		$username = $user_cookie_array[0];
-		//$username_id = $this->UserModel->get_user_id($username);
+		$username_id = $this->UserModel->get_user_id($username);
+		$data['creation_date'] = $this->UserModel->get_user_sniplet_date($username_id, $id);
 
 		$data['sniplet_multiple_tags'] = $new_tags_array;
 		$data['sniplet_multiple_all_tags'] = $all_tags_array;
 		//$data['sniplet_multiple_all_tags'] = $all_tags_array;
 		$data['sniplet_username'] = $username;
+
+
 
 		$this->load->view('user/editor_sniplet', $data);
 	}

@@ -49,6 +49,17 @@ class UserModel extends BaseModel {
 	} //get_user_tags_not_own
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function get_user_sniplet_date($user_id, $sniplet_id){	
+		$sql = 'SELECT create_sniplet_time FROM sniplets WHERE user_id =? AND sniplet_id = ?;';
+		$query = $this->db->query( $sql, array($user_id, $sniplet_id));	
+		if($query->num_rows()>0){				
+			foreach ($query->result() as $row){													
+				return $row->create_sniplet_time;				
+			}	//foreach	
+		} 		
+	} //get_user_sniplet_date
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function get_user_tags($id){	
 		$sql = 'SELECT * FROM tags WHERE user_id =? ORDER BY tag_keyword;';
 		$query = $this->db->query( $sql, array($id));	
