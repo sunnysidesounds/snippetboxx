@@ -240,6 +240,84 @@ class User extends Base {
 	} //sniplet_delete_confirm
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function sniplet_create(){
+		$this->load->model( 'UserModel' );
+		$this->load->model( 'SnipletModel' );
+		$pageTitle = $this->input->post('title');
+		$snippet = $this->input->post('text');
+		$tags = $this->input->post('tags');
+		$username = $this->input->post('username_id');
+		$username_id = $this->UserModel->get_user_id($username);
+		$pageUrl = $this->input->post('sniplet_url');
+		$currentTime = $this->input->post('sniplet_create_time');
+ 
+		$tagsArray = array_map('trim',explode(",",$tags)); //This trims white space from the values as the ajax send us a funky string
+		$tagsArray = array_filter($tagsArray); //Filtering out all empty values due to the ending , coma in what ajax sends us.
+
+		if(!empty($tags) && !empty($snippet) && !empty($username_id)){
+							
+			//Insert sniplet
+			$addSniplet = $this->SnipletModel->insert_sniplet($pageTitle, $snippet, $pageUrl, $currentTime, $username_id);				
+			
+			//if insert of sniplet did not fail
+			if($addSniplet){
+				//Get last insert ID
+				$lastInsert = $this->db->insert_id();
+				//Insert only when we have the last insert id
+				if(isset($lastInsert)){
+
+					//Insert tags
+					foreach($tagsArray as $tag){
+						//insert and return tag ip
+						$addTags = $this->SnipletModel->insert_tag($tag, $username_id);
+						//Build sniplet tag pairs to insert
+						if(!empty($addTags)){
+							//sniplet id, tag id
+							$snipTagPairs = $lastInsert . ', ' . $addTags;												
+							$snipTagArray[] = $snipTagPairs;
+						}
+					}
+				
+					//Insert sniplet to tags
+					foreach($snipTagArray as $pairs){
+						$pairsArray = explode(", ", $pairs);
+						$sniplet_id = $pairsArray[0];
+						$tag_id = $pairsArray[1];						
+						$addSnipletToTag = $this->SnipletModel->insert_sniplet_to_tag($sniplet_id, $tag_id, $username_id);
+						$snipletCompleteArray[] = $addSnipletToTag;
+					}
+					
+					//Make sure all complete values are one
+					$return = count(array_unique($snipletCompleteArray)) == 1;
+					if($return == 1){
+						echo $return;
+					} else {
+						echo 'error';
+						 log_message('error', '$return is not 1 [backend/sniplet]');
+					}								
+				} //lastinsert								
+				
+			} else {
+				//insert failed
+				echo 'insert failed somehow';
+				log_message('error', 'insert failed somehow [backend/sniplet]');
+			}
+		
+		} else{
+			if(empty($tags)){
+				$errorsArray['tags'] = 'empty';
+			}			
+			if(empty($snippet)){
+				$errorsArray['sniplet'] = 'empty';
+			}
+			header("Content-type: application/json");
+			echo json_encode($errorsArray);
+		
+		} //tags empty
+
+	} //sniplet_create
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function sniplet_update(){
 		//TODO: This method is to big, reduce it into smaller methods. 
 		$this->load->model( 'UserModel' );

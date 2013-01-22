@@ -20,12 +20,7 @@
 				<!-- Editing and Updating sniplets -->
 				<label for="edit_sniplet">your sniplet's url:</label><br />
 				<div id="sniplet_url_edit"><?php echo $tag_url; ?></div>
-			<?php } else { ?>
-				<label for="edit_sniplet">your sniplet's url:</label><br />
-				<div id="sniplet_url_edit">Define url</div>
 			<?php } ?>
-		
-
 
 		</div>
 		<div id="edit_sniplet_container_area">
@@ -37,7 +32,9 @@
 			<?php echo form_input('edit_sniplet_tags', 'Loading...', 'id="edit_tags_sniplet" class="edit_tags_sniplet_input"'); ?>
 			
 		</div>
+		<?php if($id != 0){ ?>
 		<div id="edit_sniplet_container_created">created on: <?php echo $creation_date; ?></div>
+		<?php } ?>
 		<div id="edit_sniplet_container_submit">
 			<?php if($id != 0){ ?>
 				<!-- Editing and Updating sniplets -->
@@ -49,6 +46,7 @@
 			<?php } else { ?>
 				<!-- Creating new sniplets -->
 				<input id="sniplet_username_id" type="hidden" name="sniplet_username" value="<?php echo $sniplet_username; ?>">
+				<input id="sniplet_url" type="hidden" name="sniplet_url" value="<?php echo base_url(); ?>">
 				<input id="sniplet_creation_time" type="hidden" name="sniplet_creation_time" value="<?php echo date('m-d-Y-g:ia'); ?>">
 				<input id="create_submit" type="submit" value="Create" />
 			<?php } ?>

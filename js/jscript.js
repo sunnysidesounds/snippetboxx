@@ -728,6 +728,36 @@ $(document).ready(function() {
 		}); //ajax
 	} //displayAbout
 
+	//User Profile - Create User Sniplet
+	/* -------------------------------------------------------------------------------------*/	
+	 $.fn.createUserSniplet = function(title, text, tags, username, sniplet_url, sniplet_create_time) { 
+	   var theUrl = CI_ROOT + 'user/sniplet_create';
+		var submit = $.ajax({
+				type: "POST",
+				url: theUrl,
+				data: ({'title': title, 'text': text, 'tags': tags, 'username_id': username, 'sniplet_url': sniplet_url, 'sniplet_create_time': sniplet_create_time}), //<--- Use Object
+				beforeSend:  function() {					
+					$('#pop-up-snipletiter').hide();		
+					html = '<div id="sniplet_user_text_loader">Creating place wait...</div>';		
+					html += '<img id="sniplet_user_img_loader" src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '						
+					$('#pop-up-snipletiter').html(html).show();					
+				},
+				success: function(message){											
+					username = $.base64.encode(username);
+					$(this).displayUserSnipletRaw(username);
+
+					setTimeout(function() {
+						$.fancybox.close();
+						//TODO: if cookie is set we want to add this in --> $('body').addClass("active_menuclick"); to lock the screen.
+					}, 1000);
+				}, //success		
+				
+				error: function(message){
+					
+				} //error			
+			}); //ajax	
+		return submit;	 
+	  } //$.fn.createUserSniplet	
 
 	//User Profile - Update User Sniplet
 	/* -------------------------------------------------------------------------------------*/	
@@ -750,10 +780,7 @@ $(document).ready(function() {
 				$('#pop-up-snipletiter').html(html).show();	
 			},
 			success: function(server_response){											
- 				$(this).clog(server_response);
 				username = $.base64.encode(username);
-				//$(this).displayUser(username);
-			//	$('body').addClass("active_menuclick");
 				$(this).displayUserSnipletRaw(username);
 
 				setTimeout(function() {
@@ -1432,15 +1459,13 @@ $(document).ready(function() {
 	/* -------------------------------------------------------------------------------------*/
 	$("div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_submit input#create_submit").live('click', function(event) {
 		event.preventDefault();
-		alert('create');
-		//sniplet_title = $('div#edit_sniplet_container input#edit_sniplet.edit_sniplet_input').val();
-		//sniplet_text = $('div#edit_sniplet_container_area textarea#edit_sniplet_text').val();
-		//sniplet_tags = $('div#edit_sniplet_container_spot ul#as-selections-edit-tags-sniplet-input.as-selections li#as-original-edit-tags-sniplet-input.as-original input#as-values-edit-tags-sniplet-input.as-values').val();
-		//sniplet_user_id = $('div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_submit input#sniplet_username_id').val();
-		//sniplet_id = $('div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_submit input#sniplet_id').val();
-		//sniplet_update_time = $('div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_submit input#sniplet_update_time').val();
-
-		//$(this).updateUserSniplet(sniplet_title, sniplet_text, sniplet_tags, sniplet_user_id, sniplet_update_time, sniplet_id);
+		sniplet_title = $('div#edit_sniplet_container input#edit_sniplet.edit_sniplet_input').val();
+		sniplet_text = $('div#edit_sniplet_container_area textarea#edit_sniplet_text').val();
+		sniplet_tags = $('div#edit_sniplet_container_spot ul#as-selections-edit-tags-sniplet-input.as-selections li#as-original-edit-tags-sniplet-input.as-original input#as-values-edit-tags-sniplet-input.as-values').val();
+		sniplet_user_id = $('div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_submit input#sniplet_username_id').val();
+		sniplet_url = $('div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_submit input#sniplet_url').val();
+		sniplet_create_time = $('div#pop-up-snipletiter form#editor_sniplet_form div#edit_sniplet_container_submit input#sniplet_creation_time').val();
+		$(this).createUserSniplet(sniplet_title, sniplet_text, sniplet_tags, sniplet_user_id, sniplet_url, sniplet_create_time);
 	});
 
 
