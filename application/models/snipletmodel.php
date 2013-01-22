@@ -51,8 +51,11 @@ class SnipletModel extends BaseModel {
 			$time = date('m-d-Y-g:ia');
 			//Current time is update time. 
 			$update_time = $time;
+			//Last resort if all else fails add tag formatting to the model method :P
+			$tag = str_replace("_", "-", $tag);
+			$tag = str_replace(" ", "-", $tag);
 			$sql   = "INSERT INTO tags VALUES (NULL,?, ?, ?, ?);";
-			$query = $this->db->query( $sql, array($tag, $username, $time, $update_time));
+			$query = $this->db->query( $sql, array(strtolower($tag), $username, $time, $update_time));
 			$lastInsert = $this->db->insert_id();
 			return $lastInsert;
 			//return $query != false;

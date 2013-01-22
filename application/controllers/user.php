@@ -180,7 +180,11 @@ class User extends Base {
 		$edit_tag_id = $this->input->post('edit_tag_id');
 		$username = $this->input->post('username');
 		$user_id = $this->UserModel->get_user_id($username);
-		$update = $this->UserModel->update_user_tag($edit_tag_title, $user_id, $edit_tag_id);
+
+		//Let's do some tag formatting
+		$edit_tag_title = str_replace("_", "-", $edit_tag_title);
+		$edit_tag_title = str_replace(" ", "-", $edit_tag_title);
+		$update = $this->UserModel->update_user_tag(strtolower($edit_tag_title), $user_id, $edit_tag_id);
 		//Update tag update date
 		$time = date('m-d-Y-g:ia');
 		$this->UserModel->update_user_tag_time($user_id, $edit_tag_id, $time);
@@ -253,6 +257,8 @@ class User extends Base {
  
 		$tagsArray = array_map('trim',explode(",",$tags)); //This trims white space from the values as the ajax send us a funky string
 		$tagsArray = array_filter($tagsArray); //Filtering out all empty values due to the ending , coma in what ajax sends us.
+		$tagsArray = str_replace("_", "-", $tagsArray);
+		$tagsArray = str_replace(" ", "-", $tagsArray);
 
 		if(!empty($tags) && !empty($snippet) && !empty($username_id)){
 							
@@ -269,7 +275,7 @@ class User extends Base {
 					//Insert tags
 					foreach($tagsArray as $tag){
 						//insert and return tag ip
-						$addTags = $this->SnipletModel->insert_tag($tag, $username_id);
+						$addTags = $this->SnipletModel->insert_tag(strtolower($tag), $username_id);
 						//Build sniplet tag pairs to insert
 						if(!empty($addTags)){
 							//sniplet id, tag id
@@ -338,6 +344,10 @@ class User extends Base {
 		$tagsArray = array_map('trim',explode(",",$tags)); //This trims white space from the values as the ajax send us a funky string
 		$tagsArray = array_filter($tagsArray); //Filtering out all empty values due to the ending , coma in what ajax sends us.
 
+		//Let's do some tag formatting (Probably not need this as it's in the model.)
+		$tagsArray = str_replace("_", "-", $tagsArray);
+		$tagsArray = str_replace(" ", "-", $tagsArray);
+
 		if(!empty($tags) && !empty($title) && !empty($user_id) && !empty($text)){
 				//This updates title and text
 				$update = $this->UserModel->update_user_sniplet($title, $text, $user_id, $sniplet_id);
@@ -350,7 +360,7 @@ class User extends Base {
 
 					//insert tags or return id that already exsist. 
 					foreach($tags_array as $tag){
-						$addTags = $this->SnipletModel->insert_tag($tag, $user_id);
+						$addTags = $this->SnipletModel->insert_tag(strtolower($tag), $user_id);
 						if(!empty($addTags)){
 							$post_array[] = array('sniplet_id' => $sniplet_id, 'tag_id' => $addTags, 'user_id' => $user_id);
 						}

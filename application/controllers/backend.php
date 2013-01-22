@@ -29,8 +29,11 @@ class Backend extends Base {
 				
 		$tagsArray = array_map('trim',explode(",",$tags)); //This trims white space from the values as the ajax send us a funky string
 		$tagsArray = array_filter($tagsArray); //Filtering out all empty values due to the ending , coma in what ajax sends us.
-								
-		
+
+		//Let's do some tag formatting
+		$tagsArray = str_replace("_", "-", $tagsArray);
+		$tagsArray = str_replace(" ", "-", $tagsArray);
+										
 		if($sendTo == 'db'){
 			if(!empty($tags) && !empty($snippet) && !empty($username_id)){
 								
@@ -47,7 +50,7 @@ class Backend extends Base {
 						//Insert tags
 						foreach($tagsArray as $tag){
 							//insert and return tag ip
-							$addTags = $this->SnipletModel->insert_tag($tag, $username_id);
+							$addTags = $this->SnipletModel->insert_tag(strtolower($tag), $username_id);
 							//Build sniplet tag pairs to insert
 							if(!empty($addTags)){
 								//sniplet id, tag id
