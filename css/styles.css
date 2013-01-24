@@ -1550,3 +1550,29 @@ div#delete_sniplet_container a:hover {
     text-decoration: none;
 }
 
+div#sniplet_settings_loader {
+   padding-top: 35px;
+    text-align: center;
+}
+
+div.sniplet_settings_display {
+    height: 500px;
+    margin: 10px;
+    background-color: #F9F9F9;
+    border: 1px solid #CCCCCC;
+}
+
+a#sniplet_edit_settings {
+    font-size: 12px;
+    font-weight: bold;
+    color: #445A7E;
+    outline: medium none;
+    text-decoration: none;
+}
+
+div.settings_container {
+    border-bottom: 2px solid #CCCCCC;
+    margin: 10px;
+    padding-bottom: 2px;
+}
+

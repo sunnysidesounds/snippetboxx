@@ -224,22 +224,13 @@ $(document).ready(function() {
 				url: theUrl,
 				data: username,
 				beforeSend:  function() {					
-				//	$('#search_results').hide();								
-				//	img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '
+					$('.sniplet_profile_float').hide();								
+				//	img = '<img src="' + CI_ROOT + 'img/loader1.gif" border="0" alt="loading..."/> '
+				//	$('.sniplet_profile_header').after('<div id="sniplet_settings_loader">' + img + '</div>');
 				//	$('#search_load').html(img).show();	
 				},
 				success: function(server_response){
-				//	$('#search_load').hide();	
-				 	
-				 //	if(server_response.length == 0){			 	
-				//	 	$('#nomoreresults').fadeIn();				 	
-				//	 	setTimeout(function() {
-				//			$('#nomoreresults').fadeOut();									
-				//		}, 1000); 
-				//	} else {						
-				//		$('#search_results').html(server_response).show();		
-				//		$.fn.scrollThatPage(theUrl, '?get=search&' +dataString);					
-				//	}
+					$('.sniplet_profile_header').after(server_response);
 					
 				} //success		
 			}); //ajax		

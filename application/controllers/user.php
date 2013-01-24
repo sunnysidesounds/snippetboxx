@@ -39,11 +39,39 @@ class User extends Base {
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function account_settings(){
+		$this->load->model( 'UserModel' );
 		$username = base64_decode($this->input->get('u'));
 		$session_status = $this->session->userdata('login_state');
 
 		if($session_status){
-			echo $username;
+			$user_settings = $this->UserModel->get_user_settings($this->UserModel->get_user_id($username));
+			$user_groups = $this->UserModel->get_user_groups($this->UserModel->get_user_id($username));
+			
+			//echo serialize(array('username', 'email'));
+
+			//$data['username'] = $username;
+			//$data['email'] = $user_settings->email;
+			//$data['date_created'] = $user_settings->date_created;
+			//$data['date_last_login'] = $user_settings->date_last_login;
+
+			echo '<pre>';
+			print_r($user_groups);
+			echo '</pre>';
+
+
+			$field_set_array = array();
+
+			foreach ($user_groups as $group_id) {
+				$field_set= explode(", ", $group_id['field_set']);
+	
+			}
+				echo '<pre>';
+				print_r($field_set);
+				echo '</pre>';
+
+ 			//$result = array_merge($array1, $array2);
+			$this->load->view('user/settings', $data);
+
 		}
 
 

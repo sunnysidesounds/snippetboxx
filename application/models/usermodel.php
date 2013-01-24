@@ -5,6 +5,36 @@ require_once( 'basemodel.php' );
 class UserModel extends BaseModel {
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function get_user_groups($username){	
+		$sql = 'SELECT gtu.group_id, gps.group_name, gps.group_description, gps.field_set FROM groups_to_users gtu
+			LEFT JOIN groups gps ON gtu.group_id = gps.group_id
+		WHERE user_id =?;';
+		$query = $this->db->query( $sql , array($username));	
+		$group_array = array();
+		if($query->num_rows()>0){	
+			foreach ($query->result() as $row){													
+				$group_array[$row->group_id] = array('group_name' => $row->group_name, 'group_description' => $row->group_description,  'field_set' => $row->field_set);				
+			}//foreach
+			return $group_array;
+		} else {
+			log_message('error', 'get_user_groups method failed for username: ' . $username . ' [usermodel/get_user_groups] ');
+		}		
+	} //get_user_groups
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function get_user_settings($username){	
+		$sql = 'SELECT * FROM users WHERE id =?;';
+		$query = $this->db->query( $sql , array($username));	
+		if($query->num_rows()>0){	
+			foreach ($query->result() as $row){													
+				return $row;				
+			}//foreach
+		} else {
+			log_message('error', 'get_user_settings method failed for username: ' . $username . ' [usermodel/get_user_settings] ');
+		}		
+	} //get_user_settings
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function get_user_id($username){	
 		$sql = 'SELECT id FROM users WHERE username =?;';
 		$query = $this->db->query( $sql , array($username));	
@@ -13,7 +43,7 @@ class UserModel extends BaseModel {
 				return $row->id;				
 			}//foreach
 		} else {
-			log_message('error', 'get_user_id method failed for username: '+$username+' [usermodel/get_user_id] ');
+			log_message('error', 'get_user_id method failed for username: '. $username .' [usermodel/get_user_id] ');
 		}		
 	} //get_user_id
 
