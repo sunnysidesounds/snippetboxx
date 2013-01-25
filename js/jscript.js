@@ -224,10 +224,8 @@ $(document).ready(function() {
 				url: theUrl,
 				data: username,
 				beforeSend:  function() {					
-					$('.sniplet_profile_float').hide();								
-				//	img = '<img src="' + CI_ROOT + 'img/loader1.gif" border="0" alt="loading..."/> '
-				//	$('.sniplet_profile_header').after('<div id="sniplet_settings_loader">' + img + '</div>');
-				//	$('#search_load').html(img).show();	
+					$('.sniplet_profile_float').hide();
+					$('.sniplet_settings_display').hide();							
 				},
 				success: function(server_response){
 					$('.sniplet_profile_header').after(server_response);
@@ -1227,6 +1225,7 @@ $(document).ready(function() {
 	/* -------------------------------------------------------------------------------------*/	
 	$("#sniplet_settings_button").live('click', function(event) {
 		event.preventDefault();
+		$('body').removeClass("active_menuclick");
 		var username = $.cookie('user_tracker_info');
 		username = username.split(',');
 		username = username[0];

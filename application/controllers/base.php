@@ -276,6 +276,14 @@ class Base extends CI_Controller {
 
 	    return false;
 	} //in_array_r
-
+	
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function parse_object_to_array($object) {
+		$array = array();
+		if (is_object($object)) {
+			$array = get_object_vars($object);
+		}
+		return $array;
+	}//parse_object_to_array
 
 } //BaseController

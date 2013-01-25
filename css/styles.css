@@ -1556,7 +1556,6 @@ div#sniplet_settings_loader {
 }
 
 div.sniplet_settings_display {
-    height: 500px;
     margin: 10px;
     background-color: #F9F9F9;
     border: 1px solid #CCCCCC;
@@ -1574,5 +1573,46 @@ div.settings_container {
     border-bottom: 2px solid #CCCCCC;
     margin: 10px;
     padding-bottom: 2px;
+}
+
+div.settings_sub_container {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+div.sniplet_config_field {
+
+}
+
+div.sniplet_config_field label {
+   color: #666666;
+    font-size: 11px;
+}
+
+div.sniplet_config_field a.sniplet_settings_update {
+    display: inline;
+    background-color: #F0F0F0;
+    border: 1px solid #CCCCCC;
+    color: #666666;
+    cursor: pointer;
+    padding: 6px 5px 5px;
+}
+div.sniplet_config_field a.sniplet_settings_update:hover {
+    text-decoration: none;
+}
+
+div.sniplet_config_field .edit_sniplet_settings {
+    color: #445A7E;
+    margin-top: 2px;
+    display: inline;
+}
+
+div.sniplet_setting_describe {
+    margin-top:5px;
+}
+
+div.sniplet_setting_describe span {
+    color: #666666;
+    font-size: 11px;
 }
 

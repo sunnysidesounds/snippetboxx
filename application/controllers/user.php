@@ -40,12 +40,14 @@ class User extends Base {
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function account_settings(){
 		$this->load->model( 'UserModel' );
+		$this->load->model( 'ConfigModel' );
 		$username = base64_decode($this->input->get('u'));
 		$session_status = $this->session->userdata('login_state');
 
 		if($session_status){
 			$user_settings = $this->UserModel->get_user_settings($this->UserModel->get_user_id($username));
 			$user_groups = $this->UserModel->get_user_groups($this->UserModel->get_user_id($username));
+			$this->ConfigModel->get_config_all();
 			
 			//echo serialize(array('username', 'email'));
 
@@ -54,22 +56,49 @@ class User extends Base {
 			//$data['date_created'] = $user_settings->date_created;
 			//$data['date_last_login'] = $user_settings->date_last_login;
 
-			echo '<pre>';
-			print_r($user_groups);
-			echo '</pre>';
+			$user_settings = $this->parse_object_to_array($user_settings);
 
 
 			$field_set_array = array();
+			$set_values_array = array();
+			$set_describe_array = array();
 
+			//Merge all field+sets
 			foreach ($user_groups as $group_id) {
 				$field_set= explode(", ", $group_id['field_set']);
-	
+				foreach ($field_set as $set) {
+					$field_set_array[] = $set;
+				}
 			}
-				echo '<pre>';
-				print_r($field_set);
-				echo '</pre>';
 
- 			//$result = array_merge($array1, $array2);
+			//Builds our valued pair list to display editable fields. 
+			if(in_array('all', $field_set_array)){			
+				$configuration = $this->ConfigModel->get_config_all();
+				foreach ($field_set_array as $vals) {
+					if(array_key_exists($vals, $user_settings)){
+						$set_values_array[$vals] = $user_settings[$vals];
+					}
+				}				
+
+
+
+				foreach ($configuration as $k => $v) {
+					$v = $this->parse_object_to_array($v);
+					$set_values_array[$v['config_title']] = $v['config_value'];
+					$set_describe_array[$v['config_title']] = $v['config_description'];
+					//echo $v['config_description'];
+				}
+		
+			} else {
+				foreach ($field_set_array as $vals) {
+					if(array_key_exists($vals, $user_settings)){
+						$set_values_array[$vals] = $user_settings[$vals];
+					}
+				}
+			}
+
+			$data['field_describe'] = $set_describe_array;
+			$data['field_sets'] = $set_values_array;
 			$this->load->view('user/settings', $data);
 
 		}
