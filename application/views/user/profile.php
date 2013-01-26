@@ -54,6 +54,7 @@
 					<li class="sniplet_profile_menu_item"><a id="sniplet_settings_button" href="#"> account settings</a></li>
 					<li class="sniplet_profile_menu_item"><a id="sniplet_bookmarklet_button" href="#"> bookmarklet</a></li>
 					<li class="sniplet_profile_menu_item"><a id="sniplet_create_button" href="#"> create sniplet</a></li>
+					<li class="sniplet_profile_menu_item"><a id="sniplet_dashboard_button" href="#"> dashboard</a></li>
 				</ul>
 			</div>
 		</div>

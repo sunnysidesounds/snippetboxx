@@ -968,7 +968,7 @@ div#sniplet_login div#login_form form div.login_block label, div#bk_content div#
 .sniplet_profile_data_container {
     margin: auto;
     padding: 0;
-    width: 75%;
+    width: 95%;
     min-height: 550px;
     background: none repeat scroll 0 0 #ffffff;
     box-shadow: 0 1px 2px rgba(34, 25, 25, 0.1);
@@ -980,8 +980,8 @@ div#sniplet_login div#login_form form div.login_block label, div#bk_content div#
 #sniplet_profile_vcard {
     margin: auto;
     padding: 0;
-    height:200px;
-    width:75%;
+    height:165px;
+    width:95%;
     background: none repeat scroll 0 0 #ffffff;
     box-shadow: 0 1px 2px rgba(34, 25, 25, 0.1);
     border:1px solid rgba(34, 25, 25, 0.2);

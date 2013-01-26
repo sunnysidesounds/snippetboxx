@@ -224,11 +224,54 @@ $(document).ready(function() {
 				url: theUrl,
 				data: username,
 				beforeSend:  function() {					
-					$('.sniplet_profile_float').hide();
-					$('.sniplet_settings_display').hide();							
+	//				$('.sniplet_profile_float').hide();
+	//				$('.sniplet_settings_display').hide();		
+					$('#search_results').hide();
+					$("html, body").animate({ scrollTop: 0 }, "slow");
+					img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '						
+					$('#search_load').html(img).show();									
+						//Check if message is visable, if not show it.
+						var visable = $('#sniplet_messager').is(":visible");
+						if(visable == false){
+							$('#sniplet_messager').show();
+						}
+
+
 				},
 				success: function(server_response){
-					$('.sniplet_profile_header').after(server_response);
+						$('#search_load').hide();
+						$('#search_results').attr('scrollpagination', 'disabled');
+						$('.sniplet_profile_float').hide();
+						$('#search_results').show();
+
+						var show_header = $.cookie('sniplet_show_header');
+						if(show_header == '0'){
+							$('#sniplet_profile_vcard').hide();
+							$('#sniplet_mini_profiler').show();
+						//	$('body').addClass("active_menuclick");
+
+						} //show_header
+						$('.sniplet_profile_header').after(server_response);
+
+					/*	$('#search_load').hide();							
+
+
+
+						//Let's disable scroll pagination on this page.				
+						$('#search_results').attr('scrollpagination', 'disabled');
+						$('#search_results').html(server_response).show();
+
+						//Hide header if hide click cookie is zero.
+						var show_header = $.cookie('sniplet_show_header');
+						if(show_header == '0'){
+							$('#sniplet_profile_vcard').hide();
+							$('#sniplet_mini_profiler').show();
+						//	$('body').addClass("active_menuclick");
+
+						} //show_header					
+
+					//	$('.sniplet_profile_header').after(server_response);
+					*/
 					
 				} //success		
 			}); //ajax		
@@ -345,7 +388,7 @@ $(document).ready(function() {
 							if(visable == false){
 								$('#sniplet_messager').show();
 							}			
-										},
+					},
 					success: function(server_response){
 						$('#search_load').hide();							
 						//Let's disable scroll pagination on this page.				
@@ -357,7 +400,7 @@ $(document).ready(function() {
 						if(show_header == '0'){
 							$('#sniplet_profile_vcard').hide();
 							$('#sniplet_mini_profiler').show();
-							$('body').addClass("active_menuclick");
+						//	$('body').addClass("active_menuclick");
 
 						} //show_header
 					} //success		
@@ -1211,6 +1254,19 @@ $(document).ready(function() {
 		event.preventDefault();
 		var tid = this.id;
 		$(this).displayUserTagsEdit(tid);
+	});
+
+	//Display User Profile Sniplet Dashboard
+	/* -------------------------------------------------------------------------------------*/	
+	$("#sniplet_dashboard_button").live('click', function(event) {
+		event.preventDefault();
+		$('body').removeClass("active_menuclick");
+		var username = $.cookie('user_tracker_info');
+		username = username.split(',');
+		username = username[0];
+		username = $.base64.encode(username);	
+		$(this).displayUser(username);
+		//$(this).displayUserAccountSettings(username);
 	});
 
 	//Display User Profile Sniplet Create New Form
