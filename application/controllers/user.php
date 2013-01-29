@@ -40,7 +40,6 @@ class User extends Base {
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function account_settings(){
 		$this->load->model( 'UserModel' );
-		$this->load->model( 'ConfigModel' );
 		$username = base64_decode($this->input->get('u'));
 		$session_status = $this->session->userdata('login_state');
 
@@ -109,7 +108,6 @@ class User extends Base {
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function account(){
 		$this->load->model( 'UserModel' );
-		$this->load->model( 'ConfigModel' );
 		$limit = $this->ConfigModel->get_config('user_profile_sniplet_record_default');
 		$session_status = $this->session->userdata('login_state');
 
@@ -150,7 +148,6 @@ class User extends Base {
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function display($array, $set = ''){	//TODO: Maybe move into base controller
-		$this->load->model( 'ConfigModel' );
 		$sniplet_length = $this->ConfigModel->get_config('user_sniplet_string_length');	
 		//TODO: Split this out into other methods/functions
 		$out = '';
@@ -217,7 +214,6 @@ class User extends Base {
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function build_gravatar($email, $set = 0){
-		$this->load->model( 'ConfigModel' );	
 		$default = $this->ConfigModel->get_config('gravatar_photo_default');
 		if($set){
 			$size = $this->ConfigModel->get_config('gravatar_mini_photo_size');
@@ -258,7 +254,6 @@ class User extends Base {
 	public function sniplet_delete(){
 		$this->load->model( 'UserModel' );
 		$this->load->model( 'EditorModel' );
-		$this->load->model( 'ConfigModel' );
 		$sniplet_id = $this->input->get('tid');
 		$sniplet_title_raw = $this->EditorModel->get_sniplet_by_id($sniplet_id);
 		//TODO: Turn string length into it's own method. 
@@ -495,7 +490,6 @@ class User extends Base {
 	public function user_sniplet_all(){
 		$user = base64_decode($this->input->get('u'));
 		$this->load->model( 'UserModel' );
-		$this->load->model( 'ConfigModel' );
 		$limit = $this->ConfigModel->get_config('user_profile_sniplet_record_default');
 		$session_status = $this->session->userdata('login_state');
 		//Check if user has a session

@@ -9,8 +9,6 @@ class Confirmed extends Base {
 	public function index(){
 		$this->load->model( 'AuthModel');
 		$this->load->model( 'UserModel');
-		$this->load->model( 'ConfigModel');
-
 		$email = base64_decode($this->input->get('e'));
 		$username = base64_decode($this->input->get('u'));
 		$verify = $this->input->get('verify');

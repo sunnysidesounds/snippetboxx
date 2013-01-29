@@ -4,13 +4,9 @@ require_once( 'base.php' );
 
 
 class Frontend extends Base {
-
-	//public $languages = array("html", "php", "python", "javascript", "perl", "mysql", "bash", "ruby", "java", "perl");
-	//public $language_default = "html";
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function index(){						
-		$this->load->model( 'ConfigModel' );
 		$data = $this->set_site_assets();
 		$this->dynView( 'frontend/main', 'Sniplets', $data);
 
@@ -20,7 +16,6 @@ class Frontend extends Base {
 	public function search(){
 		//Load modals
 		$this->load->model( 'SearchModel' );
-		$this->load->model( 'ConfigModel' );
 		$this->load->model( 'TrackerModel' );
 		$how_many = $this->ConfigModel->get_config('per_page');
 		$count_tracker = $this->ConfigModel->get_config('tracker_count');
@@ -178,8 +173,6 @@ class Frontend extends Base {
 	public function search_items($array, $fancybox = 0, $title_length = 50){
 		$this->load->model( 'SnipletModel' );
 		$this->load->library('geshilib');
-
-		$this->load->model( 'ConfigModel' );
 		$highlight_languages = explode(", ", $this->ConfigModel->get_config('highlight_languages'));		
 		$this->SnipletModel->get_tag_list($array['sniplet_id'], $raw_array = 1);
 		$formatTitle = substr($array['sniplet_title'], 0, $title_length); 
@@ -243,7 +236,6 @@ class Frontend extends Base {
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function display(){
 		$this->load->model( 'SearchModel' );
-		$this->load->model( 'ConfigModel' );
 		$how_many = $this->ConfigModel->get_config('per_page');
 		$display_mode = $this->ConfigModel->get_config('display_mode');
 		$mode = $this->input->get('set');
@@ -425,7 +417,6 @@ class Frontend extends Base {
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function all_tags(){
-		$this->load->model( 'ConfigModel' );
 		$displayPerRow = $this->ConfigModel->get_config('tags_per_row');
 		
 		$sort = $this->input->get('get');

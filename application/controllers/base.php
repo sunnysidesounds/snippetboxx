@@ -18,28 +18,24 @@ class Base extends CI_Controller {
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/		
 	public function logo(){
-		$this->load->model( 'ConfigModel' );
 		$site_logo = $this->ConfigModel->get_config('site_logo');
 		return $site_logo;
 	} //logo
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function version(){
-		$this->load->model( 'ConfigModel' );
 		$version = $this->ConfigModel->get_config('version');
 		return $version;	
 	} //version
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function copyright(){
-		$this->load->model( 'ConfigModel' );
 		$copyright = $this->ConfigModel->get_config('copyright');
 		return $copyright;	
 	} //copyright
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function github_api_url(){
-		$this->load->model( 'ConfigModel' );
 		$token = $this->ConfigModel->get_config('github_token');
 		$perPage = $this->ConfigModel->get_config('github_commits_per_page');
 		$url = 'https://api.github.com/repos/sunnysidesounds/snippetboxx/commits?access_token='.$token.'&per_page=' . $perPage;
@@ -61,7 +57,6 @@ class Base extends CI_Controller {
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function changelog(){	
-		$this->load->model( 'ConfigModel' );
 		$displayLog = $this->ConfigModel->get_config('show_changelog');
 		if($displayLog){
 			//$data = $this->set_site_assets();
@@ -72,7 +67,6 @@ class Base extends CI_Controller {
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function get_changelog(){
-		$this->load->model( 'ConfigModel' );
 		$filePath = $this->ConfigModel->get_config('changelog');
 		$output = $this->get_curl_json($this->github_api_url());
 
@@ -128,7 +122,6 @@ class Base extends CI_Controller {
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function set_site_assets(){
-		$this->load->model( 'ConfigModel' );
 		$displayLog = $this->ConfigModel->get_config('show_changelog');
 		$displayAbout = $this->ConfigModel->get_config('show_about');
 		$displayLogin = $this->ConfigModel->get_config('show_login');
@@ -147,7 +140,6 @@ class Base extends CI_Controller {
 		
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function set_signup_errors($error){	
-		$this->load->model( 'ConfigModel' );
 		$data['signup_error'] = $error;	
 		$data['ip_address'] = isset($_SERVER['HTTP_X_REAL_IP']) ? $_SERVER['HTTP_X_REAL_IP'] : $_SERVER['REMOTE_ADDR'];
 		$data['date_created'] = $time = date('m-d-Y-g:ia');	
@@ -179,7 +171,6 @@ class Base extends CI_Controller {
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function bookmarklet($environment){
-		$this->load->model( 'ConfigModel' );
 		$bookmarklet = '';
 		$bookmarklet .= '<div id="bookmarklet_container"> ';
 			$bookmarklet .= '<div id="bookmarklet_your_mark">your bookmarklet</div>';
@@ -255,7 +246,6 @@ class Base extends CI_Controller {
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function no_iframe_load(){
-		$this->load->model( 'ConfigModel' );
 		$data['x_iframe_reponse'] = $this->ConfigModel->get_config('x_iframe_reponse');
 		$this->load->view('user/editor_noload', $data);
 	} //no_iframe_load

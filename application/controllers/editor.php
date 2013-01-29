@@ -30,7 +30,6 @@ class Editor extends Base {
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function sniplet_form($id){
 		$this->load->model( 'EditorModel' );
-		$this->load->model( 'ConfigModel' );
 		$this->load->model('UserModel');
 		
 		$data['id'] = $id;		
@@ -81,7 +80,6 @@ class Editor extends Base {
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function tag_form($id){
-		$this->load->model( 'ConfigModel' );
 		$this->load->model( 'EditorModel' );
 		
 		$date = $this->EditorModel->get_tag_date($id);

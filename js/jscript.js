@@ -223,9 +223,7 @@ $(document).ready(function() {
 				type: "GET",
 				url: theUrl,
 				data: username,
-				beforeSend:  function() {					
-	//				$('.sniplet_profile_float').hide();
-	//				$('.sniplet_settings_display').hide();		
+				beforeSend:  function() {						
 					$('#search_results').hide();
 					$("html, body").animate({ scrollTop: 0 }, "slow");
 					img = '<img src="' + CI_ROOT + 'img/loader3.gif" border="0" alt="loading..."/> '						
@@ -235,8 +233,6 @@ $(document).ready(function() {
 						if(visable == false){
 							$('#sniplet_messager').show();
 						}
-
-
 				},
 				success: function(server_response){
 						$('#search_load').hide();
@@ -248,31 +244,8 @@ $(document).ready(function() {
 						if(show_header == '0'){
 							$('#sniplet_profile_vcard').hide();
 							$('#sniplet_mini_profiler').show();
-						//	$('body').addClass("active_menuclick");
-
 						} //show_header
-						$('.sniplet_profile_header').after(server_response);
-
-					/*	$('#search_load').hide();							
-
-
-
-						//Let's disable scroll pagination on this page.				
-						$('#search_results').attr('scrollpagination', 'disabled');
-						$('#search_results').html(server_response).show();
-
-						//Hide header if hide click cookie is zero.
-						var show_header = $.cookie('sniplet_show_header');
-						if(show_header == '0'){
-							$('#sniplet_profile_vcard').hide();
-							$('#sniplet_mini_profiler').show();
-						//	$('body').addClass("active_menuclick");
-
-						} //show_header					
-
-					//	$('.sniplet_profile_header').after(server_response);
-					*/
-					
+						$('.sniplet_profile_header').after(server_response);					
 				} //success		
 			}); //ajax		
 	} //searchAsTypeSniplet

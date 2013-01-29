@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 class Backend extends Base {
 
 	private $errorPleaseLogin = 'You must log in to see this page.';
-	
+
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function sniplet(){
 		$snipTagArray = array();
@@ -15,7 +15,6 @@ class Backend extends Base {
 		
 		//Load models
 		$this->load->model( 'SnipletModel' );
-		$this->load->model( 'ConfigModel' );
 		$this->load->model('UserModel');
 
 		//Setup form values
@@ -108,9 +107,7 @@ class Backend extends Base {
 	} //sniplet
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
-	public function mailConfirmation($to, $subject, $message){
-		$this->load->model( 'ConfigModel' );
-		
+	public function mailConfirmation($to, $subject, $message){		
 		$toEmail = $to;
 		$fromEmail = $this->ConfigModel->get_config('from_email');
 		$fullName = $this->ConfigModel->get_config('full_name');
@@ -138,9 +135,7 @@ class Backend extends Base {
 	
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function mailSniplet($subject, $message){
-		//Load model
-		$this->load->model( 'ConfigModel' );
-		
+		//Load model		
 		$toEmail = $this->ConfigModel->get_config('to_email');
 		$fromEmail = $this->ConfigModel->get_config('from_email');
 		$fullName = $this->ConfigModel->get_config('full_name');
