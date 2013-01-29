@@ -48,6 +48,21 @@ class UserModel extends BaseModel {
 	} //get_user_id
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function get_user_sniplets_by_alphabet($username, $letter){	
+		$letter = $letter. '%';
+		$sql = "SELECT sniplet_id, sniplet_title FROM sniplets WHERE sniplet_title LIKE ? AND user_id=?;";
+		$query = $this->db->query( $sql, array($letter, $username));	
+		$parent = array();
+		if($query->num_rows()>0){	
+			foreach ($query->result() as $row){													
+				$parent[] = array($row->sniplet_id, $row->sniplet_title);				
+			}	//foreach	
+			
+			return $parent;		
+		}		
+	} //get_user_sniplets_by_alphabet
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function get_user_sniplets_by_tags($username, $id){	
 		$sql = "SELECT snip.sniplet_id, snip.sniplet_title FROM sniplets snip
 			LEFT JOIN sniplets_to_tags stt ON stt.sniplet_id = snip.sniplet_id WHERE stt.tag_id =? AND stt.user_id =?; ";

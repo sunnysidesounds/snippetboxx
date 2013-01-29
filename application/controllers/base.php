@@ -276,4 +276,11 @@ class Base extends CI_Controller {
 		return $array;
 	}//parse_object_to_array
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function the_alphabet() {
+		$array = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
+		return $array;
+	} //the_alphabet
+
+
 } //BaseController

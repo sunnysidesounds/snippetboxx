@@ -300,4 +300,16 @@ class SearchModel extends BaseModel {
 		} //if 0	
 	} //record_count_where
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function sniplet_count_alpha($letter, $username){
+		$letter = $letter. '%';
+		$sql = "SELECT count(*) as count FROM sniplets WHERE sniplet_title LIKE ? AND user_id=?;";	
+		$query = $this->db->query( $sql, array($letter, $username));
+		if($query->num_rows()>0){
+			foreach ($query->result_array() as $row){								
+				return $row['count'];
+			} //foreach
+		} //if 0	
+	} //sniplet_count_alpha
+
 } //SearchModal

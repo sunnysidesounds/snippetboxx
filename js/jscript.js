@@ -452,6 +452,33 @@ $(document).ready(function() {
 
 	//Display User Profile Tags
 	/* -------------------------------------------------------------------------------------*/	
+	$.fn.displayUserAlphabet = function(username, tid){
+		var displayString = 'u='+username+'&letter='+ tid;
+		var displayUrl = CI_ROOT + 'user/user_alphabet/';		
+		//Display total results or when click results
+		var resultsCount = $(this).getJson('user/user_alphabet_count?u='+username+'&letter='+tid);
+		$('#sniplet_messager').html('<a href="#" id="total_top">sniplets (' + resultsCount + ')</a>');
+
+		$.ajax({
+			type: "GET",
+			url: displayUrl,
+			data: displayString,
+			beforeSend:  function() {					
+				img = '<img src="' + CI_ROOT + 'img/loader2.gif" border="0" alt="loading..."/> '
+				$('span#your_loader_sniplet').html(img).show();				
+			},
+			success: function(server_response){					
+				//$('span#your_loader_sniplet').hide();
+				$('span#your_loader_sniplet').html('<a id="sniplet_secret_refresh_2" href="#">(show all)</a>');
+				$('div.sniplet_profile_float div.sniplet_profile_sniplets').html(server_response);								
+			} //succest
+		}); //ajax
+
+	}; //displayUserAlphabet
+
+
+	//Display User Profile Tags
+	/* -------------------------------------------------------------------------------------*/	
 	$.fn.displayUserTagsById = function(username, tid){
 		var displayString = 'u='+username+'&tid='+ tid;
 		var displayUrl = CI_ROOT + 'user/user_tags_id/';		
@@ -1084,6 +1111,20 @@ $(document).ready(function() {
 	$("#submit_search").click(function(){
 		event.preventDefault();
 	});
+
+	//Display User Profile Alphabet
+	/* -------------------------------------------------------------------------------------*/	
+	$(".sniplet_profile_alphabet_click").live('click', function(event) {
+		event.preventDefault();
+		var username = $.cookie('user_tracker_info');
+		username = username.split(',');
+		username = username[0];
+		username = $.base64.encode(username);
+		var tid = this.id;
+		console.log(tid);
+		$(this).displayUserAlphabet(username, tid);
+	});
+
 
 	//Display User Profile Tags
 	/* -------------------------------------------------------------------------------------*/	

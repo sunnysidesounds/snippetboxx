@@ -1052,6 +1052,38 @@ div#sniplet_login div#login_form form div.login_block label, div#bk_content div#
 
 .sniplet_profile_sniplets{
     width:615px;
+    margin-left: 0px;
+}
+
+.sniplet_profile_alphabet {
+    border-left: 1px solid #CCCCCC;
+    border-bottom: 3px solid #CCCCCC;
+    height: 475px;
+    margin-left: 10px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    width: 25px;
+    background-color: #F9F9F9;
+    font-size: 11px;
+    font-weight: bold;
+    border-top: 3px solid #CCCCCC;
+    margin-top: 4px;
+    padding-bottom:5px;
+}
+
+.sniplet_profile_alphalist_ul {
+    margin: 15px 0 0;
+    padding: 0;
+}
+
+.sniplet_profile_alphalist_li {
+    list-style: none outside none;
+     text-align: center;
+     padding-bottom: 4px;
+}
+
+.sniplet_profile_alphalist_li a:hover{
+    text-decoration: none;
 }
 
 .sniplet_profile_editor {
@@ -1080,8 +1112,8 @@ div#sniplet_login div#login_form form div.login_block label, div#bk_content div#
 
 .sniplet_profile_title_sniplet{
     width:615px;
+    margin-left: 0px;
 }
-
 
 
 #sniplet_your_tags, #sniplet_your_sniplets, #sniplet_your_editor {
@@ -1434,7 +1466,7 @@ div#fancybox-wrap div#fancybox-outer div#fancybox-content div div#bookmarklet_co
 }
 
 
-#tags_secret_refresh:hover, #sniplet_secret_refresh:hover, a#sniplet_secret_refresh_2:hover, #tags_your_tags_used:hover {
+#tags_secret_refresh:hover, #sniplet_secret_refresh:hover, a#sniplet_secret_refresh_2:hover, #tags_your_tags_used:hover, #fav_secret_refresh:hover {
     text-decoration: none;
     color: #445A7E;
 }

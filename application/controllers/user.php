@@ -118,7 +118,8 @@ class User extends Base {
 			$tags = $this->UserModel->get_user_tags($this->UserModel->get_user_id($user));
 			$sniplets = $this->UserModel->get_user_sniplets($this->UserModel->get_user_id($user), $limit);
 			$email = $this->UserModel->get_user_email($user);
-			
+
+			$data['alphabet_list'] = $this->the_alphabet();
 			$data['tags_count'] = $this->UserModel->get_user_count_tags($this->UserModel->get_user_id($user));
 			$data['sniplets_count'] = $this->UserModel->get_user_count_sniplets($this->UserModel->get_user_id($user));
 			$data['user'] = $user;
@@ -500,6 +501,35 @@ class User extends Base {
 		} 
 		//TODO: Add logic for failture ELSE clause
 	} //user_sniplet_raw
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function user_alphabet(){
+		$user = base64_decode($this->input->get('u'));
+		$letter = $this->input->get('letter');
+
+		$this->load->model( 'UserModel' );
+		$session_status = $this->session->userdata('login_state');
+		//Check if user has a session
+		if($session_status){
+			$sniplets = $this->UserModel->get_user_sniplets_by_alphabet($this->UserModel->get_user_id($user), $letter);			
+			$sniplets_html = $this->display($sniplets, 'sniplets');
+			echo $sniplets_html;
+		} 
+	} //user_alphabet	
+
+	//sniplet_count_alpha
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function user_alphabet_count(){
+		$user = base64_decode($this->input->get('u'));
+		$letter = $this->input->get('letter');
+		$this->load->model( 'UserModel' );
+		$this->load->model( 'SearchModel' );
+	    	$count = $this->SearchModel->sniplet_count_alpha($letter, $this->UserModel->get_user_id($user));
+		$jsonEncodeTypes = json_encode($count);
+		echo $jsonEncodeTypes;
+
+	} //user_alphabet	
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function user_tags_id(){

@@ -68,6 +68,15 @@
 				<?php if(isset($user_tags)){ echo $user_tags; }?>
 			</div>
 		</div>
+		<div class="sniplet_profile_float">	
+			<div class="sniplet_profile_alphabet">	
+				<ul class="sniplet_profile_alphalist_ul">
+				<?php foreach ($alphabet_list as $abc) { ?>
+					<li class="sniplet_profile_alphalist_li"><a class="sniplet_profile_alphabet_click" id="<?php echo strtoupper($abc); ?>" href="#"> <?php echo $abc; ?></a></li>
+				<?php	} ?>
+				</ul>
+			</div>
+		</div>
 		<div class="sniplet_profile_float">
 			<div class="sniplet_profile_title_sniplet">
 				<div class="sniplet_title_t" id="sniplet_your_sniplets">
