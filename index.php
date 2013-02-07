@@ -18,7 +18,11 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	define('ENVIRONMENT', 'development');
+
+//This is not upgradabled --> Instruction stored in README.md, Step 2
+if ($_SERVER['SERVER_NAME'] == 'www.snippetboxx.com'){define('ENVIRONMENT', 'production');}
+else { define('ENVIRONMENT', 'development'); }
+
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING

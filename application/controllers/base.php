@@ -13,6 +13,7 @@ class Base extends CI_Controller {
 	public function dynView( $view_name, $title, $data) {       
 		$data['main_content'] = $view_name;
 		$data['title'] = $title;
+		$data['environment'] = ENVIRONMENT;
 		$this->load->view('globals/template', $data);
 	} // dynView
 

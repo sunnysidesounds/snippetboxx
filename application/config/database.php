@@ -50,10 +50,23 @@ include('../configs/snippetboxx.php');
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = HOSTNAME;
-$db['default']['username'] = USERNAME;
-$db['default']['password'] = PASSWORD;
-$db['default']['database'] = DATABASE;
+if(ENVIRONMENT == 'development'){
+	$db['default']['hostname'] = DEV_HOSTNAME;
+	$db['default']['username'] = DEV_USERNAME;
+	$db['default']['password'] = DEV_PASSWORD;
+	$db['default']['database'] = DEV_DATABASE;
+} elseif(ENVIRONMENT == 'production'){
+	$db['default']['hostname'] = PROD_HOSTNAME;
+	$db['default']['username'] = PROD_USERNAME;
+	$db['default']['password'] = PROD_PASSWORD;
+	$db['default']['database'] = PROD_DATABASE;
+} else {
+	$db['default']['hostname'] = '';
+	$db['default']['username'] = '';
+	$db['default']['password'] = '';
+	$db['default']['database'] = '';
+}
+
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
