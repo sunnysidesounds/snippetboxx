@@ -21,10 +21,8 @@ The basic steps to custom upgrading:
 
     With our custom environment variable logic:
 
-    	<code>
-	if ($_SERVER['SERVER_NAME'] == 'www.snippetboxx.com'){define('ENVIRONMENT', 'production');}
-	else { define('ENVIRONMENT', 'development'); }
-	</code>
+	<code>if($_SERVER['SERVER_NAME'] == 'www.snippetboxx.com'){define('ENVIRONMENT', 'production');}
+	else { define('ENVIRONMENT', 'development'); }</code>
 
 3. Replace diriectory "system" (keeping the exisiting system/libraries/Session.php file)
 
