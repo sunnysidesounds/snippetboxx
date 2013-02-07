@@ -17,12 +17,14 @@ The basic steps to custom upgrading:
 
 2. Since custom environment variables are setup in the index.php we will need to replace line 20-24 that is just this:
 	
-    define('ENVIRONMENT', 'production')
+	<code>define('ENVIRONMENT', 'production'); </code>
 
     With our custom environment variable logic:
 
+    	<code>
 	if ($_SERVER['SERVER_NAME'] == 'www.snippetboxx.com'){define('ENVIRONMENT', 'production');}
 	else { define('ENVIRONMENT', 'development'); }
+	</code>
 
 3. Replace diriectory "system" (keeping the exisiting system/libraries/Session.php file)
 
