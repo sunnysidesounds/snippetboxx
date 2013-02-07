@@ -5,7 +5,7 @@ snippetboxx
 Coding and sniplet tagging application.
 
 
-CodeIgniter Update Note on Customization:
+CodeIgniter Update Notes on Customization:
 ----------------------------------
 When you upgrade Codeigniter core you need to replace all files and directories in your "system" folder and replace your index.php file per their CI instructions. 
 
