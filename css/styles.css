@@ -893,7 +893,7 @@ div#sniplet_login div#login_form form div.login_block label, div#bk_content div#
 }
 
 .li_user_sniplets {
-    width:565px;
+    width:500px;
 }
 
 
@@ -1051,7 +1051,7 @@ div#sniplet_login div#login_form form div.login_block label, div#bk_content div#
 }
 
 .sniplet_profile_sniplets{
-    width:615px;
+    width:555px;
     margin-left: 0px;
 }
 
@@ -1111,7 +1111,7 @@ div#sniplet_login div#login_form form div.login_block label, div#bk_content div#
 }
 
 .sniplet_profile_title_sniplet{
-    width:615px;
+    width:555px;
     margin-left: 0px;
 }
 
@@ -1149,6 +1149,10 @@ div#sniplet_login div#login_form form div.login_block label, div#bk_content div#
 
 .sniplet_tag_link, .sniplet_link {
     float:left;
+}
+
+.sniplet_tag_linkz {
+    float: right;
 }
 
 .sniplet_link_delete {

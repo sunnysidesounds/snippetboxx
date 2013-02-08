@@ -61,7 +61,7 @@
 		<div class="sniplet_profile_float">
 			<div class="sniplet_profile_title_tags">
 				<div id="sniplet_your_tags">
-					<a id="tags_secret_refresh" title="edit your tags" href="#">your tags</a> | <a id="tags_your_tags_used" title="view tags not owned by you" href="#">tags you used</a> 
+					<a id="tags_secret_refresh" title="edit your tags" href="#">your tags</a> | <a id="tags_your_tags_used" title="tags you used, but can't edit." href="#">other tags</a> 
 				</div>
 			</div>
 			<div class="sniplet_profile_tags">	

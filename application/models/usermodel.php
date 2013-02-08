@@ -119,6 +119,24 @@ class UserModel extends BaseModel {
 	} //get_user_tags
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/
+	public function get_user_tag($id){	
+		$sql = 'SELECT usr.username as u FROM tags tg
+			JOIN users usr ON tg.user_id = usr.id
+			WHERE tg.tag_id = 239;';
+		$query = $this->db->query( $sql, array($id));	
+		//$parent = array();
+		if($query->num_rows()>0){
+			foreach ($query->result() as $row){													
+				return $row->u;
+				//$parent[] = array($row->tag_id, $row->tag_keyword);				
+			}	//foreach	
+			
+			//return $parent;		
+		}		
+	} //get_user_tag
+
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/
 	public function get_user_sniplets($id, $limit = ''){
 		if(!empty($limit)){
 			$limit = 'LIMIT ' . $limit;

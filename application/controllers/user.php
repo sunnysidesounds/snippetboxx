@@ -149,6 +149,7 @@ class User extends Base {
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function display($array, $set = ''){	//TODO: Maybe move into base controller
+		$this->load->model( 'UserModel' );
 		$sniplet_length = $this->ConfigModel->get_config('user_sniplet_string_length');	
 		//TODO: Split this out into other methods/functions
 		$out = '';
@@ -170,8 +171,10 @@ class User extends Base {
 			$out .= '<ul class="ul_user_list">';
 			if(!empty($array)){
 				foreach($array as $outer){
+					$tag_owner = $this->UserModel->get_user_tag($outer[0]);
 					$out .= '<li id="'.$outer[0].'" class="li_user_list li_user_tags">';
 					$out .= '<a title="'.$outer[1].'" id="'.$outer[0].'" class="sniplet_tag_link sniplet_tag_link_'.$outer[0].'" href="#">'.$outer[1].'</a>';
+					$out .= '<a title="" id="'.$outer[0].'" class="sniplet_tag_linkz sniplet_tag_linkz_'.$outer[0].'" href="#">owner: <b>'.$tag_owner.'</b></a>';
 					$out .= '</li>';					
 				}
 			} else {
