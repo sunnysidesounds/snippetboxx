@@ -283,5 +283,68 @@ class Base extends CI_Controller {
 		return $array;
 	} //the_alphabet
 
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function search_items($array, $fancybox = 0, $title_length = 50){
+		$this->load->model( 'SnipletModel' ); //TODO: Break this down to a smaller method. 
+		$this->load->library('geshilib');
+		$highlight_languages = explode(", ", $this->ConfigModel->get_config('highlight_languages'));		
+		$this->SnipletModel->get_tag_list($array['sniplet_id'], $raw_array = 1);
+		$formatTitle = substr($array['sniplet_title'], 0, $title_length); 
+		
+		echo '<ul class="sniplet_data_ul">';
+			echo '<li class="sniplet_data_li sniplet_title"><a id="sniplet_id_'.$array['sniplet_id'].'" href="'.$array['sniplet_url'].'" target="_blank" title="'.$array['sniplet_title'].' --> ('.$array['sniplet_url'].')"> ' . $formatTitle . '... </a></li>';
+			
+			//This outputs syntax highlights depending on tag list 
+			$snipletTags = $this->SnipletModel->get_tag_list($array['sniplet_id'], $raw_array = 1);		
+
+			foreach($snipletTags as $snipArr){
+				$cleaned = strip_tags(strtolower(trim($snipArr)));				
+				if (in_array($cleaned, $highlight_languages)) {
+					//If only one item					
+					if(count($snipletTags) == 1){
+						$setLanguageType = $cleaned;
+					} else {
+						$setLanguageType = strip_tags(strtolower(trim($snipletTags[0])));
+						break;
+					}				
+				}else{
+					$setLanguageType = $this->ConfigModel->get_config('highlight_languages_default');
+					break;
+				}
+								
+			} //foreach
+								
+			echo '<li id="sniplet_content_'.$array['sniplet_id'].'" class="sniplet_data_li sniplet_contents">' . $this->geshilib->highlight(htmlspecialchars_decode($array['sniplet_content']), $setLanguageType) . '</li>';
+			$snipletTags = $this->SnipletModel->get_tag_list($array['sniplet_id'], 1);
+			if(!empty($snipletTags)){
+			$tags = implode(", ", $snipletTags);
+			} else {
+				$tags = 'N/A';
+			}
+		//	echo '<li class="sniplet_data_li sniplet_zoom"><img class="sniplet_zoom_img" src="'.base_url().'img/zoom_mag.png" alt="Zoom Sniplet" border="0" /></li>';
+			echo '<li class="sniplet_data_li sniplet_tags"><b>tags:</b> ' . $tags . '</li>';
+			echo '<li class="sniplet_data_li sniplet_created sniplet_time"><b>created at:</b> ' . $array['create_sniplet_time'] . '</li>';
+			if(!empty($array['score'])){
+				$score = number_format($array['score'], 4, '.', '');
+				echo '<li class="sniplet_data_li sniplet_score"><b>search score:</b> ' . $score . '</li>';
+			}
+			if($fancybox == 0){
+				echo '<li class="sniplet_data_li copy_it">
+					<input type="image" title="view sniplet closer" class="view_sniplet_button" id="sniplet_view_'.$array['sniplet_id'].'" alt="view" src="'.base_url().'img/zoom_mag.png" >
+					<input type="image" title="highlights text to copy" class="copy_sniplet_button" id="'.$array['sniplet_id'].'" alt="copy" src="'.base_url().'img/icon_copy.png">
+					<input type="image" title="send email of sniplet" class="email_sniplet_button" id="sniplet_email_'.$array['sniplet_id'].'" alt="email" src="'.base_url().'img/icon_mail.png">
+					</li>';
+			} else {
+				echo '<li class="sniplet_data_li copy_it">
+					<input type="image" title="highlights text to copy" class="copy_sniplet_button copy_sniplet_fancy" id="'.$array['sniplet_id'].'" alt="copy" src="'.base_url().'img/icon_copy.png">
+					</li>';
+			}
+			echo '<li class="sniplet_data_li status_message" id="status_message_'.$array['sniplet_id'].'">';
+			echo '';
+			echo '</li>';
+			
+
+		echo '</ul>';
+	} //search_items
 
 } //BaseController

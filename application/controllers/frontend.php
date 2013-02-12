@@ -139,39 +139,8 @@ class Frontend extends Base {
 	} //search 
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
-	public function search_list($array){
-		$displayPerRow = 5;
-		
-		if(!empty($array)){
-			
-			$recordCount = 0;
-			$totalCount = count($array);
-			
-			//$view = 0;	
-						
-			//if($view == 0){
-			echo '<ul class="search_results_ul">';
-				foreach($array as $searchArr){				
-					if ($recordCount % $displayPerRow == 0 && $recordCount != 0){
-							echo '</ul><ul class="search_results_ul">';
-					} 										
-					echo '<li class="search_results_li" id="'.$searchArr['sniplet_id'].'">';
-						$this->search_items($searchArr);
-					echo '</li>';
-					$recordCount++;
-				} //foreach
-			
-			echo '</ul>';
-			echo '<br />';
-			
-						
-			//} 
-		} //if empty	
-	}
-
-	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function search_items($array, $fancybox = 0, $title_length = 50){
-		$this->load->model( 'SnipletModel' );
+		$this->load->model( 'SnipletModel' ); //TODO: Break this down to a smaller method. 
 		$this->load->library('geshilib');
 		$highlight_languages = explode(", ", $this->ConfigModel->get_config('highlight_languages'));		
 		$this->SnipletModel->get_tag_list($array['sniplet_id'], $raw_array = 1);
@@ -232,6 +201,37 @@ class Frontend extends Base {
 
 		echo '</ul>';
 	} //search_items
+
+	/* --------------------------------------------------------------------------------------------------------------------------*/	
+	public function search_list($array){
+		$displayPerRow = 5;
+		
+		if(!empty($array)){
+			
+			$recordCount = 0;
+			$totalCount = count($array);
+			
+			//$view = 0;	
+						
+			//if($view == 0){
+			echo '<ul class="search_results_ul">';
+				foreach($array as $searchArr){				
+					if ($recordCount % $displayPerRow == 0 && $recordCount != 0){
+							echo '</ul><ul class="search_results_ul">';
+					} 										
+					echo '<li class="search_results_li" id="'.$searchArr['sniplet_id'].'">';
+						$this->search_items($searchArr);
+					echo '</li>';
+					$recordCount++;
+				} //foreach
+			
+			echo '</ul>';
+			echo '<br />';
+			
+						
+			//} 
+		} //if empty	
+	}
 		
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
 	public function display(){
