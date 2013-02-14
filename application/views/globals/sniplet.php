@@ -2,12 +2,10 @@
 <div id="content">
 	<?php
 
-	echo $this;
-
-	  if(isset($sniplet_content)){
+	 if(isset($content_sniplet)){
 		echo '<pre>';
-		print_r($sniplet_content);
+		print_r($content_sniplet);
 		echo '</pre>';
-	} 
+	}
 	?>
 </div>

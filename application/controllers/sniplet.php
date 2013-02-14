@@ -11,23 +11,15 @@ class Sniplet extends Base {
 	}
 
 	/* --------------------------------------------------------------------------------------------------------------------------*/	
-	public function page($id){
-		//$id = substr( $id, strrpos( $id, '_' )+1 );	
+	public function page($value){
 		
 		$this->load->model( 'SearchModel' );
-		$snipletArray = $this->SearchModel->sniplet_sniplet_id($id);
-		echo '<pre>';
-		//print_r($snipletArray);
-		echo '</pre>';
-		$data['sniplet_content'] = $snipletArray;
+		$snipletArray = $this->SearchModel->sniplet_sniplet_id($value);
 		$data = $this->set_site_assets();
 
-		$data['this'] = 'test';
+		$data['content_sniplet'] = $snipletArray;
 		$this->dynView( 'globals/sniplet', 'Sniplets', $data);
 
-		 ///
-		///$data = $this->set_site_assets();
-		//$this->dynView( 'globals/sniplet', 'Sniplets', $data);
 
 	}
 
